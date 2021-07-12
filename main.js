@@ -1,6 +1,6 @@
 import {html , render} from 'https://unpkg.com/lit-html?module'
 // Nanny State function
-export Nanny = (state={},{view=``,element=document.body,before,after}={}) => {
+export Nanny = (state={},view=``,{ element=document.body,before,after}={}) => {
   // initial render
   render(view(state),element);
   // return function used to update the state
