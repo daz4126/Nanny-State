@@ -60,7 +60,7 @@ You can see this example [on CodePen](https://codepen.io/daz4126/pen/zYwZjWw)
 
 ## Hello Batman Example
 
-This example will give an idea about how Nanny State deals with changing the state and rerendering the view.
+This example will give an idea about how Nanny State deals with changing the state and re-rendering the view.
 
 It starts example the same, by importing the functions we'll use and initializing the state:
 
@@ -99,7 +99,7 @@ const beBatman = event => Update(state => ({ name: 'Batman'}))
 Note that because this is an event handler, the only parameter is the event object. The main purpose of this event handler is to call the `Update` function. This accepts an anonymous function as an argument tells Nanny State how to update the state. This anonymous function is a **transformer function**.
 
 A transformer function accepts the state as an argument and returns a new representation of the state object. In this case the transformer function return a new object with the 'name' property of 'Batman'.
-** Note that when an arrow function is used to return an object, it needs wrapping in parentheses **
+**Note that when an arrow function is used to return an object, it needs wrapping in parentheses**
 
 Everything is now in place and wired up. Try clicking the button and you'll see the view updates!
 
