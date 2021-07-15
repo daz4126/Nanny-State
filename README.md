@@ -1,25 +1,24 @@
 # Nanny-State
 Simple state management using just JavaScript
 
-Nanny State gives you simple state management and fast rendering with a tiny amount of code. It was inspired by Redux and Hyperapp and uses the lit-html library for rendering.
+Nanny State gives you simple state management and fast rendering with a tiny amount of code. It was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the [lit-html](https://lit-html.polymer-project.org) library for rendering.
 
 # What Is Nanny State?
 
 A Nanny State app is made up of the following 3 components:
 
-* state - Usually an object that contains all the data about the app
+* State - usually an object that contains all the data about the app
 * View -  a function that returns a string of HTML based on the current state
-* Transformer functions - functions that transform the state
+* Transformer functions - functions that transform the value of the state
 
-The state is the single source of truth in the application. It can only be updated by using the function that is provided by Nanny State.
+The state is the single source of truth in the application and can only be updated using the Update function provided by Nanny State.
 
 ## Data Flow
 
 Nanny state uses a one-way data flow model:
 Page -> event -> event handler -> Transformer -> update the state -> render view -> repeat
 
-The state is updated with transformer functions. These accept the state as an argument and return an updated state or fragment of the state.
-To update the state.
+The state is updated with transformer functions. These accept the state as an argument and return an updated state or fragment of the state. The page is then automatically re-rendered based on the changes made to the state.
 
 ### Set Up
 
@@ -35,24 +34,27 @@ Start by importing the necessary functions:
 import {Nanny,html,render} from 'https://daz4126.github.io/Nanny-State/main.js'
 ```
 
-Now create an object to represent the initial state:
-(this can be an object, number, string or array)
-
-const state = { name: ‘World’ };
-
-Create a view - this is a function that accepts the state as a parameter and returns a string literal of HTML that depends on the value of the state.
+Now create an object to represent the initial state (this is uusally an object, but can be a number, string, Boolean or array):
 
 ```javascript
-const view = state => html`<h1>Hello ${state.name}</h1>`
+const state = { name: ‘World’ };
 ```
 
-Now call the `Nanny` function, providing `state` and `view` as argument. Assign the return value to a variable called `Update`:
+Now create the view - this is a function that accepts the state as a parameter and returns a string of HTML that depends on the value of the state's properties:
+
+```javascript
+const view = state => html`<h1>Hello ${state.name}</h1>`;
+```
+
+Now call the `Nanny` function, providing the `state` and `view` variables as arguments:
 
 ```javascript
 Nanny(state,view)
 ```
 
 This will render the view using the initial state.
+
+## Hello Batman Example
 
 To add a button with a click event, change the view to the following:
 
@@ -65,20 +67,20 @@ const getName = event => Update(changeName,event.textContent)
 
 ## Counter Example
 
-Now let's look at an example that involves interaction and updates. We'll build a simple counter app that lets us increase or decrease the count by pressing buttons.
+Now let's try building a simple counter app that lets us increase or decrease the count by pressing buttons.
 
-The value of the count will be stored in the state object, let's start by creating it with an initial value of 10:
+The value of the count will be stored as a number, let's start by creating it with an initial value of 10:
 
 ```javascript
-const state = { count: 10 };
+const state = 10;
 ```
 
 Now let's create the view that will return the HTML we want to display:
 
 ```javascript
-const view = state => html`<h1>Nanny State</h1>
+const view = count => html`<h1>Nanny State</h1>
                            <h2>Counter Example</h2>
-                           <div id='counter'>${state.count}</div>
+                           <div id='counter'>${count}</div>
                            <button @click=${down}>-</button>
                            <button @click=${up}>+</button>`
 ```
@@ -102,6 +104,7 @@ Transformer - a function that accepts the state + some parameters and returns a 
 
 const changeName = (state,name) => { name }
 
+## More Examples
 
 
 ## Extra
