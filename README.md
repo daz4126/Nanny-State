@@ -101,7 +101,7 @@ Note that because this is an event handler, the only parameter is the event obje
 A transformer function accepts the state as an argument and returns a new representation of the state object. In this case the transformer function return a new object with the 'name' property of 'Batman'.
 **Note that when an arrow function is used to return an object, it needs wrapping in parentheses**
 
-Everything is now in place and wired up. Try clicking the button and you'll see the view updates!
+Everything is now in place and wired up. Try clicking the button and you'll see the view change!
 
 ![Screenshot Hello Batman](https://user-images.githubusercontent.com/16646/125826661-0b799f2d-613d-45b8-9bef-5c0d214fe669.png)
 
@@ -144,6 +144,7 @@ You can see this example [on CodePen](https://codepen.io/daz4126/pen/vYgdLdX!)
 
 ## More Examples
 
+You can see more examples of how Nanny State can be used [on CodePen](https://codepen.io/collection/RzbNmw)
 
 ## Extra
 Components
