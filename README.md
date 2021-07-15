@@ -21,12 +21,6 @@ Page -> event -> event handler -> Transformer -> update the state -> render view
 
 The state is updated with transformer functions. These accept the state as an argument and return an updated state or fragment of the state. The page is then automatically re-rendered based on the changes made to the state.
 
-### Set Up
-
-Set the inital state. This can be most data types, but is usually an object.
-
-Define a view (based on the current state). The view is just a function that accepts the current state as an argument and returns a string of HTML.
-
 ## Hello World Example
 
 Start by importing the necessary functions:
@@ -35,7 +29,7 @@ Start by importing the necessary functions:
 import {Nanny,html,render} from 'https://daz4126.github.io/Nanny-State/main.js'
 ```
 
-Now create an object to represent the initial state (this is uusally an object, but can be a number, string, Boolean or array):
+Now create an object to represent the initial state (this is uusally an object, but can be any data-type):
 
 ```javascript
 const state = { name: ‘World’ }
@@ -46,6 +40,10 @@ Now create the view - this is a function that accepts the state as a parameter a
 ```javascript
 const view = state => html`<h1>Hello ${state.name}</h1>`
 ```
+
+**Note that any view code must have the state as its only argument and return the `html` function followed by a template literal (The `html` function is part of the lit-html magic).**
+
+The view is stored as a template literal, which means we can use interpolation to insert values from the state into the HTML. In this example we are inserting the value of the 'name' property into the `<h1>` element.
 
 Now call the `Nanny` function, providing the `state` and `view` variables as arguments:
 
