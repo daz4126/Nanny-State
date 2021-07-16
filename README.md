@@ -150,7 +150,7 @@ The two buttons call the two event handlers, `down` and `up` that deal with chan
 const increment = (number,i=1) => number + i
 ```
 
-This function accepts 2 parameters: the number to be incremented and the amount it is to be incremented by, which has a default value of 1. We could make this value negative to make the count go down. Now we can write the event handlers that use this transformer function to update the state:
+This function accepts two parameters: the number to be incremented and the amount it is to be incremented by, which has a default value of `1`. We could make this value negative to make the count go down. Now we can write the event handlers that use this transformer function to update the state:
 
 ```javascript
 const up = event => update(increment)
