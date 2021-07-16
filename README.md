@@ -75,30 +75,32 @@ const view = state => html`<h1>Hello ${state.name}</h1>
                            <button @click=${beBatman}>I'm Batman</button>`
 ```
 
-The button has an event listener attached to it using the `@event${handler}` notation used by lit-html ([more info](https://lit-html.polymer-project.org/guide/writing-templates#add-event-listeners)). When the buttons are clicked the event handler 'beBatman' will be called. We want this function to update the state so the 'name' property changes to 'Batman'.
+The button has an event listener attached to it using the `@event${handler}` notation [used by lit-html](https://lit-html.polymer-project.org/guide/writing-templates#add-event-listeners)). When the button is clicked the event handler 'beBatman' will be called. We want this function to update the state so the 'name' property changes to 'Batman'.
 
-The only way to update the state is to use the function that is returned when the `Nanny` function is called. Calling the `Nanny` function has two purposes:
+The only way to update the state when using Nanny State is to use the function that is returned by the `Nanny` function.
+
+Calling the `Nanny` function has two purposes:
 1) It renders the initial view (as we saw in the Hello World example above).
 2) It returns a function that is the only way of updating the state (which we didn't use in the Hello World example, since the state didn't change).
 
-To be able to use this function, we need to assign it to a variable when we call the `Nanny()` function. We usually call it `Update` but it can be called anything you like:
+To be able to use this function, we need to assign it to a variable when we call the `Nanny` function. We usually call it `Update` but it can be called anything you like:
 
 ```
 const Update = Nanny(state,view)
 ```
 
-The `Update` function can now be used to update the state. It works by providing it with a transformer function that tells Nanny State how to update the value of the state. Nanny State will then store the new value of the state and re-render the view based on any changes that have occured.
+The `Update` function can now be used to update the state. It works by providing it with a transformer function that tells Nanny State how to update the value of the state. Nanny State will then re-render the view based on any changes that have occured.
 
-To see how this works, let's write the 'beBatman' event handler function to update the state and change the 'name' property to 'Batman' when the button is clicked (note that this needs to be defined *before* the view function in your code):
+To see how this works, let's write the 'beBatman' event handler function to update the state and change the 'name' property to 'Batman' when the button is clicked (note that this code needs to go *before* the `view` function in your code):
 
 ```javascript
 const beBatman = event => Update(state => ({ name: 'Batman'}))
 ```
 
-Note that because this is an event handler, the only parameter is the event object. The main purpose of this event handler is to call the `Update` function. This accepts an anonymous function as an argument tells Nanny State how to update the state. This anonymous function is a **transformer function**.
+Because this is an event handler, the only parameter is the event object. The purpose of this event handler is to call the `Update` function. This accepts an anonymous function as an argument that tells Nanny State how to update the state. This anonymous function is a **transformer function**.
 
-A transformer function accepts the state as an argument and returns a new representation of the state object. In this case the transformer function return a new object with the 'name' property of 'Batman'.
-**Note that when an arrow function is used to return an object, it needs wrapping in parentheses**
+A transformer function accepts the current state as an argument and returns a new representation of the state object. In this case the transformer function return a new object with the 'name' property of 'Batman'.
+**Note that when an arrow function returns an object, the object needs wrapping in parentheses**
 
 Everything is now in place and wired up. Try clicking the button and you'll see the view change!
 
