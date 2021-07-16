@@ -6,13 +6,13 @@ It was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp
 
 # What Is Nanny State?
 
-A Nanny State app is made up of the following 3 components:
+Nanny State comprises of 3 components:
 
 * State - usually an object that contains all the data about the app
 * View -  a function that returns a string of HTML based on the current state
 * Transformer functions - functions that transform the value of the state
 
-The state is the single source of truth in the application and can only be updated using the Update function provided by Nanny State.
+The state is the single source of truth in the application and can only be updated using the update function provided by Nanny State.
 
 ## Data Flow
 
@@ -23,7 +23,13 @@ The state is updated with transformer functions. These accept the state as an ar
 
 ## Hello World Example
 
-Start by importing the necessary functions:
+![Screenshot Hello World](https://user-images.githubusercontent.com/16646/125823073-d88989b7-f807-4213-a871-f5f41e198f23.png)
+
+This is a simple example to show how Nanny State renders the view based on the state.
+
+You can see this example [on CodePen](https://codepen.io/daz4126/pen/zYwZjWw)
+
+Start by importing the Nanny State functions:
 
 ```javascript
 import {Nanny,html,render} from 'https://daz4126.github.io/Nanny-State/main.js'
@@ -53,13 +59,12 @@ Nanny(state,view)
 
 This will render the view using the initial state.
 
-![Screenshot Hello World](https://user-images.githubusercontent.com/16646/125823073-d88989b7-f807-4213-a871-f5f41e198f23.png)
-
-You can see this example [on CodePen](https://codepen.io/daz4126/pen/zYwZjWw)
-
 ## Hello Batman Example
+![Screenshot Hello Batman](https://user-images.githubusercontent.com/16646/125826661-0b799f2d-613d-45b8-9bef-5c0d214fe669.png)
 
-This example will show how Nanny State deals with changing the state and re-rendering the view.
+This example shows how to update the state using the Nanny State update function.
+
+You can see this example [on CodePen](https://codepen.io/daz4126/pen/oNWZdyd)
 
 It starts example the same, by importing the functions we'll use and initializing the state:
 
@@ -83,10 +88,10 @@ Calling the `Nanny` function has two purposes:
 1) It renders the initial view (as we saw in the Hello World example above).
 2) It returns a function that is the only way of updating the state (which we didn't use in the Hello World example, since the state didn't change).
 
-To be able to use this function, we need to assign it to a variable when we call the `Nanny` function. We usually call it `Update` but it can be called anything you like:
+To be able to use this function, we need to assign it to a variable when we call the `Nanny` function. We usually call it `update` but it can be called anything you like:
 
 ```
-const Update = Nanny(state,view)
+const update = Nanny(state,view)
 ```
 
 The `Update` function can now be used to update the state. It works by providing it with a transformer function that tells Nanny State how to update the value of the state. Nanny State will then re-render the view based on any changes that have occured.
@@ -94,7 +99,7 @@ The `Update` function can now be used to update the state. It works by providing
 To see how this works, let's write the 'beBatman' event handler function to update the state and change the 'name' property to 'Batman' when the button is clicked (note that this code needs to go *before* the `view` function in your code):
 
 ```javascript
-const beBatman = event => Update(state => ({ name: 'Batman'}))
+const beBatman = event => update(state => ({ name: 'Batman'}))
 ```
 
 Because this is an event handler, the only parameter is the event object. The purpose of this event handler is to call the `Update` function. This accepts an anonymous function as an argument that tells Nanny State how to update the state. This anonymous function is a **transformer function**.
@@ -103,10 +108,6 @@ A transformer function accepts the current state as an argument and returns a ne
 **Note that when an arrow function returns an object, the object needs wrapping in parentheses**
 
 Everything is now in place and wired up. Try clicking the button and you'll see the view change!
-
-![Screenshot Hello Batman](https://user-images.githubusercontent.com/16646/125826661-0b799f2d-613d-45b8-9bef-5c0d214fe669.png)
-
-You can see this example [on CodePen](https://codepen.io/daz4126/pen/oNWZdyd)
 
 ## Counter Example
 
