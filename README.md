@@ -172,6 +172,17 @@ This should render the initial view with the count set to 10 and allow you to in
 
 You can see more examples of how Nanny State can be used [on CodePen](https://codepen.io/collection/RzbNmw)
 
+##TLDR
+
+In summary, all you need to do to create a Nanny State app is the following:
+
+1) import the Nanny State functions using `import {Nanny,html,render} from 'https://daz4126.github.io/Nanny-State/main.js'`
+2) Create the initial state
+3) Create the view template
+4) Write event handlers to deal with user input
+5) Write transformer functions that update the state
+6) Call the `Nanny(state,view)` function
+
 ## Extra
 Transformer functions can accept and return fragments of the state
 Before and after functions
