@@ -1,4 +1,4 @@
-# ![Screenshot 2021-07-16 at 17 21 47](https://user-images.githubusercontent.com/16646/125978720-deaca09e-5361-4a51-918f-bbc4a3a7b841.png)
+# ![NANNY STATE](https://user-images.githubusercontent.com/16646/125978720-deaca09e-5361-4a51-918f-bbc4a3a7b841.png)
 
 Simple state management using just JavaScript
 
@@ -25,7 +25,7 @@ When a user interacts with the page, it triggers an event that is handled by an 
 
 A tranformer function is used to update the state. Whennever the state changes, the page is re-rendered to reflect these changes.
 
-## Examples
+# Examples
 
 The easiest way to learn how Nanny State works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. Alternatively you could set up a basic HTML file with a linked JS file that contains all the Nanny State code.
 
@@ -179,7 +179,7 @@ This should render the initial view with the count set to 10 and allow you to in
 
 You can see more examples of how Nanny State can be used [on CodePen](https://codepen.io/collection/RzbNmw)
 
-## TLDR
+# TLDR
 
 In summary, all you need to do to create a Nanny State app is the following:
 
@@ -190,12 +190,81 @@ In summary, all you need to do to create a Nanny State app is the following:
 5) Write transformer functions that update the state
 6) Call the `Nanny(state,view)` function
 
-## Extra
-Transformer functions can accept and return fragments of the state
-Before and after functions
+# Extra Info
+
+## Before & After Functions
+
+Before and after functions can be used to run any functions before or after a state update. These are passed to the `Nanny` function as part of the `options` object.
+
+For example, try updating the last line of the 'Hello Batman' example to the following code instead: 
+
+```
+const before = state => console.log('Before:',state)
+const after = state => console.log('After:',state)
+
+const update = Nanny(state,view,{ before, after })
+```
+
+Now, when you press the "I'm Batman" button, the following is logged to the console, showing how the state has changed:
+
+```bash
+"Before:"
+{
+  "name": "Bruce Wayne"
+}
+"After:"
+{
+  "name": "Batman"
+}
+```
+
+The after function is useful if you want to use the `localStorage` API to save the state between sessions. The following `after` function will do this:
+
+```javascript
+const after = state => localStorage.setItem('NannyState',JSON.stringify(state)) }
+```
+
+You will also have to set `state` to be the value stored in `localStorage` or the initial state if there is not value in local storage:
+
+```javascript
+const initialState = { name: 'World }
+const state = localStorage.getItem('NannyState') ? JSON.parse(localStorage.getItem('NannyState')) : initialState
+```
+
+## Default Element
+
+By Default the view will be rendered inside the `body` element of the page. This can be changed using the `element` property in the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'root', you could use the following code:
+
+```javascript
+const update = Nanny(state,view,{element: document.getElementById('root')}
+```
+
+## Transformer Function & Fragments of State
+
+Transformer functions don't need to return an object that represents the full state. You only need to return an object that contains the properties that have changed. For example, if the initial state is represented by the following object:
+
+```javascript
+const state = {
+  name: World,
+  count: 10
+}
+```
+
+If we write a transformer function that doubles the count, then we only need to return an object that shows the new value of the 'count' property, like so:
+
+```javascript
+const double = state => ({ count: state.count * 2})
+```
+
+We can also use destructuring to only use the parts of the state we require in the parameter as well:
+
+```javascript
+const double = { count } = ({ count: count * 2})
+```
+
 
 ## Coming Soon
-For a more in-depth tutorial, see the Caesar Cipher tutorial.
+A more in-depth tutorial to build a [Caesar Cipher tutorial using Nanny State](https://codepen.io/daz4126/pen/OJprPrL).
 
 
 
