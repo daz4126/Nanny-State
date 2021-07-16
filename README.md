@@ -59,7 +59,7 @@ You can see this example [on CodePen](https://codepen.io/daz4126/pen/zYwZjWw)
 
 ## Hello Batman Example
 
-This example will give an idea about how Nanny State deals with changing the state and re-rendering the view.
+This example will show how Nanny State deals with changing the state and re-rendering the view.
 
 It starts example the same, by importing the functions we'll use and initializing the state:
 
