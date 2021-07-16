@@ -23,7 +23,7 @@ The state is updated with transformer functions. These accept the state as an ar
 
 ## Examples
 
-The easiest way to learn how Nanny State works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by entering the code in the 'JS' section. Alternatively you could set up a basic HTML file with a linked JS file that contains all the Nanny State code.
+The easiest way to learn how Nanny State works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. Alternatively you could set up a basic HTML file with a linked JS file that contains all the Nanny State code.
 
 ## Hello World Example
 
@@ -31,7 +31,7 @@ The easiest way to learn how Nanny State works is to try coding some examples. A
 
 This is a simple example to show how Nanny State renders the view based on the state.
 
-You can see this example [on CodePen](https://codepen.io/daz4126/pen/zYwZjWw)
+You can see finished app and code [on CodePen](https://codepen.io/daz4126/pen/zYwZjWw)
 
 Start by importing the Nanny State functions:
 
@@ -64,7 +64,7 @@ This will render the view using the initial state.
 
 This example shows how the state object can be updated using the Nanny State update function.
 
-You can see this example [on CodePen](https://codepen.io/daz4126/pen/oNWZdyd)
+You can see the finished app and code [on CodePen](https://codepen.io/daz4126/pen/oNWZdyd)
 
 It starts in the same way as the last example, by importing the functions we'll use and initializing the state:
 
