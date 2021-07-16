@@ -17,9 +17,12 @@ The state is the single source of truth in the application and can only be updat
 ## Data Flow
 
 Nanny state uses a one-way data flow model:
-Page -> event -> event handler -> Transformer -> update the state -> render view -> repeat
 
-The state is updated with transformer functions. These accept the state as an argument and return an updated state or fragment of the state. The page is then automatically re-rendered based on the changes made to the state.
+![Nanny State](https://user-images.githubusercontent.com/16646/125978059-95ed42bb-5676-484a-8391-fa73d20280a0.png)
+
+When a user interacts with the page, it triggers an event that is handled by an event handler.
+
+A tranformer function is used to update the state. Whennever the state changes, the page is re-rendered to reflect these changes.
 
 ## Examples
 
@@ -104,8 +107,11 @@ const beBatman = event => update(state => ({ name: 'Batman'}))
 
 Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `update` function. This accepts an anonymous function as an argument that tells Nanny State how to update the state. This anonymous function is a **transformer function** that tells Nanny State how to update the value of the state. 
 
-A transformer function accepts the current state as an argument and returns a new representation of the state. In this case the transformer function return a new object with the 'name' property of 'Batman'.
-**Note that when an arrow function returns an object, the object needs wrapping in parentheses**
+A transformer function accepts the current state as an argument and returns a new representation of the state:
+![transformer](https://user-images.githubusercontent.com/16646/125978502-29d3f173-626a-48b1-8214-5368f1fe7824.png)
+
+In this example the transformer function returns a new object with the 'name' property of 'Batman'.
+**Note that when arrow functions return an object, the object needs wrapping in parentheses**
 
 Everything is now in place and wired up. Try clicking the button and you'll see the view change based on user input!
 
