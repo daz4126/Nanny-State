@@ -66,7 +66,7 @@ This example shows how the state object can be updated using the Nanny State upd
 
 You can see the finished app and code [on CodePen](https://codepen.io/daz4126/pen/oNWZdyd).
 
-It starts in the same way as the last example, by importing the functions we'll use and initializing the state:
+It starts in the same way as the last example, by importing the Nanny State functions and initializing the state:
 
 ```javascript
 import {Nanny,html,render} from 'https://daz4126.github.io/Nanny-State/main.js'
