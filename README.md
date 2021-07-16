@@ -148,10 +148,7 @@ You can see this example [on CodePen](https://codepen.io/daz4126/pen/vYgdLdX!)
 You can see more examples of how Nanny State can be used [on CodePen](https://codepen.io/collection/RzbNmw)
 
 ## Extra
-Components
-State can be string, number, Boolean, array or object
 Transformer functions can accept and return fragments of the state
-Anonymous event handlers and transformer functions
 Before and after functions
 
 ## Coming Soon
