@@ -80,7 +80,7 @@ const view = state => html`<h1>Hello ${state.name}</h1>
                            <button @click=${beBatman}>I'm Batman</button>`
 ```
 
-This view contains a button that has an inline event listener attached to it using the `@event${handler}` notation [used by lit-html](https://lit-html.polymer-project.org/guide/writing-templates#add-event-listeners)). When the button is clicked the event handler 'beBatman' will be called. We want this function to update the state so the 'name' property changes to 'Batman'.
+This view contains a button that has an inline event listener attached to it using the `@event${handler}` notation [used by lit-html](https://lit-html.polymer-project.org/guide/writing-templates#add-event-listeners)). When the button is clicked the event handler 'beBatman' will be called. We want this function to update the state object so the 'name' property changes to 'Batman'.
 
 The only way to update the state when using Nanny State is to use the update function that is returned by the `Nanny` function.
 
