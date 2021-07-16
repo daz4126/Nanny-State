@@ -85,8 +85,8 @@ This view contains a button that has an inline event listener attached to it usi
 The only way to update the state when using Nanny State is to use the update function that is returned by the `Nanny` function.
 
 Calling the `Nanny` function does 2 things:
-1) Renders the initial view (as we saw in the Hello World example).
-2) Returns an update function that is the only way to update the state (we didn't do this in the Hello World example).
+1) It renders the initial view based on the intial state provided as an argument (as we saw in the Hello World example).
+2) It also returns an update function that is the only way to update the state.
 
 To be able to use the update function, we need to assign it to a variable when we call the `Nanny` function. We usually call it `update` but it can be called anything you like:
 
@@ -94,7 +94,7 @@ To be able to use the update function, we need to assign it to a variable when w
 const update = Nanny(state,view)
 ```
 
-The `update` function can now be used to update the state. To do this we need to call it with a transformer function as an argument. A transformaer function tells Nanny State how to update the value of the state. Nanny State will then re-render the view using lit-html, which only updates the parts of the view that have changed due to the change in state. This makes re-rendering after a state update blazingly fast.
+The `update` function can now be used to update the state. Nanny State will then re-render the view using lit-html, which only updates the parts of the view that have actually changed. This makes re-rendering after a state update blazingly fast.
 
 To see this in action, let's write the 'beBatman' event handler function to update the state and change the state object's 'name' property to 'Batman' when the button is clicked (note that this function needs to go *before* the `view` function in your code):
 
@@ -102,9 +102,9 @@ To see this in action, let's write the 'beBatman' event handler function to upda
 const beBatman = event => update(state => ({ name: 'Batman'}))
 ```
 
-Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `update` function. This accepts an anonymous function as an argument that tells Nanny State how to update the state. This anonymous function is a **transformer function**.
+Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `update` function. This accepts an anonymous function as an argument that tells Nanny State how to update the state. This anonymous function is a **transformer function** that tells Nanny State how to update the value of the state. 
 
-A transformer function accepts the current state as an argument and returns a new representation of the state object. In this case the transformer function return a new object with the 'name' property of 'Batman'.
+A transformer function accepts the current state as an argument and returns a new representation of the state. In this case the transformer function return a new object with the 'name' property of 'Batman'.
 **Note that when an arrow function returns an object, the object needs wrapping in parentheses**
 
 Everything is now in place and wired up. Try clicking the button and you'll see the view change based on user input!
