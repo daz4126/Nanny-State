@@ -1,7 +1,7 @@
 # Nanny-State
 Simple state management using just JavaScript
 
-Nanny State gives you simple state management and fast rendering with a tiny amount of code. 
+Nanny State gives you simple state management and fast rendering with a tiny amount of code.
 It was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the [lit-html](https://lit-html.polymer-project.org) library for rendering.
 
 # What Is Nanny State?
