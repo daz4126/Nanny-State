@@ -172,7 +172,7 @@ This should render the initial view with the count set to 10 and allow you to in
 
 You can see more examples of how Nanny State can be used [on CodePen](https://codepen.io/collection/RzbNmw)
 
-##TLDR
+## TLDR
 
 In summary, all you need to do to create a Nanny State app is the following:
 
