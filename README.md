@@ -1,4 +1,5 @@
-# Nanny-State
+# ![Screenshot 2021-07-16 at 17 21 47](https://user-images.githubusercontent.com/16646/125978720-deaca09e-5361-4a51-918f-bbc4a3a7b841.png)
+
 Simple state management using just JavaScript
 
 Nanny State gives you simple state management and fast rendering with a tiny amount of code.
