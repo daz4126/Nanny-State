@@ -118,14 +118,14 @@ Everything is now in place and wired up. Try clicking the button and you'll see 
 
 ## Counter Example
 
-The next example will be a simple counter app that lets us increase or decrease the count by pressing buttons. The state will change with every click of a button, so this example will show how easy Nanny State makes dynamic updates.
+The next example will be a simple counter app that lets the user increase or decrease the count by pressing buttons. The state will change with every click of a button, so this example will show how easy Nanny State makes dynamic updates.
 
 ![Screenshot Counter Example](https://user-images.githubusercontent.com/16646/125827676-f8510690-5b2e-4e98-b8b2-d00b8f530061.png)
 
-You can see this example [on CodePen](https://codepen.io/daz4126/pen/vYgdLdX!)
+You can see the finished app and code [on CodePen](https://codepen.io/daz4126/pen/vYgdLdX!)
 
 
-The value of the count will be stored in the state as a number (The state is usually an object, but it doesn't have to be).
+The value of the count will be stored in the state as a number (the state is usually an object, but it doesn't have to be).
 Let's initialize it with a value of 10:
 
 ```javascript
@@ -143,7 +143,7 @@ const view = number => html`<h1>Nanny State</h1>
 
 This view contains a **component** called `Counter`. A component is a function that returns some view code that can be reused throughout the app. They are easy to insert into the main view using the `${ComponentName}` placeholder notation inside the template literal.
 
-Let's write the code for the `Counter` component (note it is convention to use PascalCase when naming components):
+Now we need to write the code for the `Counter` component (note it is convention to use PascalCase when naming components):
 
 ```javascript
 const Counter = number => html`<div id='counter'>${number}</div>
@@ -183,7 +183,7 @@ You can see more examples of how Nanny State can be used [on CodePen](https://co
 
 In summary, all you need to do to create a Nanny State app is the following:
 
-1) import the Nanny State functions using `import {Nanny,html,render} from 'https://daz4126.github.io/Nanny-State/main.js'`
+1) Import the Nanny State functions using `import {Nanny,html,render} from 'https://daz4126.github.io/Nanny-State/main.js'`
 2) Create the initial state
 3) Create the view template
 4) Write event handlers to deal with user input
@@ -194,7 +194,7 @@ In summary, all you need to do to create a Nanny State app is the following:
 
 ## Before & After Functions
 
-Before and after functions can be used to run any functions before or after a state update. These are passed to the `Nanny` function as part of the `options` object.
+Before and after functions are functions that are called before or after a state update. These are passed to the `Nanny` function as part of the `options` object.
 
 For example, try updating the last line of the 'Hello Batman' example to the following code instead: 
 
@@ -205,7 +205,7 @@ const after = state => console.log('After:',state)
 const update = Nanny(state,view,{ before, after })
 ```
 
-Now, when you press the "I'm Batman" button, the following is logged to the console, showing how the state has changed:
+Now, when you press the `I'm Batman` button, the following is logged to the console, showing how the state has changed:
 
 ```bash
 "Before:"
@@ -233,10 +233,10 @@ const state = localStorage.getItem('NannyState') ? JSON.parse(localStorage.getIt
 
 ## Default Element
 
-By Default the view will be rendered inside the `body` element of the page. This can be changed using the `element` property in the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'root', you could use the following code:
+By Default the view will be rendered inside the `body` element of the page. This can be changed using the `element` property in the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'app', you could use the following code:
 
 ```javascript
-const update = Nanny(state,view,{element: document.getElementById('root')}
+const update = Nanny(state,view,{element: document.getElementById('app')}
 ```
 
 ## Transformer Function & Fragments of State
@@ -250,13 +250,13 @@ const state = {
 }
 ```
 
-If we write a transformer function that doubles the count, then we only need to return an object that shows the new value of the 'count' property, like so:
+If we write a transformer function that doubles the count, then we only need to return an object that shows the new value of the 'count' property:
 
 ```javascript
 const double = state => ({ count: state.count * 2})
 ```
 
-We can also use destructuring to only use the parts of the state we require in the parameter as well:
+We can also destructure the state object in the parameter so that it only references properties required by the transformer function:
 
 ```javascript
 const double = { count } = ({ count: count * 2})
