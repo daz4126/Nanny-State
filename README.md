@@ -221,7 +221,7 @@ Now, when you press the `I'm Batman` button, the following is logged to the cons
 The after function is useful if you want to use the `localStorage` API to save the state between sessions. The following `after` function will do this:
 
 ```javascript
-const after = state => localStorage.setItem('NannyState',JSON.stringify(state)) }
+const after = state => localStorage.setItem('NannyState',JSON.stringify(state))
 ```
 
 You will also have to set `state` to be the value stored in `localStorage` or the initial state if there is not value in local storage:
