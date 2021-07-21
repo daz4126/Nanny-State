@@ -40,8 +40,11 @@ The easiest way to learn how Nanny State works is to try coding some examples. A
 
 ## Hello World Example
 
+![Screenshot Hello World](https://user-images.githubusercontent.com/16646/125823073-d88989b7-f807-4213-a871-f5f41e198f23.png)
+
 This is a simple example to show how Nanny State renders the view based on the state.
 
+You can see finished app and code [on CodePen](https://codepen.io/daz4126/pen/zYwZjWw).
 Start by importing the Nanny State functions:
 
 ```javascript
