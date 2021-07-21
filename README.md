@@ -172,6 +172,7 @@ const down = event => update(increment,-1)
 ```
 
 Both these event handlers pass the `increment` transformer function to the `update` function. The first argument of the `update` function is always the transformer function that will be used to update the state. If this transformer function requires any arguments as well as current state, then they can be provided as extra arguments to the `update` fuction. The `up` handler uses the `increment` transformer function with the default parameter of `1`, so no extra argumennts need providing. The `down` handler provides an extra argument of `-1` that is passed to the `incrfement` transformer function so that the value of the state will decrease by 1.
+
 **The first parameter of every transformer functions is always the state. This is always implicityly provided as an argument by the update function, so does not need to be included when calling `update`. Any additional arguments are added after the name of the function.**
 
 Last of all, we just need to call the `Nanny` function and assign its return value to the variable `update`:
