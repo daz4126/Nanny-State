@@ -1,8 +1,8 @@
 # ![NANNY STATE](https://user-images.githubusercontent.com/16646/126525019-a2e607fa-c603-4161-8bc3-b9f204a9ce7d.png)
 
 **NANNY STATE** provides a simple to use declarative API that makes it easy to build interactive user interfaces.
-It stores all the data in a single state object and takes care of updating the view whenever the state changes.
-It lets you concentrate on how the data should be updated and what the view should look like.
+It stores all the app data in a single state object and takes care of updating the view whenever the state changes.
+It lets you focus on how the data changes and how it's rendered.
 
 **NANNY STATE**  is:
 
