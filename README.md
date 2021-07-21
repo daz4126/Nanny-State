@@ -1,17 +1,28 @@
 # ![NANNY STATE](https://user-images.githubusercontent.com/16646/125978720-deaca09e-5361-4a51-918f-bbc4a3a7b841.png)
 
-Simple state management using just JavaScript
+**NANNY STATE** provides a simple to use declarative API that makes it easy to build interactive user interfaces.
 
-Nanny State gives you simple state management and fast rendering with a tiny amount of code.
-It was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the [lit-html](https://lit-html.polymer-project.org) library for rendering.
+It stores all the data in a single state object and takes care of updating the view whenever the state changes.
+
+It lets you concentrate on how the data should be updated and what the view should look like.
+
+**NANNY STATE**  is:
+
+* **FAST & EASY** - Build interactive user interfaces that render blazingly fast with just a few lines of code.
+* **PREDICTABLE** - All the data in stored in one place and updated in the same way, making your code more organized, predictable and easier to test.
+* **EASY TO LEARN** - There are only a few basic concepts to learn, hardly any boilerplate code and everything is written in plain old Javascript - there's no new syntax to learn!
+
+Whether you are building a small interactive web page or large complex app, Nanny State is a simple and fun alternative to React and Vue! It's quick to get started - just follow the examples below and you'll see some impressive results in just a few lines of code. 
+
+Nanny State was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the [lit-html](https://lit-html.polymer-project.org) library for rendering. It is open source software, please feel free to help out or contribute.
 
 # What Is Nanny State?
 
 An app built with Nanny State is made up of the following:
 
-* State - usually an object that contains all the data about the app
-* View -  a function that returns a string of HTML based on the current state
-* Transformer functions - functions that transform the value of the state
+* **State** - usually an object that contains all the data about the app
+* **view** -  a function that returns a string of HTML based on the current state
+* **transformer functions** - functions that transform the value of the state
 
 The state is the single source of truth in the application and can only be updated using the update function provided by Nanny State.
 
@@ -21,23 +32,7 @@ Nanny state uses a one-way data flow model:
 
 ![Nanny State](https://user-images.githubusercontent.com/16646/125978059-95ed42bb-5676-484a-8391-fa73d20280a0.png)
 
-When a user interacts with the page, it triggers an event that is handled by an event handler.
-
-A tranformer function is used to update the state. Whennever the state changes, the page is re-rendered to reflect these changes.
-
-# Why Nanny State?
-
-Nanny State provides simple state management that makes it easy to build blazingly fast user interfaces that update whenever the state changes.
-
-All the data is stored in a single state container that is bound to the view. Any changes to the state result in the view being re-rendered.
-
-
-* Nanny State makes it easy to build user interfaces that render blazingly fast with just a few lines of code.
-* Nanny State stores all the application data in one place, which helps keep your code organized, predictable and easier to test.
-* Nanny State can be used to create a simple interactive component or a complex dynamic application.
-* Nanny State has a tiny code footprint and hardly any boilerplate code, so you can get started quickly.
-* Nanny State uses plain old JavaScript - there's no new syntax to learn.
-* Nanny State has a simple structure that is 
+When a user interacts with the page, it triggers an event handler that calls a tranformer function to update the state and then the page is automatically re-rendered to reflect these changes.
 
 # Examples
 
@@ -186,11 +181,11 @@ Last of all, we just need to call the `Nanny` function and assign its return val
 const update = Nanny(state,view)
 ```
 
-This should render the initial view with the count set to 10 and allow you to increase or decrease the count by clicking on the buttons.
+This will render the initial view with the count set to 10 and allow you to increase or decrease the count by clicking on the buttons.
 
 ## More Examples
 
-You can see more examples of how Nanny State can be used [on CodePen](https://codepen.io/collection/RzbNmw)
+You can see more examples of how Nanny State can be used, with source code, [on CodePen](https://codepen.io/collection/RzbNmw)
 
 # TLDR
 
@@ -214,9 +209,11 @@ const transformer = state => { // new values }
 const update = Nanny(state,view)
 ```
 
+All you need to do is decide on what properties will be in the initial state, write your view template and write some even handlers and transformer functions that describe how the state should change when the user interacts with the page.
+
 # Extra Info
 
-Now that you've learnt the basics. Here are some extra bits of information about how Nanny State works.
+Now that you've learnt the basics of Nanny State, here are some extra options that can be passed to the `Nanny` function to give you some extra control over the settings.
 
 ## Before & After Functions
 
@@ -259,7 +256,7 @@ const state = localStorage.getItem('NannyState') ? JSON.parse(localStorage.getIt
 
 ## Default Element
 
-By Default the view will be rendered inside the `body` element of the page. This can be changed using the `element` property in the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'app', you could use the following code:
+By Default the view will be rendered inside the `body` element of the page. This can be changed using the `element` property in the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'app', you just need to specify this as an option when you call the `Nanny` function:
 
 ```javascript
 const update = Nanny(state,view,{element: document.getElementById('app')}
