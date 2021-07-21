@@ -18,7 +18,7 @@ Nanny State was inspired by [Redux](https://redux.js.org) and [Hyperapp](https:/
 
 An app built with Nanny State is made up of the following:
 
-* **State** - usually an object that contains all the data about the app
+* **state** - usually an object that contains all the data about the app
 * **view** -  a function that returns a string of HTML based on the current state
 * **transformer functions** - functions that transform the value of the state
 
