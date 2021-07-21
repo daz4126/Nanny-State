@@ -22,7 +22,7 @@ An app built with Nanny State is made up of the following:
 * **view** -  a function that returns a string of HTML based on the current state
 * **transformer functions** - functions that transform the value of the state
 
-The state is the single source of truth in the application and can only be updated using the update function provided by Nanny State.
+The state is the single source of truth in the application and can only be updated using the update function provided by Nanny State. This makes any changes predictable and deterministic
 
 ## Data Flow
 
@@ -280,7 +280,7 @@ const double = state => ({ count: state.count * 2})
 We can also destructure the state object in the parameter so that it only references properties required by the transformer function:
 
 ```javascript
-const double = { count } = ({ count: count * 2})
+const double = { count } => ({ count: count * 2})
 ```
 
 
