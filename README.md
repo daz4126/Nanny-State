@@ -216,6 +216,8 @@ const update = Nanny(state,view)
 
 # Extra Info
 
+Now that you've learnt the basics. Here are some extra bits of information about how Nanny State works.
+
 ## Before & After Functions
 
 Before and after functions are functions that are called before or after a state update. These are passed to the `Nanny` function as part of the `options` object.
