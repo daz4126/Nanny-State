@@ -115,6 +115,7 @@ const beBatman = event => update(state => ({ name: 'Batman'}))
 Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `update` function. This accepts an anonymous function as an argument that tells Nanny State how to update the state. This anonymous function is a **transformer function** that tells Nanny State how to update the value of the state. 
 
 A transformer function accepts the current state as an argument and returns a new representation of the state. It basically maps the current state to a new state:
+
 ![transformer](https://user-images.githubusercontent.com/16646/125978502-29d3f173-626a-48b1-8214-5368f1fe7824.png)
 
 In this example the transformer function returns a new object with the 'name' property of 'Batman'.
