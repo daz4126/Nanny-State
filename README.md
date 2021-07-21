@@ -1,4 +1,4 @@
-# ![NANNY STATE](https://user-images.githubusercontent.com/16646/125978720-deaca09e-5361-4a51-918f-bbc4a3a7b841.png)
+# ![NANNY STATE](https://user-images.githubusercontent.com/16646/126525019-a2e607fa-c603-4161-8bc3-b9f204a9ce7d.png)
 
 **NANNY STATE** provides a simple to use declarative API that makes it easy to build interactive user interfaces.
 It stores all the data in a single state object and takes care of updating the view whenever the state changes.
@@ -38,12 +38,12 @@ The easiest way to learn how NANNY STATE works is to try coding some examples. A
 
 ## Hello World Example
 
-![Screenshot Hello World](https://user-images.githubusercontent.com/16646/125823073-d88989b7-f807-4213-a871-f5f41e198f23.png)
+![Screenshot Hello World](https://user-images.githubusercontent.com/16646/126525155-dcb10d3d-7331-4bbc-92f3-0b6e90c1931a.png)
 
 This is a simple example to show how Nanny State renders the view based on the state.
 
 You can see finished app and code [on CodePen](https://codepen.io/daz4126/pen/zYwZjWw).
-Start by importing the Nanny State functions:
+Start by importing the NANNY STATE functions:
 
 ```javascript
 import {Nanny,html,render} from 'https://daz4126.github.io/Nanny-State/main.js'
@@ -125,7 +125,7 @@ Everything is now in place and wired up. Try clicking the button and you'll see 
 
 ## Counter Example
 
-The next example will be a simple counter app that lets the user increase or decrease the count by pressing buttons. The state will change with every click of a button, so this example will show how easy Nanny State makes dynamic updates.
+The next example will be a simple counter app that lets the user increase or decrease the count by pressing buttons. The state will change with every click of a button, so this example will show how easy NANNY STATE makes dynamic updates.
 
 ![Screenshot Counter Example](https://user-images.githubusercontent.com/16646/125827676-f8510690-5b2e-4e98-b8b2-d00b8f530061.png)
 
