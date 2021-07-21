@@ -34,7 +34,7 @@ When a user interacts with the page, it triggers an event handler that calls a t
 
 # Examples
 
-The easiest way to learn how NANNY STATE works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. Alternatively you could set up a basic HTML file with a linked JS file that contains all the NANNY STATE code.
+The easiest way to learn how NANNY STATE works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. Alternatively you could set up a basic HTML file with a linked JS file that contains all the NANNY STATE code. No build process or installation is required and if you want it to look pretty, just copy the CSS code from the examples on CodePen!
 
 ## Hello World Example
 
