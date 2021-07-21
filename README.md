@@ -27,12 +27,17 @@ A tranformer function is used to update the state. Whennever the state changes, 
 
 # Why Nanny State?
 
-Nanny State helps you build dynamic web apps that render blazingly quickly with just a few lines of code.
-It has a minuscule code footprint and hardly any boilerplate set up code, so you can get started really quickly.
-All you need to use is plain old JavaScript - there's no new syntax to learn.
-Nanny State uses a functional style
-It helps 
-Code is easier to test and more predictable due to all the data being held in one place (the state) and there only being one way to update the state.
+Nanny State provides simple state management that makes it easy to build blazingly fast user interfaces that update whenever the state changes.
+
+All the data is stored in a single state container that is bound to the view. Any changes to the state result in the view being re-rendered.
+
+
+* Nanny State makes it easy to build user interfaces that render blazingly fast with just a few lines of code.
+* Nanny State stores all the application data in one place, which helps keep your code organized, predictable and easier to test.
+* Nanny State can be used to create a simple interactive component or a complex dynamic application.
+* Nanny State has a tiny code footprint and hardly any boilerplate code, so you can get started quickly.
+* Nanny State uses plain old JavaScript - there's no new syntax to learn.
+* Nanny State has a simple structure that is 
 
 # Examples
 
