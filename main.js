@@ -25,4 +25,4 @@ const Nanny = (state={},{ element=document.body,view=state.view,before,after,deb
     return state;
   }
 }
-export { html,Nanny }
+export { Nanny,html }
