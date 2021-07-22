@@ -46,7 +46,7 @@ You can see finished app and code [on CodePen](https://codepen.io/daz4126/pen/zY
 Start by importing the NANNY STATE functions:
 
 ```javascript
-import {Nanny,html,render} from 'https://daz4126.github.io/Nanny-State/main.js'
+import { Nanny,html } from 'https://daz4126.github.io/Nanny-State/main.js'
 ```
 
 Next create an object to represent the initial state (the state is usally an object, but can be any data-type). The state contains every bit of information about our app. In this case we just want to store the value of the property 'name':
@@ -79,7 +79,7 @@ You can see the finished app and code [on CodePen](https://codepen.io/daz4126/pe
 It starts in the same way as the last example, by importing the NANNY STATE functions and initializing the state:
 
 ```javascript
-import {Nanny,html,render} from 'https://daz4126.github.io/Nanny-State/main.js'
+import { Nanny,html } from 'https://daz4126.github.io/Nanny-State/main.js'
 const state = { name: 'Bruce Wayne' }
 ```
 
@@ -136,7 +136,7 @@ The value of the count will be stored in the state as a number (the state is usu
 Let's initialize it with a value of 10:
 
 ```javascript
-import {Nanny,html,render} from 'https://daz4126.github.io/Nanny-State/main.js'
+import { Nanny,html } from 'https://daz4126.github.io/Nanny-State/main.js'
 const state = 10;
 ```
 
