@@ -1,8 +1,10 @@
 import {html , render} from 'https://unpkg.com/lit-html?module'
 // Nanny State function
-const Nanny = (state={},view=``,{ element=document.body,before,after}={}) => {
+const Nanny = (state={},{ element=document.body,view='view',before,after,debug,logState}={}) => {
   // initial render
-  render(view(state),element);
+  render(state[view](state),element);
+  // log the state if in debug mode
+  if(debug || logState) console.log(state);
   // return function used to update the state
   return (action,...params) => {
     // call before function here
@@ -16,9 +18,11 @@ const Nanny = (state={},view=``,{ element=document.body,before,after}={}) => {
     // call after function here
     if(after) after(state);
     // render the new state
-    render(view(state),element);
+    render(state[view](state),element);
+    // log the state if in debug mode
+    if(debug || logState) console.log(state);
     // return the new state
     return state;
   }
 }
-export {html,render,Nanny}
+export { html,Nanny }
