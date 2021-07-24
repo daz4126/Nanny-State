@@ -18,11 +18,11 @@ NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https:/
 
 An app built with NANNY STATE is made up of the following:
 
-* **state** - usually an object that contains all the data about the app
-* **view** -  a function that returns a string of HTML based on the current state
-* **transformer functions** - functions that transform the value of the state
+* **State** - usually an object that contains all the data about the app
+* **View** -  a function that returns a string of HTML based on the current state
+* **Transformer functions** - functions that transform the value of the state
 
-The state is the single source of truth in the application and can only be updated using the update function provided by NANNY STATE. This makes any changes predictable and deterministic
+The state is the single source of truth in the application and contains all the information about the app, including the settings. The only way to update the state via the `update` function provided by NANNY STATE. This ensures that any changes are deterministic with predictable outcomes.
 
 ## Data Flow
 
@@ -30,7 +30,7 @@ NANNY STATE uses a one-way data flow model:
 
 ![Nanny State](https://user-images.githubusercontent.com/16646/125978059-95ed42bb-5676-484a-8391-fa73d20280a0.png)
 
-When a user interacts with the page, it triggers an event handler that calls a tranformer function to update the state and then the page is automatically re-rendered to reflect these changes.
+When a user interacts with the page, it triggers an event that uses a tranformer function to update the state. The page is then automatically re-rendered to reflect these changes.
 
 # Examples
 
@@ -49,48 +49,57 @@ Start by importing the NANNY STATE functions:
 import { Nanny,html } from 'https://daz4126.github.io/Nanny-State/main.js'
 ```
 
-Next create an object to represent the initial state (the state is usally an object, but can be any data-type). The state contains every bit of information about our app. In this case we just want to store the value of the property 'name':
+Next create an object to represent the initial state (the state is usally an object, but can be any data-type). The state stores every bit of information about our app as data. In this simple example, we just want to store the value of a property called 'name':
 
 ```javascript
-const state = { name: ‘World’ }
+const State = { name: ‘World’ }
 ```
 
-Our next job is to create the view - this is a function that accepts the state as a parameter and returns a string of HTML that depends on the value of the state's properties. Any view in NANNY STATE uses the `html` template function provided by lit-html. This uses tagged template literals with `${expression}` placeholders to insert values from the state into the rendered HTML. In this example we are inserting the value of the state object's 'name' property into the `<h1>` element.:
+Our next job is to create the view - this is a function that accepts the state as an argument and returns a string of HTML that depends on the value of the state's properties. In Nanny State, everything is stored as a property of the state, even the view! It is stored as a property called 'view', which we can create like so:
 
 ```javascript
-const view = state => html`<h1>Hello ${state.name}</h1>`
+State.view = state => html`<h1>Hello ${state.name}</h1>`
 ```
 
-Last of all, we need to call the `Nanny` function with the`state` and `view` variables as arguments:
+Any view in NANNY STATE uses the `html` template function that is part of lit-html. This uses tagged template literals with `${expression}` placeholders to insert values from the state into the rendered HTML. In this example we are inserting the value of the state object's 'name' property into the `<h1>` element
+
+Last of all, we need to call the `Nanny` function with `State` provided as an argument:
 
 ```javascript
-Nanny(state,view)
+Nanny(State)
 ```
 
-This will render the view based on our initial state.
+This renders the view based on our initial state.
 
 ## Hello Batman Example
 ![Screenshot Hello Batman](https://user-images.githubusercontent.com/16646/125826661-0b799f2d-613d-45b8-9bef-5c0d214fe669.png)
 
-This example shows how the state object can be updated using the NANNY STATE update function.
+This example shows how the state object can be updated using the `update` function.
 
 You can see the finished app and code [on CodePen](https://codepen.io/daz4126/pen/oNWZdyd).
 
-It starts in the same way as the last example, by importing the NANNY STATE functions and initializing the state:
+It starts in the same way as the last example, by importing the NANNY STATE functions:
 
 ```javascript
 import { Nanny,html } from 'https://daz4126.github.io/Nanny-State/main.js'
-const state = { name: 'Bruce Wayne' }
 ```
 
-Next we'll add the view template:
+Next we'll create the view template and assign it to the variable `view`:
 
 ```javascript
 const view = state => html`<h1>Hello ${state.name}</h1>
                            <button @click=${beBatman}>I'm Batman</button>`
 ```
 
-This view contains a button that has an inline event listener attached to it using the `@event${handler}` notation [used by lit-html](https://lit-html.polymer-project.org/guide/writing-templates#add-event-listeners)). When the button is clicked the event handler 'beBatman' will be called. We want this function to update the state object so the 'name' property changes to 'Batman'.
+This view is similar to the one we used in the Hello World example, but it also contains a button with an event listener. We'll get to this soon, but first we need to create the initial state:
+
+```
+const State = { name: 'Bruce Wayne', view }
+```
+
+Notice that as well as assigning the 'name' property the value of 'Bruce Wayne', we also add the `view` variable as a property of the `State` object using the shorthand object assignment.
+
+Now let's take a look at the inline event listener attached to the button using the `@event${handler}` notation [used by lit-html](https://lit-html.polymer-project.org/guide/writing-templates#add-event-listeners)). When the button is clicked the event handler 'beBatman' will be called. We want this function to update the state object so the 'name' property changes to 'Batman'.
 
 The only way we can update the state is to use the update function that is returned by the `Nanny` function.
 
@@ -98,10 +107,10 @@ Calling the `Nanny` function does 2 things:
 1) It renders the initial view based on the intial state provided as an argument (as we saw in the Hello World example).
 2) It also returns an update function that is the only way to update the state.
 
-To be able to use the update function, we need to assign it to a variable when we call the `Nanny` function. We usually call it `update` but it can be called anything you like:
+To be able to use the `update function`, we need to assign it to a variable when we call the `Nanny` function. We usually call it `update` but it can be called anything you like:
 
 ```
-const update = Nanny(state,view)
+const update = Nanny(State)
 ```
 
 The `update` function can now be used to update the state. NANNY STATE will then re-render the view using lit-html, which only updates the parts of the view that have actually changed. This makes re-rendering after a state update blazingly fast.
@@ -112,7 +121,7 @@ To see this in action, let's write the 'beBatman' event handler function to upda
 const beBatman = event => update(state => ({ name: 'Batman'}))
 ```
 
-Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `update` function. This accepts an anonymous function as an argument that tells Nanny State how to update the state. This anonymous function is a **transformer function** that tells Nanny State how to update the value of the state. 
+Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `update` function. This accepts an anonymous function as an argument that tells Nanny State how to update the state. This anonymous function is a **transformer function** that tells NANNY STATE how to update the value of the state. 
 
 A transformer function accepts the current state as an argument and returns a new representation of the state. It basically maps the current state to a new state:
 
@@ -137,7 +146,7 @@ Let's initialize it with a value of 10:
 
 ```javascript
 import { Nanny,html } from 'https://daz4126.github.io/Nanny-State/main.js'
-const state = 10;
+const State = 10;
 ```
 
 Now let's create the view that will return the HTML we want to display:
@@ -175,10 +184,10 @@ Both these event handlers pass the `increment` transformer function to the `upda
 
 **The first parameter of every transformer functions is always the state. This is always implicityly provided as an argument by the update function, so does not need to be included when calling `update`. Any additional arguments are added after the name of the function.**
 
-Last of all, we just need to call the `Nanny` function and assign its return value to the variable `update`:
+Last of all, we just need to call the `Nanny` function and assign its return value to the variable `update`. In this example, the state is a number, so we cannot assign any more properties to it. This means we can't make the view a property of `State`. Fortunately, the `Nanny` function accepts a second `options` parameter. This is an object that has a property called 'view' that can be set like so:
 
 ```
-const update = Nanny(state,view)
+const update = Nanny(State,{ view })
 ```
 
 This will render the initial view with the count set to 10 and allow you to increase or decrease the count by clicking on the buttons.
@@ -192,40 +201,40 @@ You can see more examples of how Nanny State can be used, with source code, [on 
 In summary, all you need to do to create a NANNY STATE app is the following:
 
 1) Import the NANNY STATE functions
-2) Create the initial state
-3) Create the view template
-4) Write event handlers to deal with user input
+2) Create the initial state, `State`
+3) Create the view template and make it a property of `State`
+4) Write event handlers that deal with user input
 5) Write transformer functions that update the state
-6) Call the `Nanny(state,view)` function
+6) Call the `Nanny(State)` function
 
 The basic structure of any NANNY STATE code is:
 
 ```
-import {Nanny,html,render} from 'https://daz4126.github.io/Nanny-State/main.js'
-const state = { // inital values }
+import { Nanny,html } from 'https://daz4126.github.io/Nanny-State/main.js'
 const view = html`some view code here`
+const State = { // inital values ..., view }
 const handler = event => update(transformer)
-const transformer = state => { // new values }
-const update = Nanny(state,view)
+const transformer = state => { newState }
+const update = Nanny(State)
 ```
 
-All you need to do is decide on what properties will be in the initial state, write your view template and write some even handlers and transformer functions that describe how the state should change when the user interacts with the page.
+All you need to do is decide on what properties will be in the initial state, write your view template and then write some event handlers and transformer functions that describe how the state should change when the user interacts with the page.
 
 # Extra Info
 
-Now that you've learnt the basics of NANNY STATE, here are some extra options that can be passed to the `Nanny` function to give you some extra control over the settings.
+Now that you've learnt the basics of NANNY STATE, here are some extra options that give you some extra control over the settings.
 
 ## Before & After Functions
 
-Before and after functions are functions that are called before or after a state update. These are passed to the `Nanny` function as part of the `options` object.
+`before` and `after` are properties of the state object and are functions that are called before or after a state update respectively. They can also be passed to the `Nanny` function as part of the `options` object.
 
 For example, try updating the last line of the 'Hello Batman' example to the following code instead: 
 
 ```
-const before = state => console.log('Before:',state)
-const after = state => console.log('After:',state)
+State.before = state => console.log('Before:',state)
+State.after = state => console.log('After:',state)
 
-const update = Nanny(state,view,{ before, after })
+const update = Nanny(State)
 ```
 
 Now, when you press the `I'm Batman` button, the following is logged to the console, showing how the state has changed:
@@ -244,22 +253,36 @@ Now, when you press the `I'm Batman` button, the following is logged to the cons
 The after function is useful if you want to use the `localStorage` API to save the state between sessions. The following `after` function will do this:
 
 ```javascript
-const after = state => localStorage.setItem('NannyState',JSON.stringify(state))
+State.after = state => localStorage.setItem('NannyState',JSON.stringify(state))
 ```
 
 You will also have to set `state` to be the value stored in `localStorage` or the initial state if there is not value in local storage:
 
 ```javascript
 const initialState = { name: 'World }
-const state = localStorage.getItem('NannyState') ? JSON.parse(localStorage.getItem('NannyState')) : initialState
+const State = localStorage.getItem('NannyState') ? JSON.parse(localStorage.getItem('NannyState')) : initialState
 ```
 
 ## Default Element
 
-By Default the view will be rendered inside the `body` element of the page. This can be changed using the `element` property in the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'app', you just need to specify this as an option when you call the `Nanny` function:
+By Default the view will be rendered inside the `body` element of the page. This can be changed using the `element` property of the state object or by providing it as part of the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'app', you just need to specify this as an option when you call the `Nanny` function:
 
 ```javascript
-const update = Nanny(state,view,{element: document.getElementById('app')}
+State.element = document.getElementById('app')
+```
+
+## Debug Mode & Log State
+
+`debug` is a property of the state that is `false` by default, but if you set it to `true`, then the value of the state will be logged to the console after the initial render and after any state update"
+
+```javascript
+State.debug = true
+```
+
+`logState` is a property of the state that does exactly the same thing as the `debug` property when set to `true`:
+
+```javascript
+State.logState = true
 ```
 
 ## Transformer Function & Fragments of State
@@ -267,7 +290,7 @@ const update = Nanny(state,view,{element: document.getElementById('app')}
 Transformer functions don't need to return an object that represents the full state. You only need to return an object that contains the properties that have changed. For example, if the initial state is represented by the following object:
 
 ```javascript
-const state = {
+const State = {
   name: World,
   count: 10
 }
