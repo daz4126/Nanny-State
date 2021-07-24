@@ -12,7 +12,7 @@ It lets you focus on how the data changes and how it's rendered.
 
 Whether you are building a small interactive web page or large complex app, NANNY STATE is a simple and fun alternative to React and Vue! It's quick to get started - just follow the examples below and you'll see some impressive results in just a few lines of code. 
 
-NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the [lit-html](https://lit-html.polymer-project.org) library for rendering. It is open source software, please feel free to help out or contribute.
+NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the [lit-html](https://lit-html.polymer-project.org) library for rendering. It also has a lot of similarities with [Elm](https://elm-lang.org), although I'd never used Elm when I first wrote it. It is open source software, please feel free to help out or contribute.
 
 # What Is NANNY STATE?
 
