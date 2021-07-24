@@ -16,13 +16,13 @@ NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https:/
 
 # What Is NANNY STATE?
 
-An app built with NANNY STATE is made up of the following:
+NANNY STATE comprises of 3 interdependent parts:
 
-* **State** - usually an object that contains all the data about the app
+* **State** - usually an object that stores all the information about the app
 * **View** -  a function that returns a string of HTML based on the current state
-* **Transformer functions** - functions that transform the value of the state
+* **Transformers** - functions that update the state based on events
 
-The state is the single source of truth in the application and contains all the information about the app, including the settings. The only way to update the state via the `update` function provided by NANNY STATE. This ensures that any changes are deterministic with predictable outcomes.
+The state is the single source of truth in the application and stores all the information about the app, including the settings, as data. The only way to update the state is via the `update` function. This ensures that any changes are deterministic and have predictable outcomes.
 
 ## Data Flow
 
