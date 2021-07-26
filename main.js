@@ -1,6 +1,6 @@
 import {html , render} from 'https://unpkg.com/lit-html?module'
 // Nanny State function
-const Nanny = (state={},{ element=document.body,view=state.view,before,after,debug,logState}={}) => {
+const Nanny = (state={},{ element=state.element || document.body,view=state.view || `NANNY STATE`,before=state.before,after=state.after,debug=state.debug,logState=state.logState}={}) => {
   // initial render
   render(view(state),element);
   // log the state if in debug mode
