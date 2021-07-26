@@ -5,14 +5,14 @@ const Nanny = (state={},{ element=document.body,view=state.view,before,after,deb
   render(view(state),element);
   // log the state if in debug mode
   if(debug || logState) console.log(state);
-  // return function used to update the state
-  return (action,...params) => {
+  // return update function
+  return (transformer,...params) => {
     // call before function here
     if(before) before(state);
     // create a new state based on the action and params submitted
     const newState = Object.prototype.toString.call(state) === "[object Object]"
-                     ? { ...state,...action(state,...params) }
-                     : action(state,...params);
+                     ? { ...state,...transformer(state,...params) }
+                     : transformer(state,...params);
     // set the new state
     state = newState;
     // call after function here
