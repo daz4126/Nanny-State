@@ -10,7 +10,7 @@ const Nanny = (state={},{ element=state.element || document.body,view=state.view
     // call before function here
     if(before) before(state);
     // update state based on the action and params submitted
-    const newState = transformer(state)(...params);
+    const newState = params ? transformer(state)(...params) : transformer(state);
     state = Object.prototype.toString.call(state) === "[object Object]"
                      ? { ...state,newState}
                      : newState;
