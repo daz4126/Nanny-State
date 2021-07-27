@@ -12,7 +12,7 @@ const Nanny = (state={},{ element=state.element || document.body,view=state.view
     // update state based on the action and params submitted
     const newState = params.length ? transformer(state)(...params) : transformer(state);
     state = Object.prototype.toString.call(state) === "[object Object]"
-                     ? { ...state,newState}
+                     ? { ...state,...newState}
                      : newState;
     // call after function here
     if(after) after(state);
