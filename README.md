@@ -319,7 +319,10 @@ We can also destructure the state object in the parameter so that it only refere
 const double = { count } => ({ count: count * 2})
 ```
 
-
 ## Coming Soon
 
 A more in-depth tutorial to build a [Caesar Cipher tutorial using Nanny State](https://codepen.io/daz4126/pen/OJprPrL).
+
+## License
+
+Released under [Unlicense](/LICENSE) by [@daz4126](https://github.com/daz4126).
