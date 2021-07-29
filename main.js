@@ -11,6 +11,7 @@ function Nanny(
     logState = state.logState,
   } = {}
 ) {
+  // Initial state.
   render(view(state), element);
 
   if (debug || logState) {
@@ -22,7 +23,7 @@ function Nanny(
       before(state);
     }
 
-    // Update state based on the action and params submitted
+    // Update state based on the action and params submitted.
     const newState =
       typeof transformer(state) === "function"
         ? params.length
@@ -30,7 +31,7 @@ function Nanny(
           : transformer(state)()
         : transformer(state);
 
-    // If the state is an object, create a copy and augment any changes to it
+    // If the state is an object, create a copy and augment any changes to it.
     state =
       Object.prototype.toString.call(state) === "[object Object]"
         ? { ...state, ...newState }
@@ -40,7 +41,7 @@ function Nanny(
       after(state);
     }
 
-    // Render the new state
+    // Update.
     render(view(state), element);
 
     if (debug || logState) {
