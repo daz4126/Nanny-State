@@ -1,30 +1,55 @@
-import {html , render} from 'https://unpkg.com/lit-html?module'
-// Nanny State function
-const Nanny = (state={},{ element=state.element || document.body,view=state.view || `NANNY STATE`,before=state.before,after=state.after,debug=state.debug,logState=state.logState}={}) => {
-  // initial render
-  render(view(state),element);
-  // log the state if in debug mode
-  if(debug || logState) console.log(state);
-  // return update function
-  return (transformer,...params) => {
-    // call before function here
-    if(before) before(state);
-    // update state based on the action and params submitted
-    const newState = typeof transformer(state) === "function" ? 
-                            params.length ? transformer(state)(...params) : transformer(state)() 
-                            : transformer(state);
-    // check if the state is an object. If it is, create a copy and augment any changes to it
-    state = Object.prototype.toString.call(state) === "[object Object]"
-                     ? { ...state,...newState}
-                     : newState;
-    // call after function here
-    if(after) after(state);
-    // render the new state
-    render(view(state),element);
-    // log the state if in debug mode
-    if(debug || logState) console.log(state);
-    // return the new state
-    return state;
+import { html, render } from "https://unpkg.com/lit-html?module";
+
+function Nanny(
+  state = {},
+  {
+    element = state.element || document.body,
+    view = state.view || `NANNY STATE`,
+    before = state.before,
+    after = state.after,
+    debug = state.debug,
+    logState = state.logState,
+  } = {}
+) {
+  // Initial state.
+  render(view(state), element);
+
+  if (debug || logState) {
+    console.log(state);
   }
+
+  return (transformer, ...params) => {
+    if (before) {
+      before(state);
+    }
+
+    // Update state based on the action and params submitted.
+    const newState =
+      typeof transformer(state) === "function"
+        ? params.length
+          ? transformer(state)(...params)
+          : transformer(state)()
+        : transformer(state);
+
+    // If the state is an object, create a copy and augment any changes to it.
+    state =
+      Object.prototype.toString.call(state) === "[object Object]"
+        ? { ...state, ...newState }
+        : newState;
+
+    if (after) {
+      after(state);
+    }
+
+    // Update.
+    render(view(state), element);
+
+    if (debug || logState) {
+      console.log(state);
+    }
+
+    return state;
+  };
 }
-export { Nanny,html }
+
+export { Nanny, html };
