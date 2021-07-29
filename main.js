@@ -1,6 +1,6 @@
 import { html, render } from "https://unpkg.com/lit-html?module";
 
-const Nanny = (
+function Nanny(
   state = {},
   {
     element = state.element || document.body,
@@ -10,7 +10,7 @@ const Nanny = (
     debug = state.debug,
     logState = state.logState,
   } = {}
-) => {
+) {
   render(view(state), element);
 
   if (debug || logState) {
@@ -49,6 +49,6 @@ const Nanny = (
 
     return state;
   };
-};
+}
 
 export { Nanny, html };
