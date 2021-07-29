@@ -241,16 +241,16 @@ Now that you've learnt the basics of NANNY STATE, here are some extra options th
 
 For example, try updating the last line of the 'Hello Batman' example to the following code instead:
 
-```
-State.before = state => console.log('Before:',state)
-State.after = state => console.log('After:',state)
+```javascript
+State.before = state => console.log('Before:', state)
+State.after = state => console.log('After:', state)
 
 const update = Nanny(State)
 ```
 
 Now, when you press the `I'm Batman` button, the following is logged to the console, showing how the state has changed:
 
-```bash
+```
 "Before:"
 {
   "name": "Bruce Wayne"
