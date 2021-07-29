@@ -141,12 +141,12 @@ A transformer function accepts the current state as an argument and returns a ne
 Transformer functions must be **[pure functions](https://en.wikipedia.org/wiki/Pure_function)**. They should always return the same state given the same arguments and should not cause any side-effects. They take the following structure:
 
 ```javascript
-const transformer = state => params => newState
+state => params => newState
 ```
 If the transformer doesn't have any other parameters, apart from the current state, then you can omit them and just write the transformer in the form:
 
 ```javascript
-const transformer = state => newState
+state => newState
 ```
 
 In our Batman example the transformer function returns a new object with the 'name' property of 'Batman':
