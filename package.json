@@ -4,7 +4,7 @@
   "description": "simple state management",
   "main": "index.js",
   "dependencies": {
-    "lit-html": "1.4.1"
+    "lit-html": "^1.4.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
