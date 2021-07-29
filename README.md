@@ -84,7 +84,7 @@ This renders the view based on our initial state.
 
 This example shows how the state object can be updated using the `update` function.
 
-You can see the finished app and code [on CodePen](https://codepen.io/daz4126/pen/oNWZdyd).
+You can see the finished app and code on [CodePen](https://codepen.io/daz4126/pen/oNWZdyd).
 
 It starts in the same way as the last example, by importing the NANNY STATE functions:
 
@@ -122,7 +122,7 @@ To be able to use the `update function`, we need to assign it to a variable when
 const update = Nanny(State)
 ```
 
-The `update` function can now be used to update the state. NANNY STATE will then re-render the view using lit-html, which only updates the parts of the view that have actually changed. This makes re-rendering after a state update blazingly fast.
+The `update` function can now be used to update the state. NANNY STATE will then re-render the view using lit-html, which only updates the parts of the view that have actually changed. This makes re-rendering after a state update blazing fast.
 
 To see this in action, let's write the 'beBatman' event handler function to update the state and change the state object's 'name' property to 'Batman' when the button is clicked (note that this function needs to go *before* the `view` function in your code):
 
@@ -134,7 +134,7 @@ Because this is an event handler, the only parameter is the event object (althou
 
 A transformer function accepts the current state as an argument and returns a new representation of the state. It basically maps the current state to a new state:
 
-![transformer](https://user-images.githubusercontent.com/16646/125978502-29d3f173-626a-48b1-8214-5368f1fe7824.png)
+![Transformer](https://user-images.githubusercontent.com/16646/125978502-29d3f173-626a-48b1-8214-5368f1fe7824.png)
 
 In this example the transformer function returns a new object with the 'name' property of 'Batman'.
 **Note that when arrow functions return an object, the object needs wrapping in parentheses**
@@ -147,14 +147,14 @@ The next example will be a simple counter app that lets the user increase or dec
 
 ![Screenshot Counter Example](https://user-images.githubusercontent.com/16646/125827676-f8510690-5b2e-4e98-b8b2-d00b8f530061.png)
 
-You can see the finished app and code [on CodePen](https://codepen.io/daz4126/pen/vYgdLdX!)
+You can see the finished app and code on [CodePen](https://codepen.io/daz4126/pen/vYgdLdX!)
 
 
 The value of the count will be stored in the state as a number (the state is usually an object, but it doesn't have to be).
 Let's initialize it with a value of 10:
 
 ```javascript
-import { Nanny,html } from 'https://daz4126.github.io/Nanny-State/main.js'
+import { Nanny,html } from 'https://daz4126.github.io/Nanny-State/main.js';
 const State = 10;
 ```
 
@@ -186,16 +186,18 @@ This function accepts two parameters: the number to be incremented and the amoun
 
 ```javascript
 const up = event => update(increment)
-const down = event => update(increment,-1)
+const down = event => update(increment, -1)
 ```
 
-Both these event handlers pass the `increment` transformer function to the `update` function. The first argument of the `update` function is always the transformer function that will be used to update the state. If this transformer function requires any arguments as well as current state, then they can be provided as extra arguments to the `update` fuction. The `up` handler uses the `increment` transformer function with the default parameter of `1`, so no extra arguments need providing. The `down` handler provides an extra argument of `-1` that is passed to the `incrfement` transformer function so that the value of the state will decrease by 1.
+Both these event handlers pass the `increment` transformer function to the `update` function. The first argument of the `update` function is always the transformer function that will be used to update the state. If this transformer function requires any arguments as well as current state, then they can be provided as extra arguments to the `update` function.
+
+The `up` handler uses the `increment` transformer function with the default parameter of `1`, so no extra arguments need providing. The `down` handler provides an extra argument of `-1` that is passed to the `increment` transformer function so that the value of the state will decrease by 1.
 
 _Note: The first parameter of every transformer functions is always the state. This is always implicitly provided as an argument by the update function, so does not need to be included when calling `update`. Any additional arguments are added after the name of the function._
 
 Last of all, we just need to call the `Nanny` function and assign its return value to the variable `update`. In this example, the state is a number, so we cannot assign any more properties to it. This means we can't make the view a property of `State`. Fortunately, the `Nanny` function accepts a second `options` parameter. This is an object that has a property called 'view' that can be set like so:
 
-```
+```javascript
 const update = Nanny(State,{ view })
 ```
 
@@ -221,7 +223,7 @@ The basic structure of any NANNY STATE code is:
 ```
 import { Nanny,html } from 'https://daz4126.github.io/Nanny-State/main.js'
 const view = html`some view code here`
-const State = { // inital values ..., view }
+const State = { // initial values ..., view }
 const handler = event => update(transformer)
 const transformer = state => { newState }
 const update = Nanny(State)
