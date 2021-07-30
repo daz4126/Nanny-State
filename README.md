@@ -12,7 +12,7 @@
 
 **NANNY STATE** provides a simple to use declarative API that makes it easy to build interactive user interfaces.
 
-It stores all the app data in a single state object and updates the view whenever the state changes.
+It stores all the app data in a single state object and automatically updates the view whenever the state changes.
 
 NANNY STATE is:
 
