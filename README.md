@@ -1,16 +1,15 @@
 # ![NANNY STATE logo](https://user-images.githubusercontent.com/16646/126525019-a2e607fa-c603-4161-8bc3-b9f204a9ce7d.png)
 
-> Simple state management with plain JavaScript
+> Simple state management using just JavaScript
 
 **NANNY STATE** provides a simple to use declarative API that makes it easy to build interactive user interfaces.
 
-It stores all the app data in a single state object and takes care of updating the view whenever the state changes.
-It lets you focus on how the data changes and how it's rendered.
+It stores all the app data in a single state object and takes care of updating the view whenever the state changes, which leaves you to focus on how the data changes and how it should be rendered.
 
 NANNY STATE is:
 
 - **FAST AND EASY** - Build interactive user interfaces that render blazing fast with just a few lines of code.
-- **PREDICTABLE** - All the data in stored in one place and updated in the same way, making your code more organized, predictable and easier to test.
+- **PREDICTABLE** - All the data is stored in one place and updated in the same way, making your code more organized, predictable and easier to test.
 - **EASY TO LEARN** - There are only a few basic concepts to learn, hardly any boilerplate code and everything is written in plain old Javascript - there's no new syntax to learn!
 
 Whether you are building a small interactive web page or large complex app, NANNY STATE is a simple and fun alternative to React and Vue! It's quick to get started - just follow the examples below and you'll see some impressive results in just a few lines of code.
@@ -109,7 +108,7 @@ const State = { name: 'Bruce Wayne', view }
 
 Notice that as well as assigning the 'name' property the value of 'Bruce Wayne', we also add the `view` variable as a property of the `State` object using the shorthand object assignment.
 
-Now let's take a look at the inline event listener attached to the button using the `@event${handler}` notation [used by lit-html](https://lit-html.polymer-project.org/guide/writing-templates#add-event-listeners)). When the button is clicked the event handler 'beBatman' will be called. We want this function to update the state object so the 'name' property changes to 'Batman'.
+Now let's take a look at the inline event listener attached to the button using the `@event${handler}` notation [used by lit-html](https://lit-html.polymer-project.org/guide/writing-templates#add-event-listeners). When the button is clicked the event handler 'beBatman' will be called. We want this function to update the state object so the 'name' property changes to 'Batman'.
 
 The only way we can update the state is to use the update function that is returned by the `Nanny` function.
 

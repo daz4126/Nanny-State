@@ -1,4 +1,4 @@
-const {html, render} = require('lit-html')
+import {html, render} from 'lit-html';
 
 function Nanny(
   state = {},
@@ -52,4 +52,4 @@ function Nanny(
   };
 }
 
-module.exports = { Nanny,html }
+export { Nanny,html };

@@ -3,6 +3,7 @@
   "version": "1.1.2",
   "description": "simple state management",
   "main": "index.js",
+  "type":"module",
   "dependencies": {
     "lit-html": "^1.4.1"
   },
