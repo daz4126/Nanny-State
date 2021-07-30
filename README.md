@@ -153,7 +153,7 @@ const view = state => html`<h1>Hello ${state.name}</h1>
 
 This view is similar to the one we used in the Hello World example, but it also contains a button with an event listener. We'll get to this soon, but first we need to create the initial state:
 
-```
+```javascript
 const State = { name: 'Bruce Wayne', view }
 ```
 
