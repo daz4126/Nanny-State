@@ -97,7 +97,7 @@ You can see finished app and code on [CodePen](https://codepen.io/daz4126/pen/zY
 Start by importing the NANNY STATE functions:
 
 ```javascript
-import { Nanny,html } from 'nanny-state'
+import { Nanny, html } from 'nanny-state'
 ```
 
 Next create an object to represent the initial state (the state is usally an object, but can be any data-type). The state stores every bit of information about our app as data. In this simple example, we just want to store the value of a property called 'name':
@@ -141,7 +141,7 @@ You can see the finished app and code on [CodePen](https://codepen.io/daz4126/pe
 It starts in the same way as the last example, by importing the NANNY STATE functions:
 
 ```javascript
-import { Nanny,html } from 'nanny-state'
+import { Nanny, html } from 'nanny-state'
 ```
 
 Next we'll create the view template and assign it to the variable `view`:
@@ -234,7 +234,7 @@ The value of the count will be stored in the state as a number (the state is usu
 Let's initialize it with a value of 10:
 
 ```javascript
-import { Nanny,html } from 'nanny-state';
+import { Nanny, html } from 'nanny-state';
 
 const State = 10;
 ```
@@ -302,11 +302,16 @@ In summary, all you need to do to create a NANNY STATE app is the following:
 The basic structure of any NANNY STATE code is:
 
 ```
-import { Nanny,html } from 'nanny-state'
+import { Nanny, html } from 'nanny-state'
+
 const view = html`some view code here`
-const State = { // initial values ..., view }
-const handler = event => update(transformer)
+const State = { 
+  // initial values ..., 
+  view
+}
 const transformer = state => { newState }
+const handler = event => update(transformer)
+
 const Update = Nanny(State)
 ```
 
