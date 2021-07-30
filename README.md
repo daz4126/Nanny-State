@@ -1,6 +1,6 @@
 <div align="center">
 
-# [![NANNY STATE logo](https://user-images.githubusercontent.com/16646/126525019-a2e607fa-c603-4161-8bc3-b9f204a9ce7d.png)](https://www.npmjs.com/package/nanny-state)
+# [![NANNY STATE logo](images/logo.png)](https://www.npmjs.com/package/nanny-state)
   
 > Simple state management using just JavaScript
 
@@ -12,13 +12,13 @@
 
 **NANNY STATE** provides a simple to use declarative API that makes it easy to build interactive user interfaces.
 
-It stores all the app data in a single state object and takes care of updating the view whenever the state changes, which leaves you to focus on how the data changes and how it should be rendered.
+It stores all the app data in a single state object and updates the view whenever the state changes.
 
 NANNY STATE is:
 
-- **FAST AND EASY** - Build interactive user interfaces that render blazing fast with just a few lines of code.
-- **PREDICTABLE** - All the data is stored in one place and updated in the same way, making your code more organized, predictable and easier to test.
-- **EASY TO LEARN** - There are only a few basic concepts to learn, hardly any boilerplate code and everything is written in plain old Javascript - there's no new syntax to learn!
+- **FAST AND EASY** - Build interactive user interfaces that render blazingly fast with just a few lines of code.
+- **PREDICTABLE** - All the data is stored in one place, making your code more organized, predictable and easier to test.
+- **EASY TO LEARN** - There are only a few basic concepts to learn and everything is written in Javascript - there's no new syntax to learn!
 
 Whether you are building a small interactive web page or large complex app, NANNY STATE is a simple and fun alternative to React and Vue! It's quick to get started - just follow the [examples](#usage-examples) below and you'll see some impressive results in just a few lines of code.
 
@@ -28,15 +28,15 @@ NANNY STATE is comprised of 3 interdependent parts:
 
 * **State** - usually an object that stores all the information about the app
 * **View** -  a function that returns a string of HTML based on the current state
-* **Transformers** - functions that update the state based on events
+* **Transformers** - pure functions that update the state based on events
 
-The state is the single source of truth in the application and stores all the information about the app, including the settings, as data. The only way to update the state is via the `update` function. This ensures that any changes are deterministic and have predictable outcomes.
+The state is the single source of truth in the application and stores all the information about the app as data. The state can only be updated by passing transformer functions to Nanny State's `Update` function. This ensures that any changes are deterministic and have predictable outcomes.
 
 ## Background
 
 NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the [lit-html](https://lit-html.polymer-project.org) library for rendering. 
 
-It also has a lot of similarities with [Elm](https://elm-lang.org), although I'd never used Elm when I first wrote it. It is open source software, please feel free to help out or contribute.
+It also has some similarities with [Elm](https://elm-lang.org), although I'd never used Elm when I first wrote it. It is open source software; please feel free to help out or contribute.
 
 ## Data Flow
 
@@ -44,7 +44,7 @@ NANNY STATE uses a one-way data flow model:
 
 <div align="center">
   
-![Nanny State](https://user-images.githubusercontent.com/16646/125978059-95ed42bb-5676-484a-8391-fa73d20280a0.png)
+![Nanny State data flow diagram](images/data-flow.png)
 
 </div>
 
@@ -80,13 +80,15 @@ import { Nanny, html } from "https://esm.run/nanny-state";
 
 The easiest way to learn how NANNY STATE works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. 
 
-Alternatively you could set up a basic HTML file with a linked JS file that contains all the NANNY STATE code. And if you want it to look pretty, just copy the CSS code from the examples on CodePen!
+Alternatively you could set up a basic HTML file and place all the code inside the `<script>` tags.
+
+And if you want it to look pretty, just copy the CSS code from the examples on CodePen!
 
 ### Hello World Example
 
 <div align="center">
 
-![Screenshot Hello World](https://user-images.githubusercontent.com/16646/126525155-dcb10d3d-7331-4bbc-92f3-0b6e90c1931a.png)
+![Hello World screenshot](images/hello-world.png)
 
 </div>
 
@@ -130,7 +132,7 @@ This passes the state object into the `Nanny` function, which then takes care of
 
 <div align="center">
 
-![Screenshot Hello Batman](https://user-images.githubusercontent.com/16646/125826661-0b799f2d-613d-45b8-9bef-5c0d214fe669.png)
+![Hello Batman screenshot](images/hello-batman.png)
 
 </div>
 
@@ -190,7 +192,7 @@ A transformer function accepts the current state as an argument and returns a ne
 
 <div align="center">
 
-![Transformer screenshot](https://user-images.githubusercontent.com/16646/125978502-29d3f173-626a-48b1-8214-5368f1fe7824.png)
+![Transformer function diagram](images/transformer.png)
 
 </div>
 
@@ -224,7 +226,7 @@ The next example will be a simple counter app that lets the user increase or dec
 
 <div align="center">
 
-![Screenshot Counter Example](https://user-images.githubusercontent.com/16646/125827676-f8510690-5b2e-4e98-b8b2-d00b8f530061.png)
+![Counter Example screenshot](images/counter.png)
 
 </div>
 
