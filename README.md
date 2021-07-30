@@ -92,7 +92,8 @@ Alternatively you could set up a basic HTML file with a linked JS file that cont
 
 This is a simple example to show how Nanny State renders the view based on the state.
 
-You can see finished app and code [on CodePen](https://codepen.io/daz4126/pen/zYwZjWw).
+You can see finished app and code on [CodePen](https://codepen.io/daz4126/pen/zYwZjWw).
+
 Start by importing the NANNY STATE functions:
 
 ```javascript
@@ -102,7 +103,7 @@ import { Nanny,html } from 'nanny-state'
 Next create an object to represent the initial state (the state is usally an object, but can be any data-type). The state stores every bit of information about our app as data. In this simple example, we just want to store the value of a property called 'name':
 
 ```javascript
-const State = { name: ‘World’ }
+const State = { name: "World" }
 ```
 
 Our next job is to create the view - this is a function that accepts the state as an argument and returns a string of HTML that depends on the value of the state's properties. In NANNY STATE, everything is stored as a property of the state, even the view!
