@@ -1,0 +1,55 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+  }
+  
+  html{
+    background: #12c2e9;
+    background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+    color: #222;
+    font: 18px sans-serif;
+  }
+  
+  body{
+    text-align: center;
+  }
+  
+  h1,h2{
+    font-family: sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    text-align: center;
+  }
+  
+  h1{
+    font-size: 48px;
+  }
+  
+  h2{
+    font-size: 28px;
+  }
+  
+  #counter{
+    color: #fff;
+    font: 128px sans-serif;
+  }
+  
+  ::selection {
+      color: none;
+      background: none;
+  }
+  
+  button{
+    color: #fff;
+    background: transparent;
+    border: 1px #fff solid;
+    padding: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    min-width: 10em;
+    margin: 4px;
+  }
+  
+  button:hover, button:active, button:focus{
+    background: #fff;
+    color: #d54fee;
+  }
