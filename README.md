@@ -192,7 +192,7 @@ A transformer function accepts the current state as an argument and returns a ne
 
 <div align="center">
 
-![Transformer function diagram](images/transformer.png)
+![Transformer function diagram](https://user-images.githubusercontent.com/16646/125978502-29d3f173-626a-48b1-8214-5368f1fe7824.png)
 
 </div>
 
