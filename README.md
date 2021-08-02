@@ -226,7 +226,7 @@ The next example will be a simple counter app that lets the user increase or dec
 
 <div align="center">
 
-![Counter Example screenshot](./images/counter.png)
+![Counter Example screenshot](https://user-images.githubusercontent.com/16646/125827676-f8510690-5b2e-4e98-b8b2-d00b8f530061.png)
 
 </div>
 
