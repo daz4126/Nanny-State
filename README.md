@@ -1,6 +1,6 @@
 <div align="center">
 
-# [![NANNY STATE logo](images/logo.png)](https://www.npmjs.com/package/nanny-state)
+# [![NANNY STATE logo](images/logo.png)](https://user-images.githubusercontent.com/16646/126525019-a2e607fa-c603-4161-8bc3-b9f204a9ce7d.png)
   
 > Simple state management using just JavaScript
 
@@ -44,7 +44,7 @@ NANNY STATE uses a one-way data flow model:
 
 <div align="center">
   
-![Nanny State data flow diagram](images/data-flow.png)
+![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/125978059-95ed42bb-5676-484a-8391-fa73d20280a0.png)
 
 </div>
 
@@ -72,7 +72,7 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
 
 ```html
 <script type="module">
-import { Nanny, html } from "https://esm.run/nanny-state";
+import { Nanny,html } from 'https://cdn.skypack.dev/nanny-state';
 </script>
 ```
 
@@ -88,7 +88,7 @@ And if you want it to look pretty, just copy the CSS code from the examples on C
 
 <div align="center">
 
-![Hello World screenshot](images/hello-world.png)
+![Hello World screenshot](https://user-images.githubusercontent.com/16646/126525155-dcb10d3d-7331-4bbc-92f3-0b6e90c1931a.png)
 
 </div>
 
@@ -132,7 +132,7 @@ This passes the state object into the `Nanny` function, which then takes care of
 
 <div align="center">
 
-![Hello Batman screenshot](images/hello-batman.png)
+![Hello Batman screenshot](https://user-images.githubusercontent.com/16646/125826661-0b799f2d-613d-45b8-9bef-5c0d214fe669.png)
 
 </div>
 
@@ -226,7 +226,7 @@ The next example will be a simple counter app that lets the user increase or dec
 
 <div align="center">
 
-![Counter Example screenshot](images/counter.png)
+![Counter Example screenshot](./images/counter.png)
 
 </div>
 
