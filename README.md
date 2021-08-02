@@ -1,6 +1,6 @@
 <div align="center">
 
-# [![NANNY STATE logo](images/logo.png)](https://user-images.githubusercontent.com/16646/126525019-a2e607fa-c603-4161-8bc3-b9f204a9ce7d.png)
+# [![NANNY STATE logo](https://user-images.githubusercontent.com/16646/126525019-a2e607fa-c603-4161-8bc3-b9f204a9ce7d.png)
   
 > Simple state management using just JavaScript
 
