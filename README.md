@@ -180,10 +180,12 @@ The `Update` function can now be used to update the state. After any change to t
 To see this in action, let's write the `beBatman` event handler function to update the state and change the state object's 'name' property to 'Batman' when the button is clicked (note that this function needs to go *before* the `view` function in your code):
 
 ```javascript
-const beBatman = event => Update(state => ({ name: 'Batman'}))
+const beBatman = event => Update(nameToBatman)
 ```
 
-Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `Update` function. This accepts an anonymous function as an argument that tells Nanny State how to update the state. This anonymous function is a **transformer function** that tells NANNY STATE how to update the value of the state.
+Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `Update` function. The argument to this function, `nameToBatman`, is a reference to a **transformer function** that tells NANNY STATE how to update the value of the state.
+
+We still need to write this function, but transformer functions are a really important part of NANNY STATE, so let's take a look at how they work before we write it.
 
 #### Transformer Functions
 
@@ -207,17 +209,19 @@ If the transformer doesn't have any other parameters, apart from the current sta
 state => newState
 ```
 
-In our Batman example the transformer function returns a new object with the 'name' property of 'Batman':
+In our Batman example we want the transformer function to update the 'name' property to 'Batman'. This means that it needs to return a new object with a 'name' property of 'Batman'. Add the following code underneath the event handler:
 
 ```javascript
-state => ({ name: 'Batman'})
-````
+const nameToBatman = state => ({ name: 'Batman'})
+```
 
-**Note that when arrow functions return an object, the object needs wrapping in parentheses**
+**Note that when arrow functions return an object literal, it needs wrapping in parentheses**
 
 Transformer functions are passed *by reference* to the `Update` function, which will then implicityly pass the current state as an argument.
 
-Everything is now in place and wired up. Try clicking the button and you'll see the view change based on user input!
+We now have everything wired up correctly. When the user clicks the button, the `beBatman` event handler is called. This passes the `nameToBatman` transformer function to the `Update` function which updates the state by changing the 'name' property to 'Batman'. It then re-renders the page using the new state.
+
+Try clicking the button to see the view change based on user input!
 
 ### Counter Example
 
