@@ -9,7 +9,6 @@
 
 </div>
 
-
 **NANNY STATE** provides a simple to use declarative API that makes it easy to build interactive user interfaces.
 
 It stores all the app data in a single state object and automatically updates the view whenever the state changes.
@@ -80,7 +79,7 @@ import { Nanny,html } from 'https://cdn.skypack.dev/nanny-state';
 
 The easiest way to learn how NANNY STATE works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. 
 
-Alternatively you could set up a basic HTML file and place all the code inside the `<script>` tags.
+Alternatively you could set up a basic HTML file and place all the code inside the `<script>` tags. You can see [example files here](https://github.com/daz4126/Nanny-State/tree/main/examples/counter).
 
 And if you want it to look pretty, just copy the CSS code from the examples on CodePen!
 
@@ -412,6 +411,15 @@ We can also destructure the state object in the parameter so that it only refere
 ```javascript
 const double = { count } => ({ count: count * 2})
 ```
+
+## Docs
+
+YOu can see [more in-depth docs here](https://github.com/daz4126/Nanny-State/tree/main/docs)
+
+* The Nanny State [API](https://github.com/daz4126/Nanny-State/blob/main/docs/api.md)
+* [Code Organization](https://github.com/daz4126/Nanny-State/blob/main/docs/code-organization.md) in Nanny State
+* Nanny State [Structure](https://github.com/daz4126/Nanny-State/blob/main/docs/structure.md)
+
 
 ## License
 
