@@ -34,7 +34,7 @@ The state is the single source of truth in the application and stores all the in
 
 ## Background
 
-NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the [lit-html](https://lit-html.polymer-project.org) library for rendering. 
+NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the lit-html module of the [lit](https://lit.dev/) library for rendering.
 
 It also has some similarities with [Elm](https://elm-lang.org), although I'd never used Elm when I first wrote it. It is open source software; please feel free to help out or contribute.
 
@@ -230,7 +230,7 @@ The next example will be a simple counter app that lets the user increase or dec
 
 </div>
 
-You can see the finished app and code on [CodePen](https://codepen.io/daz4126/pen/vYgdLdX!)
+You can see the finished app and code on [CodePen](https://codepen.io/daz4126/pen/vYgdLdX)
 
 The value of the count will be stored in the state as a number (the state is usually an object, but it doesn't have to be).
 Let's initialize it with a value of 10:
@@ -288,7 +288,13 @@ This will render the initial view with the count set to 10 and allow you to incr
 
 ### More Examples
 
-You can see more examples of how Nanny State can be used, with source code, on [CodePen](https://codepen.io/collection/RzbNmw).
+You can see a full set of examples of how Nanny State can be used, with source code, on [CodePen](https://codepen.io/collection/RzbNmw). This includes:
+
+* [Shopping Cart](https://codepen.io/daz4126/pen/WNjmQyB)
+* [Noughts & Crosses (Tic-Tac-Toe)](https://codepen.io/daz4126/pen/xxdYvpz)
+* [To Do List](https://codepen.io/daz4126/pen/wvgrLme)
+* [Caesar Cipher](https://codepen.io/daz4126/pen/OJprPrL)
+* [Random Fact API](https://codepen.io/daz4126/pen/ExZqKLO)
 
 ## TL;DR
 
@@ -321,7 +327,7 @@ All you need to do is decide on what properties will be in the initial state, wr
 
 ## Extra Info
 
-Now that you've learnt the basics of NANNY STATE, here are some extra options that give you some extra control over the settings.
+Now that you've learnt the basics of NANNY STATE, here's some extra info that helps give you some extra control over the settings.
 
 ### Before and After Functions
 
@@ -390,7 +396,7 @@ Transformer functions don't need to return an object that represents the full st
 
 ```javascript
 const State = {
-  name: World,
+  name: "World",
   count: 10
 }
 ```
@@ -406,10 +412,6 @@ We can also destructure the state object in the parameter so that it only refere
 ```javascript
 const double = { count } => ({ count: count * 2})
 ```
-
-## Coming Soon
-
-A more in-depth tutorial to build a [Caesar Cipher tutorial using Nanny State](https://codepen.io/daz4126/pen/OJprPrL).
 
 ## License
 
