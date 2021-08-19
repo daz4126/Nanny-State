@@ -5,7 +5,7 @@
   "main": "nanny.js",
   "type": "module",
   "dependencies": {
-    "lit-html": "^1.4.1",
+    "lit-html": "^1.4.1"
   },
   "scripts": {
     "test": "No tests yet"
