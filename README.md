@@ -2,7 +2,7 @@
 
 # ![NANNY STATE](https://user-images.githubusercontent.com/16646/126525019-a2e607fa-c603-4161-8bc3-b9f204a9ce7d.png)
   
-> Simple state management
+> simple state management
 
 [![npm](https://img.shields.io/npm/v/nanny-state)](https://www.npmjs.com/package/nanny-state)
 [![License](https://img.shields.io/badge/License-Unlicense-blue)](#license)
@@ -11,17 +11,17 @@
 
 **NANNY STATE** makes it easy to build state-based web apps without the bloat of other libraries. 
 
-It stores all the data in one place and uses the power of the [lit](https://lit.dev) library to automatically render blazingly fast views when anything changes. 
+It stores all the data in one place and uses the power of the [lit](https://lit.dev) library to automatically render the view when anything changes. 
 
-If you know HTML, CSS, and JavaScript, then you'll be building interactive web apps with a minimal amount of code in no time at all. And it's so small (less than 4kb minified and zipped!) that you won't even notice it's there!
+If you know HTML, CSS, and JavaScript, then you'll be building blazingly fast web apps with a minimal amount of code in no time at all. And it's so small (less than 4kb minified and zipped!) that you won't even notice it's there!
 
 **NANNY STATE** is:
 
-- **FAST AND MINIMAL** - Build interactive user interfaces that render blazingly fast with just a few lines of code.
-- **PREDICTABLE** - All the data is stored in one place, making your code more organized, predictable and easier to maintain.
-- **EASY TO LEARN** - There are only a few basic concepts to learn and everything is written in Javascript - there's no new syntax to learn!
+- **MINIMAL** - Build interactive user interfaces that render blazingly fast with just a few lines of code.
+- **MAINTAINABLE** - All the data is stored in one place, making your code more organized, predictable and easier to maintain.
+- **SIMPLE** - There are only a few basic concepts to learn and everything is written in Javascript - there's no new syntax to learn!
 
-Whether you are building a small interactive web page or large complex app, NANNY STATE is a simple and fun alternative to React and Vue! It's quick to get started - just follow the [examples](#usage-examples) below and you'll see some impressive results in just a few lines of code.
+Whether you are building a small interactive web page or large complex app, NANNY STATE is a minimal alternative to React and Vue! It's quick to get started - just follow the [examples](#usage-examples) below and you'll see some impressive results in just a few lines of code.
 
 ## What Is NANNY STATE?
 
@@ -33,9 +33,37 @@ NANNY STATE is comprised of 3 interdependent parts:
 
 The state is the single source of truth in the application and stores all the information about the app as data. The state can only be updated by passing transformer functions to Nanny State's `Update` function. This ensures that any changes are deterministic and have predictable outcomes.
 
+## Quick Start
+
+Building a NANNY STATE app always follows the following steps:
+
+1. Import the `Nanny` and `html` functions
+2. Decide on the structure of your data and create a state object
+3. Decide how you want the data to be displayed and create a view template
+4. Create transformer functions to describe how the state change when the user interacts with the page
+5. Call the `Nanny(State)` function
+
+The basic structure of any NANNY STATE app is:
+
+```javascript
+import { Nanny, html } from 'nanny-state'
+
+const view = html`some view code here`
+const State = { 
+  prop: value, 
+  view
+}
+const transformer = state => { newState }
+const handler = event => update(transformer)
+
+const Update = Nanny(State)
+```
+
 ## Background
 
 NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the lit-html module of the [lit](https://lit.dev/) library for rendering. It is open source software; please feel free to help out or contribute.
+
+The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective government. There's also a [really good non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans)
 
 ## Data Flow
 
@@ -74,7 +102,7 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
   import { Nanny,html } from 'https://cdn.skypack.dev/nanny-state';
 </script>
 ```
-
+<div id='usage-examples'>
 ## Usage example
 
 The easiest way to learn how NANNY STATE works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. 
@@ -298,35 +326,8 @@ You can see a full set of examples of how Nanny State can be used, with source c
 * [To Do List](https://codepen.io/daz4126/pen/wvgrLme)
 * [Caesar Cipher](https://codepen.io/daz4126/pen/OJprPrL)
 * [Random Fact API](https://codepen.io/daz4126/pen/ExZqKLO)
-
-## TL;DR
-
-In summary, all you need to do to create a NANNY STATE app is the following:
-
-1. Import the NANNY STATE functions
-1. Create the initial state, `State`
-1. Create the view template and make it a property of `State`
-1. Write event handlers that deal with user input
-1. Write transformer functions that update the state
-1. Call the `Nanny(State)` function
-
-The basic structure of any NANNY STATE code is:
-
-```javascript
-import { Nanny, html } from 'nanny-state'
-
-const view = html`some view code here`
-const State = { 
-  // initial values ..., 
-  view
-}
-const transformer = state => { newState }
-const handler = event => update(transformer)
-
-const Update = Nanny(State)
-```
-
-All you need to do is decide on what properties will be in the initial state, write your view template and then write some event handlers and transformer functions that describe how the state should change when the user interacts with the page.
+  
+  </div>
 
 ## Extra Info
 
