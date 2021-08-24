@@ -11,7 +11,9 @@
 
 **NANNY STATE** makes it easy to build state-based web apps without the bloat of other libraries. 
 
-It stores all the data in one place and uses the power of the [lit](https://lit.dev) library to automatically render blazingly fast views when anything changes. If you know HTML, CSS and JavaScript then you'll be building interactive web apps with a minimal amount of code in no time at all. And it's so small (less than 4kb minified and zipped!) that you won't even notice it's there!
+It stores all the data in one place and uses the power of the [lit](https://lit.dev) library to automatically render blazingly fast views when anything changes. 
+
+If you know HTML, CSS, and JavaScript, then you'll be building interactive web apps with a minimal amount of code in no time at all. And it's so small (less than 4kb minified and zipped!) that you won't even notice it's there!
 
 **NANNY STATE** is:
 
@@ -69,7 +71,7 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
 
 ```html
 <script type="module">
-import { Nanny,html } from 'https://cdn.skypack.dev/nanny-state';
+  import { Nanny,html } from 'https://cdn.skypack.dev/nanny-state';
 </script>
 ```
 
@@ -260,7 +262,7 @@ const Counter = number => html`<div id='counter'>${number}</div>
                                <button @click=${up}>+</button>`
 ```
 
-The two buttons call the two event handlers, `down` and `up` that deal with changing the value of the count when they are pressed. We're going to need to transformer function to deal with incrementing this value, so let's write it:
+The two buttons call the event handlers, `down` and `up`, which deal with changing the value of the counter when they are pressed. We're going to need to transformer function to deal with incrementing this value, so let's write it:
 
 ```javascript
 const increment = number => (i=1) => number + i
@@ -310,7 +312,7 @@ In summary, all you need to do to create a NANNY STATE app is the following:
 
 The basic structure of any NANNY STATE code is:
 
-```
+```javascript
 import { Nanny, html } from 'nanny-state'
 
 const view = html`some view code here`
