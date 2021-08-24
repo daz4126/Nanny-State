@@ -9,7 +9,9 @@
 
 </div>
 
-**NANNY STATE** makes it easy to build state-based web apps with a minimal amount of code. It stores all the data in one place and uses the power of the [lit](https://lit.dev) library to automatically render blazingly fast views when anything changes. If you know HTML, CSS and JavaScript then you'll be building interactive web apps in no time at all. And it's so small (less than 4kb minified and zipped!) that you won't even notice it's there!
+**NANNY STATE** makes it easy to build state-based web apps without the bloat of other libraries. 
+
+It stores all the data in one place and uses the power of the [lit](https://lit.dev) library to automatically render blazingly fast views when anything changes. If you know HTML, CSS and JavaScript then you'll be building interactive web apps with a minimal amount of code in no time at all. And it's so small (less than 4kb minified and zipped!) that you won't even notice it's there!
 
 **NANNY STATE** is:
 
