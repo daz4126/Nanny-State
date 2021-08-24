@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1 style='font-family: sans-serif;text-transform: uppercase;letter-spacing: 0.5em;text-align: center;font-size: 48px;>Nanny State</h1>
+# ![NANNY STATE](https://user-images.githubusercontent.com/16646/126525019-a2e607fa-c603-4161-8bc3-b9f204a9ce7d.png)
   
 > Simple state management
 
