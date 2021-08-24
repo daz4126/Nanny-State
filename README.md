@@ -416,7 +416,7 @@ const double = { count } => ({ count: count * 2})
 
 ## Docs
 
-YOu can see [more in-depth docs here](https://github.com/daz4126/Nanny-State/tree/main/docs)
+You can see [more in-depth docs here](https://github.com/daz4126/Nanny-State/tree/main/docs)
 
 * The Nanny State [API](https://github.com/daz4126/Nanny-State/blob/main/docs/api.md)
 * [Code Organization](https://github.com/daz4126/Nanny-State/blob/main/docs/code-organization.md) in Nanny State
