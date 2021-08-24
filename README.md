@@ -2,21 +2,19 @@
 
 # ![NANNY STATE](https://user-images.githubusercontent.com/16646/126525019-a2e607fa-c603-4161-8bc3-b9f204a9ce7d.png)
   
-> Simple state management using just JavaScript
+> Simple state management
 
 [![npm](https://img.shields.io/npm/v/nanny-state)](https://www.npmjs.com/package/nanny-state)
 [![License](https://img.shields.io/badge/License-Unlicense-blue)](#license)
 
 </div>
 
-**NANNY STATE** provides a simple to use declarative API that makes it easy to build interactive user interfaces.
+**NANNY STATE** makes it easy to build state-based web apps with a minimal amount of code. It stores all the data in one place and uses the power of the [lit](https://lit.dev) library to automatically render blazingly fast views when anything changes. If you know HTML, CSS and JavaScript then you'll be building interactive web apps in no time at all. And it's so small (less than 4kb minified and zipped!) that you won't even notice it's there!
 
-It stores all the app data in a single state object and automatically updates the view whenever the state changes.
+**NANNY STATE** is:
 
-NANNY STATE is:
-
-- **FAST AND EASY** - Build interactive user interfaces that render blazingly fast with just a few lines of code.
-- **PREDICTABLE** - All the data is stored in one place, making your code more organized, predictable and easier to test.
+- **FAST AND MINIMAL** - Build interactive user interfaces that render blazingly fast with just a few lines of code.
+- **PREDICTABLE** - All the data is stored in one place, making your code more organized, predictable and easier to maintain.
 - **EASY TO LEARN** - There are only a few basic concepts to learn and everything is written in Javascript - there's no new syntax to learn!
 
 Whether you are building a small interactive web page or large complex app, NANNY STATE is a simple and fun alternative to React and Vue! It's quick to get started - just follow the [examples](#usage-examples) below and you'll see some impressive results in just a few lines of code.
@@ -33,9 +31,7 @@ The state is the single source of truth in the application and stores all the in
 
 ## Background
 
-NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the lit-html module of the [lit](https://lit.dev/) library for rendering.
-
-It also has some similarities with [Elm](https://elm-lang.org), although I'd never used Elm when I first wrote it. It is open source software; please feel free to help out or contribute.
+NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the lit-html module of the [lit](https://lit.dev/) library for rendering. It is open source software; please feel free to help out or contribute.
 
 ## Data Flow
 
