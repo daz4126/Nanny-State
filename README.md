@@ -103,6 +103,7 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
 </script>
 ```
 <div id='usage-examples'>
+  
 ## Usage example
 
 The easiest way to learn how NANNY STATE works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. 
