@@ -1,4 +1,4 @@
-import {html, render} from 'lit-html';
+import {html, svg, render} from 'uhtml';
 
 function Nanny(
   state = {},
@@ -12,7 +12,7 @@ function Nanny(
   } = {}
 ) {
   // Initial state.
-  render(view(state), element);
+  render(element,view(state));
 
   if (debug || logState) {
     console.log(state);
@@ -41,8 +41,8 @@ function Nanny(
       after(state);
     }
 
-    // Update.
-    render(view(state), element);
+    // Re-render the view based on updated state.
+    render(element,view(state));
 
     if (debug || logState) {
       console.log(state);
