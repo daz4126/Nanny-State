@@ -28,7 +28,7 @@ const hello = event =>
 
 export default const view = state => 
   html`<h1>Hello ${state.hello}</h1>
-       <button @click=${Update.hello}>Click Me</button>`
+       <button onclick=${hello}>Click Me</button>`
 ```
 
 [Example on CodeSandbox](https://codesandbox.io/s/nanny-state-import-view-9806y)
@@ -65,7 +65,7 @@ import { hello } from './transformers.js'
 
 export const view = state => 
   html`<h1>Hello ${state.hello}</h1>
-       <button @click=${hello}>Click Me</button>`
+       <button onclick=${hello}>Click Me</button>`
 ```
 
 transformers.js
@@ -88,7 +88,7 @@ import { html } from 'nanny-state'
 import { hello } from './transformers.js'
 
 export const button = state => 
-  html`<button @click=${hello}>Click Me</button>`
+  html`<button onclick=${hello}>Click Me</button>`
 ```
 
 You can then import this component into the 'view.js' file and use it inside the view function using template literal interpolation:

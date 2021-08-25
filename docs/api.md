@@ -52,6 +52,34 @@ An alias for the `debug` parameter. Also a Boolean value. If set to true then th
 
 Default value is `false`
 
+All of the parameters can either be provided as properties of the `State` object or as an options object provided as the second argument to the `Nanny` function. The following are equivalent:
+
+Providing options as properties of `State`:
+```javascript
+const State = {
+    hello: 'World',
+    view: state => html`Hello ${name}`,
+    element: document.getElementById('app'),
+    debug: true
+}
+Nanny(State)
+```
+
+Providing options as a second argument:
+```javascript
+const State = {
+    hello: 'World',
+    view: state => html`Hello ${name}`,
+    element: document.getElementById('app'),
+    debug: true
+}
+Nanny(State, { 
+    view: state => html`Hello ${name}`,
+    element: document.getElementById('app'),
+    debug: true
+})
+```
+
 ## Update Function
 
 returns: updated state object or value

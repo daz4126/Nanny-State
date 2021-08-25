@@ -11,7 +11,7 @@
 
 **NANNY STATE** makes it easy to build state-based web apps without the bloat of other libraries. 
 
-It stores all the data in one place and uses the power of the [lit](https://lit.dev) library to automatically render the view when anything changes. 
+It stores all the data in one place and uses the power of the [µhtml](https://github.com/WebReflection/uhtml) library to automatically render the view when anything changes. 
 
 If you know HTML, CSS, and JavaScript, then you'll be building blazingly fast web apps with a minimal amount of code in no time at all. And it's so small (less than 4kb minified and zipped!) that you won't even notice it's there!
 
@@ -61,9 +61,9 @@ const Update = Nanny(State)
 
 ## Background
 
-NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the lit-html module of the [lit](https://lit.dev/) library for rendering. It is open source software; please feel free to help out or contribute.
+NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
 
-The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective government. There's also a [really good non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans)
+The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective government. In a similar way, NANNY STATE looks after your state object and takes care of the rendering for you. There's also a [really good non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans).
 
 ## Data Flow
 
@@ -178,7 +178,7 @@ Next we'll create the view template and assign it to the variable `view`:
 
 ```javascript
 const view = state => html`<h1>Hello ${state.name}</h1>
-                           <button @click=${beBatman}>I'm Batman</button>`
+                           <button onclick=${beBatman}>I'm Batman</button>`
 ```
 
 This view is similar to the one we used in the Hello World example, but it also contains a button with an event listener. We'll get to this soon, but first we need to create the initial state:
@@ -189,7 +189,7 @@ const State = { name: 'Bruce Wayne', view }
 
 Notice that as well as assigning the 'name' property the value of 'Bruce Wayne', we also add the `view` variable as a property of the `State` object using the shorthand object assignment.
 
-Now let's take a look at the inline event listener attached to the button using the `@event${handler}` notation [used by lit-html](https://lit-html.polymer-project.org/guide/writing-templates#add-event-listeners). When the button is clicked the event handler 'beBatman' will be called. We want this function to update the state object so the 'name' property changes to 'Batman'.
+Now let's take a look at the inline event listener attached to the button, using `onclick`. When the button is clicked the event handler 'beBatman' will be called. We want this function to update the state object so the 'name' property changes to 'Batman'.
 
 The only way we can update the state is to use the `Update` function that is returned by the `Nanny` function.
 
@@ -287,8 +287,8 @@ Now we need to write the code for the `Counter` component (note it is convention
 
 ```javascript
 const Counter = number => html`<div id='counter'>${number}</div>
-                               <button @click=${down}>-</button>
-                               <button @click=${up}>+</button>`
+                               <button onclick=${down}>-</button>
+                               <button onclick=${up}>+</button>`
 ```
 
 The two buttons call the event handlers, `down` and `up`, which deal with changing the value of the counter when they are pressed. We're going to need to transformer function to deal with incrementing this value, so let's write it:

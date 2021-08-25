@@ -19,32 +19,18 @@ The state can only be changed using the `Update` function that is returned by th
 
 ## View
 
-The view is a string of HTML that is based on the current state. Nanny State uses the `html` and `render` modules from the [lit](https://lit.dev/) library to render views.
+The view is a string of HTML that is based on the current state. Nanny State uses the `html`, `svg` and `render` modules from the  [µhtml](https://github.com/WebReflection/uhtml) library to render views.
 
-Any view needs to be written as a function that accepts the state as a parameter and return the `html` function that is provided by lit. 
+Any view needs to be written as a function that accepts the state as a parameter and return the `html` function that is provided by µhtml. 
 The `html` function is a tagged template literal.
 
 Any properties of the state object that are in the view will be bound to the state. This means that any changes in the state will result in a change in the view.
 
-### Event listeners
-
-Event listeners are added inline to elements using the `@event` notation used by lit.
-
-For example, to add a click event to a button, use the following code in the view:
-
-```html
-<button @click=${handler}>Click Me</button>
-```
-
-This will call the `handler` function. Event handlers can also be defined inline, like so:
-
-```html
-<button @click=${event => {Update(transformer)}}>Click Me</button>
-```
-
-### HTML properties
-
 ### Components
+
+Components are fragments of HTML that can be reused inside the main view. They are created in exactly the same way the view template is created, using the `html` function. For example
+
+To insert a component inside a view (or even another component), use the 
 
 ## Transformers
 
