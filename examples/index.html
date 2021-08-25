@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NANNY STATE - Counter Example</title>
+    
+    <link rel="stylesheet" href="styles.css" media="screen">
+
+    <script type="module">
+        import { Nanny, html } from "https://cdn.skypack.dev/nanny-state";
+
+        // initial state
+        const State = {
+            name: "World"
+        }
+
+        // transformers are just  functions that map the old state to the new state
+        const hello = event => Update(state => ({ hello: 'Nanny State' }))
+
+        // main view - has to accept the state as a parameter
+        const view = state =>
+            html`<h1>Hello ${state.hello}</h1>
+                 <button onclick=${hello}>Click Me</button>`
+
+        // create a new Nanny State
+        const Update = Nanny(State, { view })
+    </script>
+</head>
+
+<body>
+    <h1>Test</h1>
+</body>
+
+</html>

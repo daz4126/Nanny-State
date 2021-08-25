@@ -6,6 +6,7 @@
 
 [![npm](https://img.shields.io/npm/v/nanny-state)](https://www.npmjs.com/package/nanny-state)
 [![License](https://img.shields.io/badge/License-Unlicense-blue)](#license)
+![Blazingly Fast](https://img.shields.io/badge/speed-blazing%20🔥-blue.svg)
 
 </div>
 
@@ -13,7 +14,7 @@
 
 It stores all the data in one place and uses the power of the [µhtml](https://github.com/WebReflection/uhtml) library to automatically render the view when anything changes. 
 
-If you know HTML, CSS, and JavaScript, then you'll be building blazingly fast web apps with a minimal amount of code in no time at all. And it's so small (less than 4kb minified and zipped!) that you won't even notice it's there!
+If you know HTML, CSS, and JavaScript, then you'll be building blazingly fast web apps with a minimal amount of code in no time at all. And it's so small (approx 3kb minified and zipped!) that you won't even notice it's there!
 
 **NANNY STATE** is:
 
@@ -21,7 +22,7 @@ If you know HTML, CSS, and JavaScript, then you'll be building blazingly fast we
 - **MAINTAINABLE** - All the data is stored in one place, making your code more organized, predictable and easier to maintain.
 - **SIMPLE** - There are only a few basic concepts to learn and everything is written in Javascript - there's no new syntax to learn!
 
-Whether you are building a small interactive web page or large complex app, NANNY STATE is a minimal alternative to React and Vue! It's quick to get started - just follow the [examples](#usage-examples) below and you'll see some impressive results in just a few lines of code.
+Whether you are building a small interactive web page or large complex app, NANNY STATE is a minimal alternative to React and Vue! It's quick to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
 ## What Is NANNY STATE?
 
@@ -32,32 +33,6 @@ NANNY STATE is comprised of 3 interdependent parts:
 * **Transformers** - pure functions that update the state based on events
 
 The state is the single source of truth in the application and stores all the information about the app as data. The state can only be updated by passing transformer functions to Nanny State's `Update` function. This ensures that any changes are deterministic and have predictable outcomes.
-
-## Quick Start
-
-Building a NANNY STATE app always follows the following steps:
-
-1. Import the `Nanny` and `html` functions
-2. Decide on the structure of your data and create a state object
-3. Decide how you want the data to be displayed and create a view template
-4. Create transformer functions to describe how the state change when the user interacts with the page
-5. Call the `Nanny(State)` function
-
-The basic structure of any NANNY STATE app is:
-
-```javascript
-import { Nanny, html } from 'nanny-state'
-
-const view = html`some view code here`
-const State = { 
-  prop: value, 
-  view
-}
-const transformer = state => { newState }
-const handler = event => update(transformer)
-
-const Update = Nanny(State)
-```
 
 ## Background
 
@@ -102,9 +77,57 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
   import { Nanny,html } from 'https://cdn.skypack.dev/nanny-state';
 </script>
 ```
-<div id='usage-examples'>
+
+## Quick Start Guide
+
+Building a NANNY STATE app is simple and straightforward. It always follows these steps:
+
+1. Import the `Nanny` and `html` functions:
+   ```javascript
+   import { Nanny, html } from 'nanny-state'
+   ````
+2. Decide on the structure of your data and create a state object:
+   ````javascript
+   const State = { 
+      name: "World",
+      view
+     }
+   ```
+3. Decide how you want the data to be displayed and create a view template:
+   ```javascript
+   const view = state =>
+      html`<h1>Hello ${name}
+           <button onclick=${hello}>Click Me</button>`
+   ```
+4. Create transformer functions to describe how the state changes when the user interacts with the page:
+  ```javascript
+  const hello = state => { name: "Nanny State" }
+  ```
+
+5. Assign the `Update` function to the return value of `Nanny(State)`:
+  ```javascript
+  const Update = Nanny(State)
+  ```
+
+The basic structure of any NANNY STATE app is:
+
+```javascript
+import { Nanny, html } from 'nanny-state'
+
+const view = html`some view code here`
+const State = { 
+  prop: value, 
+  view
+}
+const transformer = state => { newState }
+const handler = event => update(transformer)
+
+const Update = Nanny(State)
+```
+
+<div id="examples">
   
-## Usage example
+## Usage examples
 
 The easiest way to learn how NANNY STATE works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. 
 

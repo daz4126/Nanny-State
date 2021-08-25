@@ -30,7 +30,18 @@ Any properties of the state object that are in the view will be bound to the sta
 
 Components are fragments of HTML that can be reused inside the main view. They are created in exactly the same way the view template is created, using the `html` function. For example
 
-To insert a component inside a view (or even another component), use the 
+To insert a component inside a view (or even another component), use the template literal placeholder syntax to call the component (remember that it's just a function). The example below shows how a component called `buttonComponent` can be inserted into the main view:
+
+```javascript
+// component
+const buttonComponent = state =>
+    html`<button>${state.buttonName}</button>`
+
+// main view
+const view = state =>
+   html`<h1>${state.title}</h1>
+        ${buttonComponent(state)}`
+```
 
 ## Transformers
 
