@@ -114,12 +114,12 @@ The basic structure of any NANNY STATE app is:
 ```javascript
 import { Nanny, html } from 'nanny-state'
 
-const view = html`some view code here`
+const view = state => html`some view code here`
 const State = { 
   prop: value, 
   view
 }
-const transformer = state => { newState }
+const transformer = state => ({ newState })
 const handler = event => update(transformer)
 
 const Update = Nanny(State)
