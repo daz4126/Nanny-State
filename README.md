@@ -167,7 +167,7 @@ It is stored as a property called 'view', which we can create like so:
 State.view = state => html`<h1>Hello ${state.name}</h1>`
 ```
 
-Any view in NANNY STATE uses the `html` template function that is part of lit-html. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code for the view and uses the standard `${expression}` placeholders to insert values from the state.
+Any view in NANNY STATE uses the `html` template function that is part of µhtml. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code for the view and uses the standard `${expression}` placeholders to insert values from the state.
 
 These values are then bound to the view which ensures the view will automatically update to reflect any changes in the state. In this example we are inserting the value of the state object's 'name' property into the `<h1>` element.
 
