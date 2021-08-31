@@ -30,12 +30,6 @@ NANNY STATE is comprised of 3 interdependent parts:
 
 The state is the single source of truth in the application and it can only be updated by NANNY STATE, ensuring that any changes are deterministic with predictable outcomes.
 
-## Background
-
-NANNY STATE was inspired by [Hyperapp](https://hyperapp.dev) and [Redux](https://redux.js.org) and uses the [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
-
-The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE is overly protective of all the app data that it stores centrally. I'm also a big fan of [the non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans).
-
 ## Data Flow
 
 NANNY STATE uses a one-way data flow model:
@@ -47,6 +41,13 @@ NANNY STATE uses a one-way data flow model:
 </div>
 
 When a user interacts with the page, it triggers an event that uses a transformer function to update the state. The page is then automatically re-rendered to reflect these changes.
+
+## Background
+
+NANNY STATE was inspired by [Hyperapp](https://hyperapp.dev) and [Redux](https://redux.js.org) and uses the [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
+
+The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE is overly protective of all the app data that it stores centrally. I'm also a big fan of [the non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans).![Screenshot 2021-08-31 at 15 52 29](https://user-images.githubusercontent.com/16646/131525437-8e917373-8dcd-4ed4-889c-dcc6c8ba60ce.png)
+
 
 ## Installation
 
@@ -279,7 +280,7 @@ The next example will be a simple counter app that lets the user increase or dec
 
 <div align="center">
 
-![Counter Example screenshot](https://user-images.githubusercontent.com/16646/125827676-f8510690-5b2e-4e98-b8b2-d00b8f530061.png)
+![Counter Example screenshot](https://user-images.githubusercontent.com/16646/131525466-69b5fd87-a811-4b7f-87f7-4f333780f08f.png)
 
 </div>
 
