@@ -10,7 +10,7 @@
 
 </div>
 
-**NANNY STATE** makes it simple to build blazingly fast state-based web apps with a minimal amount of vanilla JavaScript.
+**NANNY STATE** makes it simple to build blazingly fast state-based web apps.
 
 - **SIMPLE** - Build interactive user-interfaces that render blazingly quickly with just a few lines of vanilla JS.
 - **MINIMAL** - Only 3kb when minified and zipped with no transpiling.
