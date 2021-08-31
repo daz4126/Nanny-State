@@ -12,7 +12,7 @@
 
 **NANNY STATE** makes it simple to build blazingly fast state-based web apps.
 
-- **SIMPLE** - Build interactive user-interfaces that render blazingly quickly with just a few lines of vanilla JS.
+- **SIMPLE** - Build interactive user-interfaces with just a few lines of vanilla JS.
 - **MINIMAL** - Only 3kb when minified and zipped with no transpiling.
 
 **NANNY STATE** stores the state in one place and automatically renders the view when it changes. This helps to keep your code organized, predictable and easier to maintain without the bloat of other front-end libraries.
