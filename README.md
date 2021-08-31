@@ -10,11 +10,11 @@
 
 </div>
 
-**NANNY STATE** makes it easy to build state-based web apps without the bloat of other libraries. 
+**NANNY STATE** makes it easy to build blazingly fast state-based web apps with vanilla JavaScript. 
 
-It stores all the data in one place and uses the power of the [µhtml](https://github.com/WebReflection/uhtml) library to automatically render the view when anything changes. 
+It stores all the data in one place and uses the power of [µhtml](https://github.com/WebReflection/uhtml) to automatically render the view when anything changes. 
 
-It helps you build blazingly fast web apps with vanilla JavaScript and no compile step. And it's so small (approx 3kb minified and zipped!) that you won't even notice it's there!
+And at only 3kb minified and zipped with no compile step, it's the perfect alternative to the bloat of other front-end libraries!
 
 **NANNY STATE** is:
 
@@ -32,13 +32,13 @@ NANNY STATE is comprised of 3 interdependent parts:
 * **View** -  a function that returns a string of HTML based on the current state
 * **Transformers** - pure functions that update the state
 
-The state is the single source of truth in the application and stores all the information about the app as data. The state can only be updated by passing transformer functions to Nanny State's `Update` function. This ensures that any changes are deterministic and have predictable outcomes.
+The state is the single source of truth in the application and it can only be updated by NANNY STATE, ensuring that any changes are deterministic with predictable outcomes.
 
 ## Background
 
-NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
+NANNY STATE was inspired by [Hyperapp](https://hyperapp.dev) and [Redux](https://redux.js.org) and uses the [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
 
-The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective and centralised government. In a similar way, NANNY STATE keeps all the app data centrally is overly protective of it. There's also a [really good non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans).
+The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE is overly protective of all the app data that it stores centrally. I'm also a big fan of [the non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans).
 
 ## Data Flow
 
@@ -248,6 +248,8 @@ A transformer function accepts the current state as an argument and returns a ne
 ![Transformer function diagram](https://user-images.githubusercontent.com/16646/125978502-29d3f173-626a-48b1-8214-5368f1fe7824.png)
 
 </div>
+  
+ES6 arrow functions are perfect for transformer functions as they visually show the mapping of the current state to a new state.
 
 Transformer functions must be **[pure functions](https://en.wikipedia.org/wiki/Pure_function)**. They should always return the same state given the same arguments and should not cause any side-effects. They take the following structure:
 
