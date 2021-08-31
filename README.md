@@ -19,7 +19,7 @@
 
 Whether you are building a small interactive web page or large complex app, NANNY STATE is the simple and minimal alternative to React and Vue!
 
-It's essy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
+It's easy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
 ## What Is NANNY STATE?
 
