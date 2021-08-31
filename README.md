@@ -16,7 +16,6 @@ It stores the state in one place and automatically renders the view when it chan
 
 - **SIMPLE** - Build interactive user-interfaces that render blazingly quickly with just a few lines of vanilla JS.
 - **MINIMAL** - Only 3kb when minified and zipped with no transpiling.
-- **MAINTAINABLE** - All the data is stored in one place, making your code more.
 
 Whether you are building a small interactive web page or large complex app, NANNY STATE keeps your code organized, predictable and easier to maintain without the bloat of other front-end libraries.
 
