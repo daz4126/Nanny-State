@@ -10,17 +10,13 @@
 
 </div>
 
-**NANNY STATE** makes it easy to build blazingly fast state-based web apps with vanilla JavaScript. 
+**NANNY STATE** makes it easy to build blazingly fast state-based web apps in vanilla JavaScript without the bloat of other front-end libraries.
 
-It stores all the data in one place and uses the power of [µhtml](https://github.com/WebReflection/uhtml) to automatically render the view when anything changes. 
+It stores all the app data in a single state object and uses the power of [µhtml](https://github.com/WebReflection/uhtml) to automatically render the view when anything changes. 
 
-And at only 3kb minified and zipped with no compile step, it's the perfect alternative to the bloat of other front-end libraries!
-
-**NANNY STATE** is:
-
-- **MINIMAL** - Build interactive user interfaces that render blazingly fast with just a few lines of vanilla JS.
+- **MODERN** - Build interactive user-interfaces that render blazingly quickly with just a few lines of vanlla JS.
+- **MINIMAL** - Only 3kb when minified and zipped and no compile step.
 - **MAINTAINABLE** - All the data is stored in one place, making your code more organized, predictable and easier to maintain.
-- **SIMPLE** - There are only a few basic concepts to learn and everything is written in Javascript - there's no new syntax to learn!
 
 Whether you are building a small interactive web page or large complex app, NANNY STATE is a minimal alternative to React and Vue! It's quick to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
