@@ -227,7 +227,7 @@ To be able to use the `Update` function, we need to assign it to a variable when
 const Update = Nanny(State)
 ```
 
-The `Update` function can now be used to update the state. After any change to the state, NANNY STATE will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is blazingly quick.
+The `Update` function can now be used to update the state. After any change to the state, NANNY STATE will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is efficient and therefore blazingly quick.
 
 To see this in action, let's write the `beBatman` event handler function to update the state and change the state object's 'name' property to 'Batman' when the button is clicked (note that this function needs to go *before* the `view` function in your code):
 
