@@ -46,8 +46,7 @@ When a user interacts with the page, it triggers an event that uses a transforme
 
 NANNY STATE was inspired by [Hyperapp](https://hyperapp.dev) and [Redux](https://redux.js.org) and uses the [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
 
-The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE is overly protective of all the app data that it stores centrally. I'm also a big fan of [the non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans).![Screenshot 2021-08-31 at 15 52 29](https://user-images.githubusercontent.com/16646/131525437-8e917373-8dcd-4ed4-889c-dcc6c8ba60ce.png)
-
+The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE is overly protective of all the app data that it stores centrally. I'm also a big fan of [the non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans).
 
 ## Installation
 
