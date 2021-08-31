@@ -10,7 +10,7 @@
 
 </div>
 
-**NANNY STATE** makes it easy to build blazingly fast state-based web apps using vanilla JavaScript and without the bloat of other front-end libraries.
+**NANNY STATE** makes it easy to build blazingly fast state-based web apps using vanilla JavaScript without the bloat of other front-end libraries.
 
 It stores all the app data in a single state object and uses the power of [µhtml](https://github.com/WebReflection/uhtml) to automatically render the view when anything changes. 
 
