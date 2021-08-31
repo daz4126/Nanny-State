@@ -149,7 +149,7 @@ Start by importing the NANNY STATE functions:
 import { Nanny, html } from 'nanny-state'
 ```
 
-Next create an object to represent the initial state (the state is usally an object, but can be any data-type). The state stores every bit of information about our app as data. In this simple example, we just want to store the value of a property called 'name':
+Next, create an object to represent the initial state (the state is usally an object, but can be any data-type). The state stores every bit of information about our app as data. In this simple example, we just want to store the value of a property called 'name':
 
 ```javascript
 const State = { name: "World" }
@@ -163,7 +163,7 @@ It is stored as a property called 'view', which we can create like so:
 State.view = state => html`<h1>Hello ${state.name}</h1>`
 ```
 
-Any view in NANNY STATE uses the `html` template function that is part of µhtml. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code for the view and uses the standard `${expression}` placeholders to insert values from the state.
+Views in NANNY STATE use the `html` template function that is part of µhtml. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code for the view and uses `${expression}` placeholders to insert values from the state.
 
 These values are then bound to the view which ensures the view will automatically update to reflect any changes in the state. In this example we are inserting the value of the state object's 'name' property into the `<h1>` element.
 
@@ -173,7 +173,7 @@ Last of all, we need to call the `Nanny` function with `State` provided as an ar
 Nanny(State)
 ```
 
-This passes the state object into the `Nanny` function, which then takes care of rendering the view based on the initial state.
+This passes the `State` object into the `Nanny` function, which renders the view based on the initial state.
 
 ### Hello Batman Example
 
@@ -183,7 +183,7 @@ This passes the state object into the `Nanny` function, which then takes care of
 
 </div>
 
-This example shows how the state object can be updated using the `update` function.
+This example shows how the state object can be updated using the `Update` function.
 
 You can see the finished app and code on [CodePen](https://codepen.io/daz4126/pen/oNWZdyd).
 
@@ -196,14 +196,18 @@ import { Nanny, html } from 'nanny-state'
 Next we'll create the view template and assign it to the variable `view`:
 
 ```javascript
-const view = state => html`<h1>Hello ${state.name}</h1>
-                           <button onclick=${beBatman}>I'm Batman</button>`
+const view = state => 
+  html`<h1>Hello ${state.name}</h1>
+       <button onclick=${beBatman}>I'm Batman</button>`
 ```
 
 This view is similar to the one we used in the Hello World example, but it also contains a button with an event listener. We'll get to this soon, but first we need to create the initial state:
 
 ```javascript
-const State = { name: 'Bruce Wayne', view }
+const State = { 
+  name: 'Bruce Wayne', 
+  view 
+}
 ```
 
 Notice that as well as assigning the 'name' property the value of 'Bruce Wayne', we also add the `view` variable as a property of the `State` object using the shorthand object assignment.
@@ -223,7 +227,7 @@ To be able to use the `Update` function, we need to assign it to a variable when
 const Update = Nanny(State)
 ```
 
-The `Update` function can now be used to update the state. After any change to the state, NANNY STATE will automatically re-render the view using lit-html, which only updates the parts of the view that have actually changed. This makes re-rendering after a state update blazing fast.
+The `Update` function can now be used to update the state. After any change to the state, NANNY STATE will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is blazingly quick.
 
 To see this in action, let's write the `beBatman` event handler function to update the state and change the state object's 'name' property to 'Batman' when the button is clicked (note that this function needs to go *before* the `view` function in your code):
 
