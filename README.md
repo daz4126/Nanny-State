@@ -14,11 +14,11 @@
 
 It stores all the data in one place and uses the power of the [µhtml](https://github.com/WebReflection/uhtml) library to automatically render the view when anything changes. 
 
-If you know HTML, CSS, and JavaScript, then you'll be building blazingly fast web apps with a minimal amount of code in no time at all. And it's so small (approx 3kb minified and zipped!) that you won't even notice it's there!
+It helps you build blazingly fast web apps with vanilla JavaScript and no compile step. And it's so small (approx 3kb minified and zipped!) that you won't even notice it's there!
 
 **NANNY STATE** is:
 
-- **MINIMAL** - Build interactive user interfaces that render blazingly fast with just a few lines of code.
+- **MINIMAL** - Build interactive user interfaces that render blazingly fast with just a few lines of vanilla JS.
 - **MAINTAINABLE** - All the data is stored in one place, making your code more organized, predictable and easier to maintain.
 - **SIMPLE** - There are only a few basic concepts to learn and everything is written in Javascript - there's no new syntax to learn!
 
@@ -28,9 +28,9 @@ Whether you are building a small interactive web page or large complex app, NANN
 
 NANNY STATE is comprised of 3 interdependent parts:
 
-* **State** - usually an object that stores all the information about the app
+* **State** - usually an object that stores all the app data
 * **View** -  a function that returns a string of HTML based on the current state
-* **Transformers** - pure functions that update the state based on events
+* **Transformers** - pure functions that update the state
 
 The state is the single source of truth in the application and stores all the information about the app as data. The state can only be updated by passing transformer functions to Nanny State's `Update` function. This ensures that any changes are deterministic and have predictable outcomes.
 
@@ -38,7 +38,7 @@ The state is the single source of truth in the application and stores all the in
 
 NANNY STATE was inspired by [Redux](https://redux.js.org) and [Hyperapp](https://hyperapp.dev) and uses the [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
 
-The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective government. In a similar way, NANNY STATE looks after your state object and takes care of the rendering for you. There's also a [really good non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans).
+The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective and centralised government. In a similar way, NANNY STATE keeps all the app data centrally is overly protective of it. There's also a [really good non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans).
 
 ## Data Flow
 
