@@ -326,8 +326,8 @@ const increment = number => (i=1) => number + i
 This function accepts the current state (the number to be incremented) as well as an extra parameter that is the amount it is to be incremented by, which has a default value of `1`. We could make this value negative to make the count go down. Now we can write the event handlers that use this transformer function to update the state:
 
 ```javascript
-const up = event => update(increment)
-const down = event => update(increment, -1)
+const up = event => Update(increment)
+const down = event => Update(increment, -1)
 ```
 
 Both these event handlers pass the `increment` transformer function to the `Update` function. The first argument of the `Update` function is always a reference to the transformer function that will be used to update the state. The current state is always passes to this as an argument automatically. If a transformer function requires any more arguments as well as current state, they need to be provided as extra arguments to the `update` function, as can be seen above with the extra argument of `-1`.
