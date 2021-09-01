@@ -117,7 +117,7 @@ const State = {
   view
 }
 const transformer = state => ({ newState })
-const handler = event => update(transformer)
+const handler = event => Update(transformer)
 
 const Update = Nanny(State)
 ```
