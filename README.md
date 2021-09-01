@@ -15,9 +15,9 @@
 - **SIMPLE** - Build interactive user-interfaces with just a few lines of vanilla JS.
 - **MINIMAL** - Only 3kb when minified and zipped with no transpiling.
 
-**NANNY STATE** stores the state in one place and automatically renders the view when it changes. It keeps your code organized and easy to maintain without the bloat of other front-end libraries.
+**NANNY STATE** stores all the data in a single state and automatically renders the view when anything changes. This helps to make your code more organized and easier to maintain without the bloat of other front-end libraries.
 
-Whether you are building a small interactive web page or large complex app, NANNY STATE is the simple and minimal alternative to React and Vue!
+Whether you're building a small interactive web page or large complex app, **NANNY STATE** is a simple and minimal alternative to React and Vue!
 
 It's easy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
