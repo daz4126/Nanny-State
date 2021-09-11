@@ -13,7 +13,7 @@ function Nanny(
   } = {}
 ) {
   // Retrieve state from local storage.
-  if(localStorageKey){
+  if(localStorageKey) {
     state = localStorage.getItem(localStorageKey) ? JSON.parse(localStorage.getItem(localStorageKey)) : state;
   }
   // render view based on initial state.
@@ -29,15 +29,14 @@ function Nanny(
     }
 
     // Update state based on the arguments.
-    return (transformer,...params) => {
-      const newState =
-        typeof transformer === "function"
-          ?  typeof transformer(state) === "function"
-            ? params.length
-              ? transformer(state)(...params)
-              : transformer(state)()
-            : transformer(state)
-          : transformer;
+    const newState =
+      typeof transformer === "function"
+        ?  typeof transformer(state) === "function"
+          ? params.length
+            ? transformer(state)(...params)
+            : transformer(state)()
+          : transformer(state)
+        : transformer;
 
     // If the state is an object, create a copy and augment any changes to it.
     state =
