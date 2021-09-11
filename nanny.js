@@ -9,9 +9,14 @@ function Nanny(
     after = state.after,
     debug = state.debug,
     logState = state.logState,
+    localStateKey = state.localStateKey
   } = {}
 ) {
-  // Initial state.
+  // Retrieve state from local storage.
+  if(localStorageKey){
+    state = localStorage.getItem(localStorageKey) ? JSON.parse(localStorage.getItem(localStorageKey)) : state;
+  }
+  // render view based on initial state.
   render(element,view(state));
 
   if (debug || logState) {
@@ -23,13 +28,16 @@ function Nanny(
       before(state);
     }
 
-    // Update state based on the action and params submitted.
-    const newState =
-      typeof transformer(state) === "function"
-        ? params.length
-          ? transformer(state)(...params)
-          : transformer(state)()
-        : transformer(state);
+    // Update state based on the arguments.
+    return (transformer,...params) => {
+      const newState =
+        typeof transformer === "function"
+          ?  typeof transformer(state) === "function"
+            ? params.length
+              ? transformer(state)(...params)
+              : transformer(state)()
+            : transformer(state)
+          : transformer;
 
     // If the state is an object, create a copy and augment any changes to it.
     state =
@@ -44,6 +52,9 @@ function Nanny(
     // Re-render the view based on updated state.
     render(element,view(state));
 
+    if(localStorageKey){
+      localStorage.setItem(localStorageKey,JSON.stringify(state))
+    }
     if (debug || logState) {
       console.log(state);
     }
@@ -52,4 +63,4 @@ function Nanny(
   };
 }
 
-export { Nanny,html };
+export { Nanny,html,svg };
