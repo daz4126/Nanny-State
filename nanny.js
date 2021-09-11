@@ -9,7 +9,7 @@ function Nanny(
     after = state.after,
     debug = state.debug,
     logState = state.logState,
-    localStateKey = state.localStateKey
+    localStorageKey = state.localStorageKey
   } = {}
 ) {
   // Retrieve state from local storage.
