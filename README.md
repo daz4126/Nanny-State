@@ -2,7 +2,7 @@
 
 # ![NANNY STATE](https://user-images.githubusercontent.com/16646/126525019-a2e607fa-c603-4161-8bc3-b9f204a9ce7d.png)
   
-> simple & minimal state management
+> simple state management for vanilla JS
 
 [![npm](https://img.shields.io/npm/v/nanny-state)](https://www.npmjs.com/package/nanny-state)
 [![License](https://img.shields.io/badge/License-Unlicense-blue)](#license)
@@ -10,14 +10,13 @@
 
 </div>
 
-**NANNY STATE** makes it simple to build blazingly fast state-based web apps.
+**NANNY STATE** makes it simple to build state-based web apps that are blazingly fast using vanilla JS.
 
-- **SIMPLE** - Build interactive user-interfaces with just a few lines of vanilla JS.
-- **MINIMAL** - Only 3kb when minified and zipped with no transpiling.
+- **SIMPLE** - Build interactive user-interfaces with just a few lines of code.
+- **MINIMAL** - Only 3kb minified and zipped.
+- **FAST** - Pages automatically re-render in the blink of an eye.
 
-**NANNY STATE** stores all the data in a single state and automatically renders the view when anything changes. This helps to make your code more organized and easier to maintain without the bloat of other front-end libraries.
-
-Whether you're building a small interactive web page or large complex app, **NANNY STATE** is a simple and minimal alternative to React and Vue!
+**NANNY STATE** stores data in a single state and automatically renders the view when anything changes. This keeps your code more organized and easier to maintain without the bloat of other libraries.
 
 It's easy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
@@ -27,9 +26,9 @@ NANNY STATE is comprised of 3 interdependent parts:
 
 * **State** - usually an object that stores all the app data
 * **View** -  a function that returns a string of HTML based on the current state
-* **Transformers** - pure functions that update the state
+* **Update Function** - the only way to change the state and re-render the view
 
-The state is the single source of truth in the application and it can only be updated by NANNY STATE, ensuring that any changes are deterministic with predictable outcomes.
+The state is the single source of truth in the application and it can only be changed using the NANNY STATE update function, ensuring that any changes are deterministic with predictable outcomes.
 
 ## Data Flow
 
@@ -41,7 +40,7 @@ NANNY STATE uses a one-way data flow model:
 
 </div>
 
-When a user interacts with the page, it triggers an event that uses a transformer function to update the state. The page is then automatically re-rendered to reflect these changes.
+When a user interacts with the page, the update function is used to change the state and the page is automatically re-rendered to reflect these changes.
 
 ## Background
 
