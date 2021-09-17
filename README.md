@@ -14,7 +14,7 @@
 
 - **SIMPLE** - Build interactive user-interfaces with just a few lines of code.
 - **MINIMAL** - Only 3kb minified and zipped.
-- **FAST** - Pages automatically re-render in the blink of an eye.
+- **FAST** - Pages automatically render in a flash ⚡️.
 
 **NANNY STATE** stores data in a single state and automatically renders the view when anything changes. This keeps your code more organized and easier to maintain without the bloat of other libraries.
 
