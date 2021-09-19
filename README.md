@@ -219,61 +219,25 @@ The only way we can update the state is to use the `Update` function that is ret
 Calling the `Nanny` function does 2 things:
 
 1. It renders the initial view based on the initial state provided as an argument (as we saw in the Hello World example).
-2. It also returns an `Update` function that is the only way to update the state.
+2. It also returns the `Update` function that is the only way to update the state.
 
-To be able to use the `Update` function, we need to assign it to a variable when we call the `Nanny` function. We usually call it `Update` but it can be called anything you like:
+To be able to use the `Update` function, we need to assign it to a variable when we call the `Nanny` function. The convention is to call it `Update` but it can be any legal variable name:
 
 ```javascript
 const Update = Nanny(State)
 ```
 
-The `Update` function can now be used to update the state. After any change to the state, NANNY STATE will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is efficient and therefore blazingly quick.
+The `Update` function can now be used to update the state by passing a new representation of the state as an argument. After any change to the state, NANNY STATE will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is efficient and therefore blazingly quick.
 
-To see this in action, let's write the `beBatman` event handler function to update the state and change the state object's 'name' property to 'Batman' when the button is clicked (note that this function needs to go *before* the `view` function in your code):
-
-```javascript
-const beBatman = event => Update(nameToBatman)
-```
-
-Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `Update` function. The argument to this function, `nameToBatman`, is a reference to a **transformer function** that tells NANNY STATE how to update the value of the state.
-
-We still need to write this function, but transformer functions are a really important part of NANNY STATE, so let's take a look at how they work before we write it.
-
-#### Transformer Functions
-
-A transformer function accepts the current state as an argument and returns a new representation of the state. It basically maps the current state to a new state:
-
-<div align="center">
-
-![Transformer function diagram](https://user-images.githubusercontent.com/16646/125978502-29d3f173-626a-48b1-8214-5368f1fe7824.png)
-
-</div>
-  
-ES6 arrow functions are perfect for transformer functions as they visually show the mapping of the current state to a new state.
-
-Transformer functions must be **[pure functions](https://en.wikipedia.org/wiki/Pure_function)**. They should always return the same state given the same arguments and should not cause any side-effects. They take the following structure:
+To see this in action, let's write the `beBatman` event handler function to update the state and change the state object's 'name' property to 'Batman' when the button is clicked. This means that we need to pass a new object with a 'name' property of 'Batman' as an argument to the `Update` function (note that this function needs to go *before* the `view` function in your code):
 
 ```javascript
-state => params => newState
+const beBatman = event => Update({name: "Batman"})
 ```
 
-If the transformer doesn't have any other parameters, apart from the current state, then you can omit them and just write the transformer in the form:
+Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `Update` function and change the 'name' property to 'Batman'. 
 
-```javascript
-state => newState
-```
-
-In our Batman example we want the transformer function to update the 'name' property to 'Batman'. This means that it needs to return a new object with a 'name' property of 'Batman'. Add the following code underneath the event handler:
-
-```javascript
-const nameToBatman = state => ({ name: 'Batman'})
-```
-
-**Note that when arrow functions return an object literal, it needs wrapping in parentheses**
-
-Transformer functions are passed *by reference* to the `Update` function, which will then implicityly pass the current state as an argument.
-
-We now have everything wired up correctly. When the user clicks the button, the `beBatman` event handler is called. This passes the `nameToBatman` transformer function to the `Update` function which updates the state by changing the 'name' property to 'Batman'. It then re-renders the page using the new state.
+We now have everything wired up correctly. When the user clicks the button, the `beBatman` event handler is called. This calls the `Update` function which changes the 'name' property to 'Batman' and then re-renders the page based on this new state.
 
 Try clicking the button to see the view change based on user input!
 
@@ -312,28 +276,11 @@ Now we need to write the code for the `Counter` component (note it is convention
 
 ```javascript
 const Counter = number => html`<div id='counter'>${number}</div>
-                               <button onclick=${down}>-</button>
-                               <button onclick=${up}>+</button>`
+                               <button onclick=${e=>Update(number - 1)}>-</button>
+                               <button onclick=${e=>Update(number + 1)}>+</button>``
 ```
 
-The two buttons call the event handlers, `down` and `up`, which deal with changing the value of the counter when they are pressed. We're going to need to transformer function to deal with incrementing this value, so let's write it:
-
-```javascript
-const increment = number => (i=1) => number + i
-```
-
-This function accepts the current state (the number to be incremented) as well as an extra parameter that is the amount it is to be incremented by, which has a default value of `1`. We could make this value negative to make the count go down. Now we can write the event handlers that use this transformer function to update the state:
-
-```javascript
-const up = event => Update(increment)
-const down = event => Update(increment, -1)
-```
-
-Both these event handlers pass the `increment` transformer function to the `Update` function. The first argument of the `Update` function is always a reference to the transformer function that will be used to update the state. The current state is always passes to this as an argument automatically. If a transformer function requires any more arguments as well as current state, they need to be provided as extra arguments to the `update` function, as can be seen above with the extra argument of `-1`.
-
-The `up` handler uses the `increment` transformer function with the default parameter of `1`, so no extra arguments need providing. The `down` handler provides an extra argument of `-1` that is passed to the `increment` transformer function so that the value of the state will decrease by 1.
-
-_Note: The first parameter of every transformer functions is always the state. This will be implicitly provided as an argument by the Update function, so does not need to be included when calling `Update`. Any additional arguments are added after the name of the function._
+The two buttons call inline event handlers that call the `Update` function to change the value of the counter when they are pressed.
 
 Last of all, we just need to call the `Nanny` function and assign its return value to the variable `Update`. In this example, the state is a number, so we cannot assign any properties to it. This means we can't make the view a property of `State`. Fortunately, the `Nanny` function accepts a second `options` parameter. This is an object that has a property called 'view' that can be assigned to the variable `view` using the object property shorthand notation:
 
@@ -342,6 +289,42 @@ const Update = Nanny(State,{ view })
 ```
 
 This will render the initial view with the count set to 10 and allow you to increase or decrease the count by clicking on the buttons.
+  
+#### Transformer Functions
+
+A transformer function accepts the current state as an argument and returns a new representation of the state. It basically maps the current state to a new state:
+
+<div align="center">
+
+![Transformer function diagram](https://user-images.githubusercontent.com/16646/125978502-29d3f173-626a-48b1-8214-5368f1fe7824.png)
+
+</div>
+  
+ES6 arrow functions are perfect for transformer functions as they visually show the mapping of the current state to a new state.
+
+Transformer functions must be **[pure functions](https://en.wikipedia.org/wiki/Pure_function)**. They should always return the same state given the same arguments and should not cause any side-effects. They take the following structure:
+
+```javascript
+state => params => newState
+```
+
+If the transformer doesn't have any other parameters, apart from the current state, then you can omit them and just write the transformer in the form:
+
+```javascript
+state => newState
+```
+
+In our Batman example we want the transformer function to update the 'name' property to 'Batman'. This means that it needs to return a new object with a 'name' property of 'Batman'. Add the following code underneath the event handler:
+
+```javascript
+const nameToBatman = state => ({ name: 'Batman'})
+```
+
+**Note that when arrow functions return an object literal, it needs wrapping in parentheses**
+  
+  _Note: The first parameter of every transformer functions is always the state. This will be implicitly provided as an argument by the Update function, so does not need to be included when calling `Update`. Any additional arguments are added after the name of the function._
+
+Transformer functions are passed *by reference* to the `Update` function, which will then implicityly pass the current state as an argument.
 
 ### More Examples
 
