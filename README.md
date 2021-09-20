@@ -10,13 +10,13 @@
 
 </div>
 
-**NANNY STATE** makes it simple to build state-based web apps that are blazingly fast using vanilla JS.
+**NANNY STATE** makes it simple to build state-based web apps in vanilla JS.
 
-- **SIMPLE** - Build interactive user-interfaces with just a few lines of code.
-- **MINIMAL** - Only 3kb minified and zipped.
-- **FAST** - Pages automatically render in a flash ⚡️.
+- **SIMPLE** - build interactive user-interfaces with just a few lines of code.
+- **FAST** - pages render automatically in the blink of an eye.
+- **MINIMAL** - only 3kb minified and zipped.
 
-**NANNY STATE** stores data in a single state and automatically renders the view when anything changes. This keeps your code more organized and easier to maintain without the bloat of other libraries.
+**NANNY STATE** stores data in a single state and automatically renders the view when it changes. This keeps your code organized and easier to maintain without the bloat of other libraries.
 
 It's easy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
