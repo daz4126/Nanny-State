@@ -13,7 +13,7 @@
 **NANNY STATE** makes it simple to build state-based web apps in vanilla JS.
 
 - **SIMPLE** - build interactive user-interfaces with just a few lines of code.
-- **FAST** - pages render automatically in the blink of an eye.
+- **FAST** - automatic page renders that are blazingly fast.
 - **MINIMAL** - only 3kb minified and zipped.
 
 **NANNY STATE** stores data in a single state and automatically renders the view when it changes. This keeps your code organized and easier to maintain without the bloat of other libraries.
@@ -235,7 +235,7 @@ To see this in action, let's write the `beBatman` event handler function to upda
 const beBatman = event => Update({name: "Batman"})
 ```
 
-Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `Update` function and change the 'name' property to 'Batman'. 
+Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `Update` function that changes the 'name' property to 'Batman'. 
 
 We now have everything wired up correctly. When the user clicks the button, the `beBatman` event handler is called. This calls the `Update` function which changes the 'name' property to 'Batman' and then re-renders the page based on this new state.
 
@@ -277,7 +277,7 @@ Now we need to write the code for the `Counter` component (note it is convention
 ```javascript
 const Counter = number => html`<div id='counter'>${number}</div>
                                <button onclick=${e=>Update(number - 1)}>-</button>
-                               <button onclick=${e=>Update(number + 1)}>+</button>``
+                               <button onclick=${e=>Update(number + 1)}>+</button>`
 ```
 
 The two buttons call inline event handlers that call the `Update` function to change the value of the counter when they are pressed.
@@ -290,7 +290,9 @@ const Update = Nanny(State,{ view })
 
 This will render the initial view with the count set to 10 and allow you to increase or decrease the count by clicking on the buttons.
   
-#### Transformer Functions
+### Transformer Functions
+  
+The `Update` function usually accepts a fragment of the state. We can also use *transformer functions* to update the state.
 
 A transformer function accepts the current state as an argument and returns a new representation of the state. It basically maps the current state to a new state:
 
@@ -314,17 +316,26 @@ If the transformer doesn't have any other parameters, apart from the current sta
 state => newState
 ```
 
-In our Batman example we want the transformer function to update the 'name' property to 'Batman'. This means that it needs to return a new object with a 'name' property of 'Batman'. Add the following code underneath the event handler:
-
-```javascript
-const nameToBatman = state => ({ name: 'Batman'})
+In the Counter example above, we could use the following transformer functions:
+  
+```
+const increment = state => state + 1
+const decrement = state => state - 1
 ```
 
 **Note that when arrow functions return an object literal, it needs wrapping in parentheses**
   
-  _Note: The first parameter of every transformer functions is always the state. This will be implicitly provided as an argument by the Update function, so does not need to be included when calling `Update`. Any additional arguments are added after the name of the function._
-
 Transformer functions are passed *by reference* to the `Update` function, which will then implicityly pass the current state as an argument.
+  
+For example, we could use the `increment` and `decrement` transformer functions in the Counter example with the following view:
+  
+```javascript
+const Counter = number => html`<div id='counter'>${number}</div>
+                               <button onclick=${e=>Update(decrement)}>-</button>
+                               <button onclick=${e=>Update(increment)}>+</button>`
+```
+  
+  _Note: The first parameter of every transformer functions is always the state. This will be implicitly provided as an argument by the Update function, so does not need to be included when calling `Update`. Any additional arguments are added after the name of the function._
 
 ### More Examples
 
