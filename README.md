@@ -143,7 +143,7 @@ This is a simple example to show how Nanny State renders the view based on the s
 
 You can see finished app and code on [CodePen](https://codepen.io/daz4126/pen/zYwZjWw).
 
-Start by importing the NANNY STATE functions:
+Start by importing the two functions that we need:
 
 ```javascript
 import { Nanny, html } from 'nanny-state'
@@ -187,7 +187,7 @@ This example shows how the state object can be updated using the `Update` functi
 
 You can see the finished app and code on [CodePen](https://codepen.io/daz4126/pen/oNWZdyd).
 
-It starts in the same way as the last example, by importing the NANNY STATE functions:
+It starts in the same way as the last example, by importing the two functions we'll be using:
 
 ```javascript
 import { Nanny, html } from 'nanny-state'
@@ -227,7 +227,7 @@ To be able to use the `Update` function, we need to assign it to a variable when
 const Update = Nanny(State)
 ```
 
-The `Update` function can now be used to update the state by passing a new representation of the state as an argument. After any change to the state, NANNY STATE will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is efficient and therefore blazingly quick.
+The `Update` function can now be used to make changes to the state by passing a new representation of the state as an argument. After any change to the state, NANNY STATE will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is efficient and therefore blazingly quick.
 
 To see this in action, let's write the `beBatman` event handler function to update the state and change the state object's 'name' property to 'Batman' when the button is clicked. This means that we need to pass a new object with a 'name' property of 'Batman' as an argument to the `Update` function (note that this function needs to go *before* the `view` function in your code):
 
