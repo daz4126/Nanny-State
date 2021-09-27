@@ -292,9 +292,9 @@ This will render the initial view with the count set to 10 and allow you to incr
   
 ### Transformer Functions
   
-The `Update` function usually accepts a fragment of the state. We can also use *transformer functions* to update the state.
+The `Update` function usually accepts a new state value, but it can also use *transformer functions* to update the state.
 
-A transformer function accepts the current state as an argument and returns a new representation of the state. It basically maps the current state to a new state:
+A transformer function accepts the current state as an argument and returns a new representation of the state. It basically maps the current state to a new state as shown in the diagram below:
 
 <div align="center">
 
@@ -302,9 +302,9 @@ A transformer function accepts the current state as an argument and returns a ne
 
 </div>
   
-ES6 arrow functions are perfect for transformer functions as they visually show the mapping of the current state to a new state.
+ES6 arrow functions are perfect for transformer functions as they visually show the mapping of the current state to a new representation of the state.
 
-Transformer functions must be **[pure functions](https://en.wikipedia.org/wiki/Pure_function)**. They should always return the same state given the same arguments and should not cause any side-effects. They take the following structure:
+Transformer functions must be **[pure functions](https://en.wikipedia.org/wiki/Pure_function)**. They should always return the same value given the same arguments and should not cause any side-effects. They take the following structure:
 
 ```javascript
 state => params => newState
@@ -336,6 +336,28 @@ const Counter = number => html`<div id='counter'>${number}</div>
 ```
   
   _Note: The first parameter of every transformer functions is always the state. This will be implicitly provided as an argument by the Update function, so does not need to be included when calling `Update`. Any additional arguments are added after the name of the function._
+  
+  Transformer functions don't need to return an object that represents the full state. You only need to return an object that contains the properties that have changed. For example, if the initial state is represented by the following object:
+
+```javascript
+const State = {
+  name: "World",
+  count: 10
+}
+```
+
+If we write a transformer function that doubles the count, then we only need to return an object that shows the new value of the 'count' property and don't need to worry about the 'name' property:
+
+```javascript
+const double = state => ({ count: state.count * 2})
+```
+
+We can also destructure the state object in the parameter so that it only references properties required by the transformer function:
+
+```javascript
+const double = { count } => ({ count: count * 2})
+```
+
 
 ### More Examples
 
@@ -412,29 +434,6 @@ State.debug = true
 
 ```javascript
 State.logState = true
-```
-
-### Transformer Function and Fragments of State
-
-Transformer functions don't need to return an object that represents the full state. You only need to return an object that contains the properties that have changed. For example, if the initial state is represented by the following object:
-
-```javascript
-const State = {
-  name: "World",
-  count: 10
-}
-```
-
-If we write a transformer function that doubles the count, then we only need to return an object that shows the new value of the 'count' property and don't need to worry about the 'name' property:
-
-```javascript
-const double = state => ({ count: state.count * 2})
-```
-
-We can also destructure the state object in the parameter so that it only references properties required by the transformer function:
-
-```javascript
-const double = { count } => ({ count: count * 2})
 ```
 
 ## Docs
