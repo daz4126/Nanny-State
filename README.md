@@ -40,7 +40,7 @@ NANNY STATE uses a one-way data flow model:
 
 </div>
 
-When a user interacts with the page, the update function is used to change the state and the page is automatically re-rendered to reflect these changes.
+When a user interacts with the page, the `Update` function is changes the state and the page is automatically re-rendered to reflect these changes.
 
 ## Background
 
@@ -95,9 +95,9 @@ Building a NANNY STATE app is simple and straightforward. It always follows thes
       html`<h1>Hello ${name}
            <button onclick=${hello}>Click Me</button>`
    ```
-4. Create transformer functions to describe how the state changes when the user interacts with the page:
+4. Create an event handler to call the `Update` function and update the state:
   ```javascript
-  const hello = state => { name: "Nanny State" }
+  const hello = event => Update({ name: "Nanny State" })
   ```
 
 5. Assign the `Update` function to the return value of `Nanny(State)`:
