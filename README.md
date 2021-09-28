@@ -36,11 +36,11 @@ NANNY STATE uses a one-way data flow model:
 
 <div align="center">
   
-![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/125978059-95ed42bb-5676-484a-8391-fa73d20280a0.png)
+![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/135054598-e568ee26-4ba5-4c5b-b785-64c72ae32eb3.png)
 
 </div>
 
-When a user interacts with the page, the `Update` function is changes the state and the page is automatically re-rendered to reflect these changes.
+When a user interacts with the page, the `Update` function changes the state and the view is automatically re-rendered to reflect these changes.
 
 ## Background
 
