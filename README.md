@@ -36,7 +36,7 @@ NANNY STATE uses a one-way data flow model:
 
 <div align="center">
   
-![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/135054598-e568ee26-4ba5-4c5b-b785-64c72ae32eb3.png)
+![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/135055070-1287db9d-dedc-42f4-9de7-386fc9008434.png)
 
 </div>
 
