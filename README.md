@@ -30,7 +30,7 @@ NANNY STATE uses a one-way data flow model comprised of 3 interdependent parts:
 
 <div align="center">
   
-![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/135246356-346bc2fd-7e92-4e43-b21f-3a00d3808f3b.png)
+![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/135246583-a96918c2-1c2a-42a4-812f-1c630c8fd3cf.png)
 
 </div>
 
