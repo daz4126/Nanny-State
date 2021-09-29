@@ -40,7 +40,7 @@ NANNY STATE uses a one-way data flow model:
 
 </div>
 
-When a user interacts with the page, the `Update` function changes the state and the view is automatically re-rendered to reflect these changes.
+The view is based on the state. When a user interacts with the page, the `Update` function changes the state and the view is automatically re-rendered to reflect these changes.
 
 ## Background
 
