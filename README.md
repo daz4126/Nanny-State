@@ -16,7 +16,7 @@
 - **FAST** - automatic page renders that are blazingly fast.
 - **MINIMAL** - only 3kb minified and zipped.
 
-**NANNY STATE** stores data in a single state and automatically renders the view when it changes. This keeps your code organized and easier to maintain without the bloat of other libraries.
+**NANNY STATE** stores data in a single state object and automatically renders the view when it changes. This keeps your code organized and easier to maintain without the bloat of other libraries.
 
 It's easy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
@@ -28,19 +28,14 @@ NANNY STATE is comprised of 3 interdependent parts:
 * **View** -  a function that returns a string of HTML based on the current state
 * **Update Function** - the only way to change the state and re-render the view
 
-The state is the single source of truth in the application and it can only be changed using the NANNY STATE update function, ensuring that any changes are deterministic with predictable outcomes.
-
-## Data Flow
-
-NANNY STATE uses a one-way data flow model:
-
 <div align="center">
   
 ![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/135055070-1287db9d-dedc-42f4-9de7-386fc9008434.png)
 
 </div>
 
-The view is based on the state. When a user interacts with the page, the `Update` function changes the state and the view is automatically re-rendered to reflect these changes.
+NANNY STATE uses a one-way data flow model:
+The state is the single source of truth in the application and it can only be changed using the `Update` function, ensuring that any changes are deterministic with predictable outcomes. The view is an HTML representation of the data stored in the state. When a user interacts with the page, the `Update` function changes the state and the view is automatically re-rendered to reflect these changes.
 
 ## Background
 
