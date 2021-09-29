@@ -22,7 +22,7 @@ It's easy to get started - just follow the [examples](#examples) below and you'l
 
 ## What Is NANNY STATE?
 
-NANNY STATE is comprised of 3 interdependent parts:
+NANNY STATE uses a one-way data flow model comprised of 3 interdependent parts:
 
 * **State** - usually an object that stores all the app data
 * **View** -  a function that returns a string of HTML based on the current state
@@ -34,7 +34,6 @@ NANNY STATE is comprised of 3 interdependent parts:
 
 </div>
 
-NANNY STATE uses a one-way data flow model:
 The state is the single source of truth in the application and it can only be changed using the `Update` function, ensuring that any changes are deterministic with predictable outcomes. The view is an HTML representation of the data stored in the state. When a user interacts with the page, the `Update` function changes the state and the view is automatically re-rendered to reflect these changes.
 
 ## Background
