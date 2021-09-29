@@ -227,13 +227,15 @@ To be able to use the `Update` function, we need to assign it to a variable when
 const Update = Nanny(State)
 ```
 
-The `Update` function can now be used to make changes to the state by passing a new representation of the state as an argument. After any change to the state, NANNY STATE will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is efficient and therefore blazingly quick.
+The `Update` function can now be used to make changes to the state by passing a new representation of the state as an argument. After any change to the state, NANNY STATE will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
 
-To see this in action, let's write the `beBatman` event handler function to update the state and change the state object's 'name' property to 'Batman' when the button is clicked. This means that we need to pass a new object with a 'name' property of 'Batman' as an argument to the `Update` function (note that this function needs to go *before* the `view` function in your code):
+To see this in action, let's write the `beBatman` event handler function to update the state and change the 'name' property to 'Batman' when the button is clicked. To do this, we need to pass a new object with a 'name' property of 'Batman' as an argument to the `Update` function (note that this function needs to go *before* the `view` function in your code):
 
 ```javascript
 const beBatman = event => Update({name: "Batman"})
 ```
+
+**Note that when arrow functions return an object literal, it needs wrapping in parentheses**
 
 Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `Update` function that changes the 'name' property to 'Batman'. 
 
@@ -322,8 +324,6 @@ In the Counter example above, we could use the following transformer functions:
 const increment = state => state + 1
 const decrement = state => state - 1
 ```
-
-**Note that when arrow functions return an object literal, it needs wrapping in parentheses**
   
 Transformer functions are passed *by reference* to the `Update` function, which will then implicityly pass the current state as an argument.
   
