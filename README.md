@@ -362,6 +362,7 @@ You can see a full set of examples of how Nanny State can be used, with source c
 * [To Do List](https://codepen.io/daz4126/pen/wvgrLme)
 * [Caesar Cipher](https://codepen.io/daz4126/pen/OJprPrL)
 * [Random Fact API](https://codepen.io/daz4126/pen/ExZqKLO)
+* [Timer](https://codepen.io/daz4126/pen/MWvWVZZ)
   
   </div>
 
