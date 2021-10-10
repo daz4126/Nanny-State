@@ -212,8 +212,8 @@ The only way we can update the state is to use the `Update` function that is ret
 
 Calling the `Nanny` function does 2 things:
 
-1. It renders the initial view based on the initial state provided as an argument (as we saw in the Hello World example).
-2. It also returns the `Update` function that is the only way to update the state.
+1. Renders the initial view based on the initial state provided as an argument (as we saw in the Hello World example).
+2. Returns the `Update` function that is the only way to update the state.
 
 To be able to use the `Update` function, we need to assign it to a variable when we call the `Nanny` function. The convention is to call it `Update` but it can be any legal variable name:
 
@@ -288,9 +288,9 @@ This will render the initial view with the count set to 10 and allow you to incr
   
 ### Transformer Functions
   
-The `Update` function usually accepts a new state value, but it can also use *transformer functions* to update the state.
+In the examples we've just seen, the `Update` function was passed a new representation of the state, but it can also accept a *transformer function*. They are particularly useful when the new state is based on the previous state.
 
-A transformer function accepts the current state as an argument and returns a new representation of the state. It basically maps the current state to a new state as shown in the diagram below:
+A transformer function accepts the current state as an argument and returns a new representation of the state. They are basically a mapping function from the current state to a new state as shown in the diagram below:
 
 <div align="center">
 
