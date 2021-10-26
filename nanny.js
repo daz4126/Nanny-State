@@ -3,27 +3,26 @@ import {html, svg, render} from 'uhtml';
 function Nanny(
   state = {},
   {
-    element = state.element || document.body,
-    view = state.view || `NANNY STATE`,
-    before = state.before,
-    after = state.after,
-    debug = state.debug,
-    logState = state.logState,
-    localStorageKey = state.localStorageKey
+    Element = state.Element || document.body,
+    View = state.View || `NANNY STATE`,
+    Before = state.Before,
+    After = state.After,
+    Debug = state.Debug,
+    LocalStorageKey = state.LocalStorageKey
   } = {}
 ) {
   // Retrieve state from local storage.
-  if(localStorageKey) {
-    state = localStorage.getItem(localStorageKey) ? JSON.parse(localStorage.getItem(localStorageKey)) : state;
+  if(LocalStorageKey) {
+    state = localStorage.getItem(LocalStorageKey) ? JSON.parse(localStorage.getItem(LocalStorageKey)) : state;
   }
   // render view based on initial state.
   render(element,view(state));
 
-  if (debug || logState) {
+  if (debug) {
     console.log(state);
   }
 
-  return (transformer, ...params) => {
+  return (transformer,options) => {
     if (before) {
       before(state);
     }
@@ -31,11 +30,7 @@ function Nanny(
     // Update state based on the arguments.
     const newState =
       typeof transformer === "function"
-        ?  typeof transformer(state) === "function"
-          ? params.length
-            ? transformer(state)(...params)
-            : transformer(state)()
-          : transformer(state)
+        ? transformer(state)
         : transformer;
 
     // If the state is an object, create a copy and augment any changes to it.
@@ -54,7 +49,7 @@ function Nanny(
     if(localStorageKey){
       localStorage.setItem(localStorageKey,JSON.stringify(state))
     }
-    if (debug || logState) {
+    if (debug) {
       console.log(state);
     }
 
