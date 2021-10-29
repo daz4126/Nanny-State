@@ -189,7 +189,7 @@ This passes the `State` object into the `Nanny` function, which renders the view
 
 <div align="center">
 
-![Hello Batman screenshot](https://user-images.githubusercontent.com/16646/139462834-1752fd93-58c0-48fa-9af3-debed22f4317.png)
+![Hello Batman screenshot](https://user-images.githubusercontent.com/16646/139463339-2353a4b8-f6b9-40ea-a9ad-9959973c76b1.png)
 
 </div>
 
