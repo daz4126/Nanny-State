@@ -263,7 +263,7 @@ The next example will be a simple counter app that lets the user increase or dec
 
 <div align="center">
 
-![Counter Example screenshot](https://user-images.githubusercontent.com/16646/131525466-69b5fd87-a811-4b7f-87f7-4f333780f08f.png)
+![Counter Example screenshot](https://user-images.githubusercontent.com/16646/139466309-5574464c-756e-4afa-8bc6-e1e4a62a9ded.png)
 
 </div>
 
