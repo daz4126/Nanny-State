@@ -20,6 +20,24 @@
 
 It's easy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
+## IMPORTANT - Breaking Changes in version 3
+
+Version 3 introduced a couple of major breaking changes. Luckily they are easy to fix!
+
+* All properties of the the state that are settings should now be capitialized. The main change will be to make sure you use `View` instead of `view`.
+* Arguments to transformer functions are now passed using partial application, rather than as the second argument to the `Update` function. This means that `Update(increment,2)` should now be written as `Update(increment(2))`. The transformer functions now accept parameters in the opposite order to before: it should be parameters first, then state, i.e. `const increment = n => state => state + n`.
+
+### New Feature in version 3 - Easy Local Storage!
+
+Simply set the property `LocalStorageKey` to any string in the state and NANNY STATE will automatically save the state using the local storage API every time the state changes using the value of the string as the key. For example the following state object will automatically be saved to local storage using the key 'nanny':
+
+```javascript
+State = {
+  LocalStorageKey: 'nanny',
+  .... other properties here ...
+}
+```
+
 ## What Is NANNY STATE?
 
 NANNY STATE uses a one-way data flow model comprised of 3 interdependent parts:
@@ -40,7 +58,7 @@ The state is the single source of truth in the application and it can only be ch
 
 NANNY STATE was inspired by [Hyperapp](https://hyperapp.dev) and [Redux](https://redux.js.org) and uses the [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
 
-The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE is overly protective of all the app data that it stores centrally. I'm also a big fan of [the non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans).
+The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE protects all the app data by storing it centrally. I'm also a big fan of [the non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans).
 
 ## Installation
 
@@ -137,7 +155,7 @@ This is a simple example to show how Nanny State renders the view based on the s
 
 You can see finished app and code on [CodePen](https://codepen.io/daz4126/pen/zYwZjWw).
 
-Start by importing the two functions that we need:
+Start by importing the relevant functions:
 
 ```javascript
 import { Nanny, html } from 'nanny-state'
@@ -149,12 +167,10 @@ Next, create an object to represent the initial state (the state is usally an ob
 const State = { name: "World" }
 ```
 
-Our next job is to create the view - this is a function that accepts the state as an argument and returns a string of HTML that depends on the value of the state's properties. In NANNY STATE, everything is stored as a property of the state, even the view!
-
-It is stored as a property called 'view', which we can create like so:
+Our next job is to create the view - this is a function that accepts the state as an argument and returns a string of HTML that depends on the value of the state's properties. In NANNY STATE, everything is stored as a property of the state, even the app settings such as the view! To differentiate state properties that are app settings, they are always capitialized, so we store the view in a property of the state called `View`, which we can create like so:
 
 ```javascript
-State.view = state => html`<h1>Hello ${state.name}</h1>`
+State.View = state => html`<h1>Hello ${state.name}</h1>`
 ```
 
 Views in NANNY STATE use the `html` template function that is part of µhtml. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code for the view and uses `${expression}` placeholders to insert values from the state.
@@ -181,16 +197,16 @@ This example shows how the state object can be updated using the `Update` functi
 
 You can see the finished app and code on [CodePen](https://codepen.io/daz4126/pen/oNWZdyd).
 
-It starts in the same way as the last example, by importing the two functions we'll be using:
+It starts in the same way as the last example, by importing the same two functions:
 
 ```javascript
 import { Nanny, html } from 'nanny-state'
 ```
 
-Next we'll create the view template and assign it to the variable `view`:
+Next we'll create the view template and assign it to the variable `View` (remember that this is a function that accepts the current state as an argument):
 
 ```javascript
-const view = state => 
+const View = state => 
   html`<h1>Hello ${state.name}</h1>
        <button onclick=${beBatman}>I'm Batman</button>`
 ```
@@ -200,15 +216,15 @@ This view is similar to the one we used in the Hello World example, but it also 
 ```javascript
 const State = { 
   name: 'Bruce Wayne', 
-  view 
+  View 
 }
 ```
 
-Notice that as well as assigning the 'name' property the value of 'Bruce Wayne', we also add the `view` variable as a property of the `State` object using the shorthand object assignment.
+Notice that as well as assigning the 'name' property the value of 'Bruce Wayne', we also add the `View` variable as a property of the `State` object using the shorthand object assignment.
 
 Now let's take a look at the inline event listener attached to the button, using `onclick`. When the button is clicked the event handler 'beBatman' will be called. We want this function to update the state object so the 'name' property changes to 'Batman'.
 
-The only way we can update the state is to use the `Update` function that is returned by the `Nanny` function.
+In **NANNY STATE**, the `Update` function is the only way that the state can be updated. The `Update` function is returned by the `Nanny` function.
 
 Calling the `Nanny` function does 2 things:
 
@@ -221,17 +237,21 @@ To be able to use the `Update` function, we need to assign it to a variable when
 const Update = Nanny(State)
 ```
 
-The `Update` function can now be used to make changes to the state by passing a new representation of the state as an argument. After any change to the state, NANNY STATE will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
+The `Update` function can now be used to make changes to the state by passing a new representation of the state as an argument. After any change to the state, **NANNY STATE** will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
 
-To see this in action, let's write the `beBatman` event handler function to update the state and change the 'name' property to 'Batman' when the button is clicked. To do this, we need to pass a new object with a 'name' property of 'Batman' as an argument to the `Update` function (note that this function needs to go *before* the `view` function in your code):
+To see this in action, let's write the `beBatman` event handler function to use the `Update` function to update the state and change the 'name' property to 'Batman'. 
+
+The `Update` function works by accepting a object as an argument. This object should contain any state properties that have changed (any other properties will be assumed to have stayed the same). The state will then be updated usings thee new values provided. 
+
+In our example, the 'name' property needs to change so we pass an object with a name property of 'Batman' as an argument to the `Update` function like so:
 
 ```javascript
 const beBatman = event => Update({name: "Batman"})
 ```
 
-**Note that when arrow functions return an object literal, it needs wrapping in parentheses**
+_Note: this function needs to go *before* the `view` function in your code_
 
-Because this is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `Update` function that changes the 'name' property to 'Batman'. 
+Because `beBatman` is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `Update` function that changes the 'name' property to 'Batman'. 
 
 We now have everything wired up correctly. When the user clicks the button, the `beBatman` event handler is called. This calls the `Update` function which changes the 'name' property to 'Batman' and then re-renders the page based on this new state.
 
@@ -250,7 +270,7 @@ The next example will be a simple counter app that lets the user increase or dec
 You can see the finished app and code on [CodePen](https://codepen.io/daz4126/pen/vYgdLdX)
 
 The value of the count will be stored in the state as a number (the state is usually an object, but it doesn't have to be).
-Let's initialize it with a value of 10:
+Let's import the relevant functions and initialize the state with a value of 10:
 
 ```javascript
 import { Nanny, html } from 'nanny-state';
@@ -261,9 +281,10 @@ const State = 10;
 Now let's create the view that will return the HTML we want to display:
 
 ```javascript
-const view = number => html`<h1>Nanny State</h1>
-                            <h2>Counter Example</h2>
-                            ${Counter(number)}`
+const View = state => 
+html`<h1>Nanny State</h1>
+     <h2>Counter Example</h2>
+     ${Counter(state)}`
 ```
 
 This view contains a **component** called `Counter`. A component is a function that returns some view code that can be reused throughout the app. They are easy to insert into the main view using the `${ComponentName}` placeholder notation inside the template literal.
@@ -271,22 +292,23 @@ This view contains a **component** called `Counter`. A component is a function t
 Now we need to write the code for the `Counter` component (note it is convention to use PascalCase when naming components):
 
 ```javascript
-const Counter = number => html`<div id='counter'>${number}</div>
-                               <button onclick=${e=>Update(number - 1)}>-</button>
-                               <button onclick=${e=>Update(number + 1)}>+</button>`
+const Counter = state => 
+html`<div id='counter'>${state}</div>
+     <button onclick=${e=>Update(state - 1)}>-</button>
+     <button onclick=${e=>Update(state + 1)}>+</button>`
 ```
 
-The two buttons call inline event handlers that call the `Update` function to change the value of the counter when they are pressed.
+The two buttons call inline event handlers that call the `Update` function to change the value of the state when they are pressed.
 
-Last of all, we just need to call the `Nanny` function and assign its return value to the variable `Update`. In this example, the state is a number, so we cannot assign any properties to it. This means we can't make the view a property of `State`. Fortunately, the `Nanny` function accepts a second `options` parameter. This is an object that has a property called 'view' that can be assigned to the variable `view` using the object property shorthand notation:
+Last of all, we just need to call the `Nanny` function and assign its return value to the variable `Update`. In this example, the state is a number, so we cannot assign any properties to it. This means we can't make the view a property of `State`. Fortunately, the `Nanny` function accepts a second `options` parameter. This is an object that has a property called 'view' that can be assigned to the variable `View` using the object property shorthand notation:
 
 ```javascript
-const Update = Nanny(State,{ view })
+const Update = Nanny(State,{ View })
 ```
 
 This will render the initial view with the count set to 10 and allow you to increase or decrease the count by clicking on the buttons.
   
-### Transformer Functions
+## Transformer Functions
   
 In the examples we've just seen, the `Update` function was passed a new representation of the state, but it can also accept a *transformer function*. They are particularly useful when the new state is based on the previous state.
 
@@ -303,13 +325,13 @@ ES6 arrow functions are perfect for transformer functions as they visually show 
 Transformer functions must be **[pure functions](https://en.wikipedia.org/wiki/Pure_function)**. They should always return the same value given the same arguments and should not cause any side-effects. They take the following structure:
 
 ```javascript
-state => params => newState
+state => newState
 ```
 
-If the transformer doesn't have any other parameters, apart from the current state, then you can omit them and just write the transformer in the form:
+If the transformer function needs to accept parameters, then the 'double arrow' notation is used to perform [partial application](#partial-application):
 
 ```javascript
-state => newState
+state => params => newState
 ```
 
 In the Counter example above, we could use the following transformer functions:
@@ -319,19 +341,20 @@ const increment = state => state + 1
 const decrement = state => state - 1
 ```
   
-Transformer functions are passed *by reference* to the `Update` function, which will then implicityly pass the current state as an argument.
+Transformer functions are passed *by reference* to the `Update` function. The current state is implicityly passed as an argument to any transformer function (similiar to the way the event object is implicitly passed to event handlers).
   
 For example, we could use the `increment` and `decrement` transformer functions in the Counter example with the following view:
   
 ```javascript
-const Counter = number => html`<div id='counter'>${number}</div>
-                               <button onclick=${e=>Update(decrement)}>-</button>
-                               <button onclick=${e=>Update(increment)}>+</button>`
+const Counter = state => 
+html`<div id='counter'>${state}</div>
+     <button onclick=${e=>Update(decrement)}>-</button>
+     <button onclick=${e=>Update(increment)}>+</button>`
 ```
   
-  _Note: The first parameter of every transformer functions is always the state. This will be implicitly provided as an argument by the Update function, so does not need to be included when calling `Update`. Any additional arguments are added after the name of the function._
+  _Note: The current state is implicitly provided as an argument by the Update function, so does not need to be included when calling `Update`._
   
-  Transformer functions don't need to return an object that represents the full state. You only need to return an object that contains the properties that have changed. For example, if the initial state is represented by the following object:
+  Transformer functions don't need to return an object that represents every property of the new state. They only need to return an object that contains the properties that have actually changed. For example, if the initial state is represented by the following object:
 
 ```javascript
 const State = {
@@ -346,14 +369,41 @@ If we write a transformer function that doubles the count, then we only need to 
 const double = state => ({ count: state.count * 2})
 ```
 
-We can also destructure the state object in the parameter so that it only references properties required by the transformer function:
+_Note: when arrow functions return an object literal, it needs wrapping in parentheses_
+
+The state object in the parameter can also be destructured so that it only references properties required by the transformer function:
 
 ```javascript
 const double = { count } => ({ count: count * 2})
 ```
 
+### Adding Additional Arguments to Transformer Functions
 
-### More Examples
+If you want a transformer function to have parameters in addition to the state, then this must be done using a 'double-arrow' function and partial application. The additional arguments always come first and the state should be the last parameter provided to the transfomer function:
+
+```javascript
+const transformer = params = state => newState
+```
+
+For example, if we wanted a counter app that had buttons that increased the count by 1, 2 or 3, instead of writing a separate transformer function for each button, we could write a single transformer function with a parameter of how much to increase the value of `state.count` by. It would look like this:
+
+```javascript
+const increaseBy = n => state => ({count: state.count + n})
+```
+
+Here the parameter `n` is used to determine how much `state.count` is increased by, making the transformer function more flexible.
+
+When passing a transformer function with parameters to the `Update` function, it needs to be partially applied with any arguments. For example, this is how we could use the `increaseBy` transformer function in the view:
+
+```javascript
+const Counter = number => 
+html`<div id='counter'>${number}</div>
+     <button onclick=${e=>Update(increaseBy(1))}>Add 1</button>
+     <button onclick=${e=>Update(increaseBy(2))}>Add 2</button>
+     <button onclick=${e=>Update(increaseBy(3))}>Add 3</button>
+```
+
+## More Examples
 
 You can see a full set of examples of how Nanny State can be used, with source code, on [CodePen](https://codepen.io/collection/RzbNmw). This includes:
 

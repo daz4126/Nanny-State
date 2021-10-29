@@ -30,17 +30,17 @@ Any properties of the state object that are in the view will be bound to the sta
 
 Components are fragments of HTML that can be reused inside the main view. They are created in exactly the same way the view template is created, using the `html` function. For example
 
-To insert a component inside a view (or even another component), use the template literal placeholder syntax to call the component (remember that it's just a function). The example below shows how a component called `buttonComponent` can be inserted into the main view:
+To insert a component inside a view (or even another component), use the template literal placeholder syntax to call the component (remember that it's just a function). The example below shows how a component called `ButtonComponent` can be inserted into the main view:
 
 ```javascript
 // component
-const buttonComponent = state =>
+const ButtonComponent = state =>
     html`<button>${state.buttonName}</button>`
 
 // main view
-const view = state =>
+const View = state =>
    html`<h1>${state.title}</h1>
-        ${buttonComponent(state)}`
+        ${ButtonComponent(state)}`
 ```
 
 ## Transformers
@@ -99,13 +99,13 @@ Update(shout)
 Now say we want another transformer function that increases the value of the 'count' propery by a given value that is provided as an argument. We could use the following transformer function:
 
 ```javascript
-const countBy = state => number => ({ count: state.count + number})
+const countBy = number => state => ({ count: state.count + number})
 ```
 
 To update the 'count' property by 5, using this transformer function, we would use the folloing code:
 
 ```javascript
-Update(countBy,5)
+Update(countBy(5))
 ```
 
 

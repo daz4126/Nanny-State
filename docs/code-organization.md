@@ -9,11 +9,11 @@ The most common option is to keep the view in a separate file called 'view.js' w
 index.js:
 ```javascript
 import { Nanny } from 'nanny-state'
-import { view } from './view.js'
+import { View } from './view.js'
 
 const State = {
   hello: 'World',
-  view
+  View
 }
 export const Update = Nanny(State)
 ```
@@ -24,7 +24,7 @@ import { html } from 'nanny-state'
 import { Update } from './index.js'
 
 const hello = event => 
-  Update(state => ({ hello: 'Nanny State' }))
+  Update({ hello: 'Nanny State' })
 
 export default const view = state => 
   html`<h1>Hello ${state.hello}</h1>
@@ -36,23 +36,23 @@ export default const view = state =>
 Things to note:
 
 * You have to export the `Update` function from 'index.js' and import it in 'view.js'
-* You have to export the `view` function in 'view.js' and import it in 'index.js'
+* You have to export the `View` function in 'view.js' and import it in 'index.js'
 * You only have to import the `Nanny` function in 'index.js'
 * You don't need to import the 'html' module from 'lit' in 'index.js' but you do have to import it in 'view.js'
 
 
-## Separate Views & Transformers
+## Separate Views & Actions
 
-Another option is to keep the event handlers and transformers in a spearate file called 'transformers.js':
+Another option is to keep the event handlers and transformers (actions) in a spearate file called 'actions.js':
 
 index.js:
 ```javascript
 import { Nanny } from 'nanny-state'
-import { view } from './view.js'
+import { View } from './view.js'
 
 const State = {
   hello: 'World',
-  view
+  View
 }
 
 export const Update = Nanny(State)
@@ -61,19 +61,19 @@ export const Update = Nanny(State)
 view.js
 ```javascript
 import { html } from 'nanny-state'
-import { hello } from './transformers.js'
+import { hello } from './actions.js'
 
 export const view = state => 
   html`<h1>Hello ${state.hello}</h1>
        <button onclick=${hello}>Click Me</button>`
 ```
 
-transformers.js
+actions.js
 ```javascript
 import { Update } from './index.js'
 
 export const hello = event => 
-  Update(state => ({ hello: 'Nanny State' }))
+  Update({ hello: 'Nanny State' })
 ```
 
 [Example on CodeSandbox](https://codesandbox.io/s/nanny-state-imports-3wj2f)
@@ -85,9 +85,9 @@ Eventually you might want to break your view up into reusable components and kee
 components.js:
 ```javascript
 import { html } from 'nanny-state'
-import { hello } from './transformers.js'
+import { hello } from './actions.js'
 
-export const button = state => 
+export const Button = state => 
   html`<button onclick=${hello}>Click Me</button>`
 ```
 
@@ -96,15 +96,15 @@ You can then import this component into the 'view.js' file and use it inside the
 view.js:
 ```javascript
 import { html } from 'lit-html'
-import { button } from './components.js'
+import { Button } from './components.js'
 
-export const view = state => 
+export const View = state => 
   html`<h1>Hello ${state.hello}</h1>
        ${button(state)}`
 ```
 
-Note that the `button` component function didn't need state as a parameter and it didn't need to be provided as an argument in the view in this case, although in most cases the state, or a fragment of the state will need to be passed to a component function.
+Note that the `Button` component function didn't need state as a parameter and it didn't need to be provided as an argument in the view in this case, although in most cases the state, or a fragment of the state will need to be passed to a component function.
 
-Note also that you would still need to import any transformer functions that were explicitly used in the view code, but in this case the only transformer function was in the component.
+Note also that you would still need to import any actions that were explicitly used in the view code, but in this case the only action that was used (the `hello` event handler) was in the component.
 
 [Example on CodeSandbox](https://codesandbox.io/s/nanny-state-import-view-and-transformers-with-component-g1f8r)

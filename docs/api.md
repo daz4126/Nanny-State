@@ -4,7 +4,7 @@
 
 Function that renders the view based on the initial state and returns the `Update` function can then be used to update the state.
 
-Nanny : (state,{ view, element, before, after, debug, logState }) -> function
+Nanny : (State,{ View, Element, Before, After, Debug }) -> function
 
 returns: `Update` function
 
@@ -22,61 +22,56 @@ It can be assigned to any variable name, it doesn't have to be `Update`, althoug
 
 ### Parameters
 
-The `Nanny` function accepts the following parameters:
+The `Nanny` function accepts the following parameters (note that they are all capitialized):
 
-state (required):
+State (required):
 An object or value that represents the initial state of the app.
 Default value is an empty object `{}`
 
-view:
+View:
 A function that accepts the state as a parameter and returns a string of HTML.
 Default value is "NANNY STATE"
 
-element:
+Element:
 The element on the page that the view will be rendered inside.
 Default value is `document.body`
 
-before:
+Before:
 A function that is called before the state is updated (see below for more details)
 
-after:
+After:
 A function that is called after the state has been updated (see below for more details)
 
-debug:
+Debug:
 A Boolean value. If set to true then the value of the state will be logged to the console after it has been updated.
 
 Default value is `false`
 
-logState:
-An alias for the `debug` parameter. Also a Boolean value. If set to true then the value of the state will be logged to the console after it has been updated.
-
-Default value is `false`
 
 All of the parameters can either be provided as properties of the `State` object or as an options object provided as the second argument to the `Nanny` function. The following are equivalent:
 
 Providing options as properties of `State`:
+
 ```javascript
 const State = {
     hello: 'World',
-    view: state => html`Hello ${name}`,
-    element: document.getElementById('app'),
-    debug: true
+    View: state => html`Hello ${name}`,
+    Element: document.getElementById('app'),
+    Debug: true
 }
 Nanny(State)
 ```
 
 Providing options as a second argument:
+
 ```javascript
 const State = {
-    hello: 'World',
-    view: state => html`Hello ${name}`,
-    element: document.getElementById('app'),
-    debug: true
+    hello: 'World'
 }
 Nanny(State, { 
-    view: state => html`Hello ${name}`,
-    element: document.getElementById('app'),
-    debug: true
+    View: state => html`Hello ${name}`,
+    Element: document.getElementById('app'),
+    Debug: true
 })
 ```
 
@@ -89,12 +84,10 @@ This function is the **only** way the state can be updated in Nanny State. It is
 Note that this function can be be named anything, but is usually called `Update` by convention.
 
 ```javascript
-Update(transformer,...parmams)
+Update(transformer,...options)
 ```
 
-The first parameter is a transformer function, any other parameters are passed as arguments to the transformer function.
-
-The current state is implicityly passed to the transformer function as its first argument. 
+The first parameter is an object representing a new state or fragment of the new state or a transformer function. The current state is implicityly passed to the transformer function as its first argument. 
 
 Calling the `Update` function will update the state then trigger a page re-render based on any changes to the state. Only the parts of the view that have changed due to the change in state will be re-rendered thanks to lit-html.
 
@@ -110,18 +103,18 @@ This can be passed to the `Update` function like so:
 Update(increase)
 ```
 
-Note that the only parameter that the `increase` transformer function accepts is the state and we don't need to pass as an argument because Nanny State does this automatically.
+Note that the only parameter that the `increase` transformer function accepts is the state and we don't need to pass as an argument because Nanny State does this implicitly (in a similar way to how the event object is implicityly passed to event handlers).
 
 The next example shows a transformer function that accepts a parameter that decreases the `count` property by a given amount:
 
 ```javascript
-const decrease => state => n => ({count: state.count - n})
+const decrease => n => state => ({count: state.count - n})
 ```
 
-When this is passed to the `Update` function, we also need to pass a value for `n`. For example, if we wanted to decrease the `count` property by 3, we would use the following:
+When this is passed to the `Update` function, we need to pass a value for `n` using partial application. This involves calling the function with a single argument. This will return another function that will bind the argument in a closure and then have the state passed to it implicitly. For example, the following code will decrease the `count` property by 3:
 
 ```javascript
-Update(decrease,3)
+Update(decrease(3))
 ```
 
 ## Before Function

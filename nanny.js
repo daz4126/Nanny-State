@@ -1,59 +1,59 @@
 import {html, svg, render} from 'uhtml';
 
 function Nanny(
-  state = {},
+  State = {},
   {
-    Element = state.Element || document.body,
-    View = state.View || `NANNY STATE`,
-    Before = state.Before,
-    After = state.After,
-    Debug = state.Debug,
-    LocalStorageKey = state.LocalStorageKey
+    Element = State.Element || document.body,
+    View = State.View || `NANNY STATE`,
+    Before = State.Before,
+    After = State.After,
+    Debug = State.Debug,
+    LocalStorageKey = State.LocalStorageKey
   } = {}
 ) {
   // Retrieve state from local storage.
   if(LocalStorageKey) {
-    state = localStorage.getItem(LocalStorageKey) ? JSON.parse(localStorage.getItem(LocalStorageKey)) : state;
+    State = localStorage.getItem(LocalStorageKey) ? JSON.parse(localStorage.getItem(LocalStorageKey)) : State;
   }
   // render view based on initial state.
-  render(element,view(state));
+  render(Element,View(State));
 
-  if (debug) {
-    console.log(state);
+  if (Debug) {
+    console.log(State);
   }
 
   return (transformer,options) => {
-    if (before) {
-      before(state);
+    if (Before) {
+      Before(State);
     }
 
     // Update state based on the arguments.
     const newState =
       typeof transformer === "function"
-        ? transformer(state)
+        ? transformer(State)
         : transformer;
 
     // If the state is an object, create a copy and augment any changes to it.
-    state =
-      Object.prototype.toString.call(state) === "[object Object]"
-        ? { ...state, ...newState }
+    State =
+      Object.prototype.toString.call(State) === "[object Object]"
+        ? { ...State, ...newState }
         : newState;
 
-    if (after) {
-      after(state);
+    if (After) {
+      After(State);
     }
 
     // Re-render the view based on updated state.
-    render(element,view(state));
+    render(Element,View(State));
 
-    if(localStorageKey){
-      localStorage.setItem(localStorageKey,JSON.stringify(state))
+    if(LocalStorageKey){
+      LocalStorage.setItem(LocalStorageKey,JSON.stringify(State))
     }
-    if (debug) {
-      console.log(state);
+    if (Debug) {
+      console.log(State);
     }
 
-    return state;
+    return State;
   };
 }
 
