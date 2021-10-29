@@ -456,7 +456,7 @@ State.Element = document.getElementById('app')
 
 ### Debug Mode
 
-`debug` is a property of the state that is `false` by default, but if you set it to `true`, then the value of the state will be logged to the console after the initial render and after any state update"
+`Debug` is a property of the state that is `false` by default, but if you set it to `true`, then the value of the state will be logged to the console after the initial render and after any state update"
 
 ```javascript
 State.Debug = true
