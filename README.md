@@ -422,13 +422,13 @@ Now that you've learnt the basics of NANNY STATE, here's some extra info that he
 
 ### Before and After Functions
 
-`before` and `after` are properties of the state object and are functions that are called before or after a state update respectively. They can also be passed to the `Nanny` function as part of the `options` object.
+`Before` and `After` are properties of the state object and are functions that are called before or after a state update respectively. They can also be passed to the `Nanny` function as part of the `options` object.
 
 For example, try updating the last line of the 'Hello Batman' example to the following code instead:
 
 ```javascript
-State.before = state => console.log('Before:', state)
-State.after = state => console.log('After:', state)
+State.Before = state => console.log('Before:', state)
+State.After = state => console.log('After:', state)
 
 const Update = Nanny(State)
 ```
@@ -446,39 +446,20 @@ Now, when you press the `I'm Batman` button, the following is logged to the cons
 }
 ```
 
-The `after` function is useful if you want to use the `localStorage` API to save the state between sessions. The following `after` function will do this:
-
-```javascript
-State.after = state => localStorage.setItem('NannyState',JSON.stringify(state))
-```
-
-You will also have to set `state` to be the value stored in `localStorage` or the initial state if there is not value in local storage:
-
-```javascript
-const initialState = { name: 'World' }
-const State = localStorage.getItem('NannyState') ? JSON.parse(localStorage.getItem('NannyState')) : initialState
-```
-
 ### Default Element
 
-By Default the view will be rendered inside the `body` element of the page. This can be changed using the `element` property of the state object or by providing it as part of the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'app', you just need to specify this as an option when you call the `Nanny` function:
+By Default the view will be rendered inside the `body` element of the page. This can be changed using the `Element` property of the state object or by providing it as part of the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'app', you just need to specify this as an option when you call the `Nanny` function:
 
 ```javascript
-State.element = document.getElementById('app')
+State.Element = document.getElementById('app')
 ```
 
-### Debug Mode & Log State
+### Debug Mode
 
 `debug` is a property of the state that is `false` by default, but if you set it to `true`, then the value of the state will be logged to the console after the initial render and after any state update"
 
 ```javascript
-State.debug = true
-```
-
-`logState` is a property of the state that does exactly the same thing as the `debug` property when set to `true`:
-
-```javascript
-State.logState = true
+State.Debug = true
 ```
 
 ## Docs
