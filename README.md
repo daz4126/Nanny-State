@@ -98,12 +98,12 @@ Building a NANNY STATE app is simple and straightforward. It always follows thes
    ````javascript
    const State = { 
       name: "World",
-      view
+      View
      }
    ```
 3. Decide how you want the data to be displayed and create a view template:
    ```javascript
-   const view = state =>
+   const View = state =>
       html`<h1>Hello ${name}
            <button onclick=${hello}>Click Me</button>`
    ```
@@ -122,10 +122,10 @@ The basic structure of any NANNY STATE app is:
 ```javascript
 import { Nanny, html } from 'nanny-state'
 
-const view = state => html`some view code here`
+const View = state => html`some view code here`
 const State = { 
   prop: value, 
-  view
+  View
 }
 
 const handler = event => Update({newState})
