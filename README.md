@@ -1,7 +1,7 @@
 <div align="center">
 
-# ![NANNY STATE](https://user-images.githubusercontent.com/16646/133849971-f17ac8f0-819f-441a-891a-22e6a0e6ab8a.png)
-  
+# ![NANNY STATE](https://user-images.githubusercontent.com/16646/139462604-74d6670e-bcdb-4fa2-9974-1403cb157fc2.png)
+
 > simple state management for vanilla JS
 
 [![npm](https://img.shields.io/npm/v/nanny-state)](https://www.npmjs.com/package/nanny-state)
@@ -42,9 +42,9 @@ State = {
 
 NANNY STATE uses a one-way data flow model comprised of 3 interdependent parts:
 
-* **State** - usually an object that stores all the app data
+* **State** - an object or value that stores all the app data
 * **View** -  a function that returns a string of HTML based on the current state
-* **Update Function** - the only way to change the state and re-render the view
+* **Update** - a function that is the only way to change the state and re-render the view
 
 <div align="center">
   
@@ -147,7 +147,7 @@ And if you want it to look pretty, just copy the CSS code from the examples on C
 
 <div align="center">
 
-![Hello World screenshot](https://user-images.githubusercontent.com/16646/126525155-dcb10d3d-7331-4bbc-92f3-0b6e90c1931a.png)
+![Hello World screenshot](https://user-images.githubusercontent.com/16646/139462902-53948f26-1883-45eb-b657-9426f3a8f72a.png)
 
 </div>
 
@@ -189,7 +189,7 @@ This passes the `State` object into the `Nanny` function, which renders the view
 
 <div align="center">
 
-![Hello Batman screenshot](https://user-images.githubusercontent.com/16646/125826661-0b799f2d-613d-45b8-9bef-5c0d214fe669.png)
+![Hello Batman screenshot](https://user-images.githubusercontent.com/16646/139462834-1752fd93-58c0-48fa-9af3-debed22f4317.png)
 
 </div>
 
