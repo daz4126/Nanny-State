@@ -407,6 +407,7 @@ html`<div id='counter'>${number}</div>
 
 You can see a full set of examples of how Nanny State can be used, with source code, on [CodePen](https://codepen.io/collection/RzbNmw). This includes:
 
+* [Times Tables Quiz](https://codepen.io/goldenrod/pen/PoKjrYV) (by Olivia Gibson)
 * [Shopping Cart](https://codepen.io/daz4126/pen/WNjmQyB)
 * [Noughts & Crosses (Tic-Tac-Toe)](https://codepen.io/daz4126/pen/xxdYvpz)
 * [To Do List](https://codepen.io/daz4126/pen/wvgrLme)
