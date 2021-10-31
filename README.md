@@ -402,8 +402,52 @@ html`<div id='counter'>${number}</div>
      <button onclick=${e=>Update(increaseBy(2))}>Add 2</button>
      <button onclick=${e=>Update(increaseBy(3))}>Add 3</button>
 ```
+  
+### Anonymous Or Named Functions?
+  
+Because NANNY STATE uses vanilla JS, you can choose to use named or anonymous event handlers and transformer functions or a combination of the two in your code. This is often a question of coding style, but there are a few nuances to condsider with each appraoch. To demonstrate the different approaches, let's look at 4 different ways of writing the code for the counter example:
+  
+  1) Anonymous event handlers, anonymous transformer functions:
+  ```javascript
+  const Counter = state => 
+     html`<div id='counter'>${state}</div>
+     <button onclick=${e=>Update(state => state - 1)}>-</button>
+     <button onclick=${e=>Update(state => state + 1)}>+</button>`
+  ```
+  
+  2) Named event handlers, anonymous transformer functions:
+  const Counter = state => 
+     html`<div id='counter'>${state}</div>
+     <button onclick=${increment}>-</button>
+     <button onclick=${decrement}>+</button>`
+  
+  const decrement = event => Update(state => state - 1)
+  const increment = event => Update(state => state + 1)
+  ```
+  
+  3) Anonymous event handlers, named transformer functions:
+  const Counter = state => 
+     html`<div id='counter'>${state}</div>
+     <button onclick=${e=>Update(count(-1))}>-</button>
+     <button onclick=${e=>Update(count(1))}>+</button>`
+  
+ const count = n => state => state + n
+  ```
+  
+  4) Named event handler, named transformer functions:
+  const Counter = state => 
+     html`<div id='counter'>${state}</div>
+     <button onclick=${increment}>-</button>
+     <button onclick=${decrement}>+</button>`
+  
+  const decrement = event => Update(count(-1))
+  const increment = event => Update(count(1))
+  const count => n => state => state + n
+  ```
+  
+Named event handlers and transformer functions work in a similar way. A named event handler will have the event object passed to it implicityly and named transformer functions have the state passed to them implicitly. One thing to consider is that anonymous event handlers can access the state becasue they are defined inside the `View` function, which accepts the current state as an argument, whereas named event handlers do not have access to the state.
 
-## More Examples
+## More NANNY STATE Examples
 
 You can see a full set of examples of how Nanny State can be used, with source code, on [CodePen](https://codepen.io/collection/RzbNmw). This includes:
 
@@ -462,6 +506,14 @@ State.Element = document.getElementById('app')
 ```javascript
 State.Debug = true
 ```
+  
+### Local Storage
+
+`LocalStorageKey` is a property of the state that ensures that the state is automatically persisted using the browser's [local storage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). It will also retrieve the state from the user's local storage every time they visit the site, ensuring persitance of the state between sessions. To use it, simply set this property to the string value that you want to be used as the local storage key. For example, the following setting will use the string "nanny" as the local storage key and ensure that the state is saved to local storage after every update:
+  
+  ```javascript
+  State.LocalStorageKey = 'nanny'
+  ```
 
 ## Docs
 
