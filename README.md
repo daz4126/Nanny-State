@@ -416,6 +416,7 @@ Because NANNY STATE uses vanilla JS, you can choose to use named or anonymous ev
   ```
   
   2) Named event handlers, anonymous transformer functions:
+  ```javascript
   const Counter = state => 
      html`<div id='counter'>${state}</div>
      <button onclick=${increment}>-</button>
@@ -426,6 +427,7 @@ Because NANNY STATE uses vanilla JS, you can choose to use named or anonymous ev
   ```
   
   3) Anonymous event handlers, named transformer functions:
+  ```javascript
   const Counter = state => 
      html`<div id='counter'>${state}</div>
      <button onclick=${e=>Update(count(-1))}>-</button>
@@ -435,6 +437,7 @@ Because NANNY STATE uses vanilla JS, you can choose to use named or anonymous ev
   ```
   
   4) Named event handler, named transformer functions:
+  ```javascript
   const Counter = state => 
      html`<div id='counter'>${state}</div>
      <button onclick=${increment}>-</button>
