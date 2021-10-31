@@ -249,7 +249,7 @@ In our example, the 'name' property needs to change so we pass an object with a 
 const beBatman = event => Update({name: "Batman"})
 ```
 
-_Note: this function needs to go *before* the `view` function in your code_
+_Note: this function needs to go *before* the `View` function in your code_
 
 Because `beBatman` is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `Update` function that changes the 'name' property to 'Batman'. 
 
