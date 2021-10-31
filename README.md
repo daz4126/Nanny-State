@@ -445,7 +445,7 @@ Because NANNY STATE uses vanilla JS, you can choose to use named or anonymous ev
   
   const decrement = event => Update(count(-1))
   const increment = event => Update(count(1))
-  const count => n => state => state + n
+  const count = n => state => state + n
   ```
   
 Named event handlers and transformer functions work in a similar way. A named event handler will have the event object passed to it implicityly and named transformer functions have the state passed to them implicitly. One thing to consider is that anonymous event handlers can access the state becasue they are defined inside the `View` function, which accepts the current state as an argument, whereas named event handlers do not have access to the state.
