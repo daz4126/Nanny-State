@@ -247,7 +247,7 @@ The `Update` function accepts an object containing any state properties that we 
 
 ```javascript
 const beBatman = event => Update({name: "Batman"})
-``
+```
 
 _Note: this function needs to go *before* the `View` function in your code_
 
