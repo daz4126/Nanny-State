@@ -47,7 +47,7 @@ function Nanny(
     render(Element,View(State));
 
     if(LocalStorageKey){
-      LocalStorage.setItem(LocalStorageKey,JSON.stringify(State))
+      localStorage.setItem(LocalStorageKey,JSON.stringify(State))
     }
     if (Debug) {
       console.log(State);
