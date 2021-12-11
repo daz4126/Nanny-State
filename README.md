@@ -1,7 +1,7 @@
 <div align="center">
 
-# ![NANNY STATE](https://user-images.githubusercontent.com/16646/133849971-f17ac8f0-819f-441a-891a-22e6a0e6ab8a.png)
-  
+# ![NANNY STATE](https://user-images.githubusercontent.com/16646/139462604-74d6670e-bcdb-4fa2-9974-1403cb157fc2.png)
+
 > simple state management for vanilla JS
 
 [![npm](https://img.shields.io/npm/v/nanny-state)](https://www.npmjs.com/package/nanny-state)
@@ -42,9 +42,9 @@ State = {
 
 NANNY STATE uses a one-way data flow model comprised of 3 interdependent parts:
 
-* **State** - usually an object that stores all the app data
+* **State** - an object or value that stores all the app data
 * **View** -  a function that returns a string of HTML based on the current state
-* **Update Function** - the only way to change the state and re-render the view
+* **Update** - a function that is the only way to change the state and re-render the view
 
 <div align="center">
   
@@ -94,16 +94,16 @@ Building a NANNY STATE app is simple and straightforward. It always follows thes
    ```javascript
    import { Nanny, html } from 'nanny-state'
    ````
-2. Decide on the structure of your data and create a state object:
+2. Decide on the structure of your data and create a state object (app settings are also properties of state but are capitalized):
    ````javascript
    const State = { 
       name: "World",
-      view
+      View
      }
    ```
 3. Decide how you want the data to be displayed and create a view template:
    ```javascript
-   const view = state =>
+   const View = state =>
       html`<h1>Hello ${name}
            <button onclick=${hello}>Click Me</button>`
    ```
@@ -122,10 +122,10 @@ The basic structure of any NANNY STATE app is:
 ```javascript
 import { Nanny, html } from 'nanny-state'
 
-const view = state => html`some view code here`
+const View = state => html`some view code here`
 const State = { 
   prop: value, 
-  view
+  View
 }
 
 const handler = event => Update({newState})
@@ -147,7 +147,7 @@ And if you want it to look pretty, just copy the CSS code from the examples on C
 
 <div align="center">
 
-![Hello World screenshot](https://user-images.githubusercontent.com/16646/126525155-dcb10d3d-7331-4bbc-92f3-0b6e90c1931a.png)
+![Hello World screenshot](https://user-images.githubusercontent.com/16646/139462902-53948f26-1883-45eb-b657-9426f3a8f72a.png)
 
 </div>
 
@@ -167,7 +167,7 @@ Next, create an object to represent the initial state (the state is usally an ob
 const State = { name: "World" }
 ```
 
-Our next job is to create the view - this is a function that accepts the state as an argument and returns a string of HTML that depends on the value of the state's properties. In NANNY STATE, everything is stored as a property of the state, even the app settings such as the view! To differentiate state properties that are app settings, they are always capitialized, so we store the view in a property of the state called `View`, which we can create like so:
+Our next job is to create the view - this is a function that accepts the state as an argument and returns a string of HTML that depends on the value of the state's properties. In NANNY STATE, everything is stored as a property of the state, even the app settings such as the view! Properties that are app settins are capitalized to differentiate them from the other state properties, so we store the view in a property of the state called `View`. This can be set like so:
 
 ```javascript
 State.View = state => html`<h1>Hello ${state.name}</h1>`
@@ -175,7 +175,7 @@ State.View = state => html`<h1>Hello ${state.name}</h1>`
 
 Views in NANNY STATE use the `html` template function that is part of µhtml. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code for the view and uses `${expression}` placeholders to insert values from the state.
 
-These values are then bound to the view which ensures the view will automatically update to reflect any changes in the state. In this example we are inserting the value of the state object's 'name' property into the `<h1>` element.
+These values are then bound to the view and will automatically update to reflect any changes in the state. In this example we are inserting the value of the state object's 'name' property into the `<h1>` element.
 
 Last of all, we need to call the `Nanny` function with `State` provided as an argument:
 
@@ -189,7 +189,7 @@ This passes the `State` object into the `Nanny` function, which renders the view
 
 <div align="center">
 
-![Hello Batman screenshot](https://user-images.githubusercontent.com/16646/125826661-0b799f2d-613d-45b8-9bef-5c0d214fe669.png)
+![Hello Batman screenshot](https://user-images.githubusercontent.com/16646/139463339-2353a4b8-f6b9-40ea-a9ad-9959973c76b1.png)
 
 </div>
 
@@ -238,22 +238,22 @@ const Update = Nanny(State)
 ```
 
 The `Update` function can now be used to make changes to the state by passing a new representation of the state as an argument. After any change to the state, **NANNY STATE** will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
+  
+It's really easy to update the state using the `Update` function - simply pass it an object containing any state properties that you want to update or create (any other properties of the state will be assumed to have stayed the same). These new properties are then merged into the current state and a new state is created. The view is then re-rendered to reflect this update.
 
 To see this in action, let's write the `beBatman` event handler function to use the `Update` function to update the state and change the 'name' property to 'Batman'. 
 
-The `Update` function works by accepting a object as an argument. This object should contain any state properties that have changed (any other properties will be assumed to have stayed the same). The state will then be updated usings thee new values provided. 
-
-In our example, the 'name' property needs to change so we pass an object with a name property of 'Batman' as an argument to the `Update` function like so:
+The `Update` function accepts an object containing any state properties that we want to change. In our example, we want to change the 'name' property to 'Batman' so we just need to pass the object `{name: "Batman"}` as an argument to the `Update` function like so:
 
 ```javascript
 const beBatman = event => Update({name: "Batman"})
 ```
 
-_Note: this function needs to go *before* the `view` function in your code_
+_Note: this function needs to go *before* the `View` function in your code_
 
-Because `beBatman` is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this event handler is to call the `Update` function that changes the 'name' property to 'Batman'. 
+Because `beBatman` is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this function is to call the `Update` function that changes the 'name' property to 'Batman', but it's useful to know that it's an event handler. 
 
-We now have everything wired up correctly. When the user clicks the button, the `beBatman` event handler is called. This calls the `Update` function which changes the 'name' property to 'Batman' and then re-renders the page based on this new state.
+We now have everything wired up correctly. When the user clicks the button, the `beBatman` event handler is called. This calls the `Update` function which changes the 'name' property to 'Batman' and re-renders the page based on this new state.
 
 Try clicking the button to see the view change based on user input!
 
@@ -263,7 +263,7 @@ The next example will be a simple counter app that lets the user increase or dec
 
 <div align="center">
 
-![Counter Example screenshot](https://user-images.githubusercontent.com/16646/131525466-69b5fd87-a811-4b7f-87f7-4f333780f08f.png)
+![Counter Example screenshot](https://user-images.githubusercontent.com/16646/139466309-5574464c-756e-4afa-8bc6-e1e4a62a9ded.png)
 
 </div>
 
@@ -402,11 +402,59 @@ html`<div id='counter'>${number}</div>
      <button onclick=${e=>Update(increaseBy(2))}>Add 2</button>
      <button onclick=${e=>Update(increaseBy(3))}>Add 3</button>
 ```
+  
+### Anonymous Or Named Functions?
+  
+Because NANNY STATE uses vanilla JS, you can choose to use named or anonymous event handlers and transformer functions or a combination of the two in your code. This is often a question of coding style, but there are a few nuances to condsider with each appraoch. To demonstrate the different approaches, let's look at 4 different ways of writing the code for the counter example:
+  
+  1) Anonymous event handlers, anonymous transformer functions:
+  ```javascript
+  const Counter = state => 
+     html`<div id='counter'>${state}</div>
+     <button onclick=${e=>Update(state => state - 1)}>-</button>
+     <button onclick=${e=>Update(state => state + 1)}>+</button>`
+  ```
+  
+  2) Named event handlers, anonymous transformer functions:
+  ```javascript
+  const Counter = state => 
+     html`<div id='counter'>${state}</div>
+     <button onclick=${increment}>-</button>
+     <button onclick=${decrement}>+</button>`
+  
+  const decrement = event => Update(state => state - 1)
+  const increment = event => Update(state => state + 1)
+  ```
+  
+  3) Anonymous event handlers, named transformer functions:
+  ```javascript
+  const Counter = state => 
+     html`<div id='counter'>${state}</div>
+     <button onclick=${e=>Update(count(-1))}>-</button>
+     <button onclick=${e=>Update(count(1))}>+</button>`
+  
+ const count = n => state => state + n
+  ```
+  
+  4) Named event handler, named transformer functions:
+  ```javascript
+  const Counter = state => 
+     html`<div id='counter'>${state}</div>
+     <button onclick=${increment}>-</button>
+     <button onclick=${decrement}>+</button>`
+  
+  const decrement = event => Update(count(-1))
+  const increment = event => Update(count(1))
+  const count = n => state => state + n
+  ```
+  
+Named event handlers and transformer functions work in a similar way. A named event handler will have the event object passed to it implicityly and named transformer functions have the state passed to them implicitly. One thing to consider is that anonymous event handlers can access the state becasue they are defined inside the `View` function, which accepts the current state as an argument, whereas named event handlers do not have access to the state.
 
-## More Examples
+## More NANNY STATE Examples
 
 You can see a full set of examples of how Nanny State can be used, with source code, on [CodePen](https://codepen.io/collection/RzbNmw). This includes:
 
+* [Times Tables Quiz](https://codepen.io/goldenrod/pen/PoKjrYV) (by Olivia Gibson)
 * [Shopping Cart](https://codepen.io/daz4126/pen/WNjmQyB)
 * [Noughts & Crosses (Tic-Tac-Toe)](https://codepen.io/daz4126/pen/xxdYvpz)
 * [To Do List](https://codepen.io/daz4126/pen/wvgrLme)
@@ -422,13 +470,13 @@ Now that you've learnt the basics of NANNY STATE, here's some extra info that he
 
 ### Before and After Functions
 
-`before` and `after` are properties of the state object and are functions that are called before or after a state update respectively. They can also be passed to the `Nanny` function as part of the `options` object.
+`Before` and `After` are properties of the state object and are functions that are called before or after a state update respectively. They can also be passed to the `Nanny` function as part of the `options` object.
 
 For example, try updating the last line of the 'Hello Batman' example to the following code instead:
 
 ```javascript
-State.before = state => console.log('Before:', state)
-State.after = state => console.log('After:', state)
+State.Before = state => console.log('Before:', state)
+State.After = state => console.log('After:', state)
 
 const Update = Nanny(State)
 ```
@@ -446,40 +494,29 @@ Now, when you press the `I'm Batman` button, the following is logged to the cons
 }
 ```
 
-The `after` function is useful if you want to use the `localStorage` API to save the state between sessions. The following `after` function will do this:
-
-```javascript
-State.after = state => localStorage.setItem('NannyState',JSON.stringify(state))
-```
-
-You will also have to set `state` to be the value stored in `localStorage` or the initial state if there is not value in local storage:
-
-```javascript
-const initialState = { name: 'World' }
-const State = localStorage.getItem('NannyState') ? JSON.parse(localStorage.getItem('NannyState')) : initialState
-```
-
 ### Default Element
 
-By Default the view will be rendered inside the `body` element of the page. This can be changed using the `element` property of the state object or by providing it as part of the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'app', you just need to specify this as an option when you call the `Nanny` function:
+By Default the view will be rendered inside the `body` element of the page. This can be changed using the `Element` property of the state object or by providing it as part of the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'app', you just need to specify this as an option when you call the `Nanny` function:
 
 ```javascript
-State.element = document.getElementById('app')
+State.Element = document.getElementById('app')
 ```
 
-### Debug Mode & Log State
+### Debug Mode
 
-`debug` is a property of the state that is `false` by default, but if you set it to `true`, then the value of the state will be logged to the console after the initial render and after any state update"
+`Debug` is a property of the state that is `false` by default, but if you set it to `true`, then the value of the state will be logged to the console after the initial render and after any state update"
 
 ```javascript
-State.debug = true
+State.Debug = true
 ```
+  
+### Local Storage
 
-`logState` is a property of the state that does exactly the same thing as the `debug` property when set to `true`:
-
-```javascript
-State.logState = true
-```
+`LocalStorageKey` is a property of the state that ensures that the state is automatically persisted using the browser's [local storage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). It will also retrieve the state from the user's local storage every time they visit the site, ensuring persitance of the state between sessions. To use it, simply set this property to the string value that you want to be used as the local storage key. For example, the following setting will use the string "nanny" as the local storage key and ensure that the state is saved to local storage after every update:
+  
+  ```javascript
+  State.LocalStorageKey = 'nanny'
+  ```
 
 ## Docs
 
