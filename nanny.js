@@ -4,7 +4,8 @@ function Nanny(
   State = {},
   {
     Element = State.Element || document.body,
-    View = State.View || `NANNY STATE`,
+    Template = State.Layouyt || State.View || `NANNY STATE`,
+    Views = State.Views,
     Before = State.Before,
     After = State.After,
     Debug = State.Debug,
@@ -15,8 +16,16 @@ function Nanny(
   if(LocalStorageKey) {
     State = localStorage.getItem(LocalStorageKey) ? JSON.parse(localStorage.getItem(LocalStorageKey)) : State;
   }
-  // render view based on initial state.
-  render(Element,View(State));
+  // Remove any functions from the state object
+  if(typeof State.Layout === "function") delete State.Layout
+  if(typeof State.View === "function") delete State.View
+  if(Views) delete State.Views
+
+  // Set value of Content if required
+  State.Content = Views && typeof Views[State.View] === "function" ? Views[State.View](State) : ""
+
+  // Render view based on initial state.
+  render(Element,Template(State));
 
   if (Debug) {
     console.log(State);
@@ -43,8 +52,11 @@ function Nanny(
       After(State);
     }
 
+    // Set value of Content if required
+    State.Content = Views && typeof Views[State.View] === "function" ? Views[State.View](State) : ""
+
     // Re-render the view based on updated state.
-    render(Element,View(State));
+    render(Element,Template(State));
 
     if(LocalStorageKey){
       localStorage.setItem(LocalStorageKey,JSON.stringify(State))

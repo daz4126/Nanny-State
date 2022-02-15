@@ -20,24 +20,6 @@
 
 It's easy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
-## IMPORTANT - Breaking Changes in version 3
-
-Version 3 introduced a couple of major breaking changes. Luckily they are easy to fix!
-
-* All properties of the the state that are settings should now be capitialized. The main change will be to make sure you use `View` instead of `view`.
-* Arguments to transformer functions are now passed using partial application, rather than as the second argument to the `Update` function. This means that `Update(increment,2)` should now be written as `Update(increment(2))`. The transformer functions now accept parameters in the opposite order to before: it should be parameters first, then state, i.e. `const increment = n => state => state + n`.
-
-### New Feature in version 3 - Easy Local Storage!
-
-Simply set the property `LocalStorageKey` to any string in the state and NANNY STATE will automatically save the state using the local storage API every time the state changes using the value of the string as the key. For example the following state object will automatically be saved to local storage using the key 'nanny':
-
-```javascript
-State = {
-  LocalStorageKey: 'nanny',
-  .... other properties here ...
-}
-```
-
 ## What Is NANNY STATE?
 
 NANNY STATE uses a one-way data flow model comprised of 3 interdependent parts:
@@ -454,6 +436,7 @@ Named event handlers and transformer functions work in a similar way. A named ev
 
 You can see a full set of examples of how Nanny State can be used, with source code, on [CodePen](https://codepen.io/collection/RzbNmw). This includes:
 
+* [Numble](https://numble.online) - A numerical Wordle clone (by Olivia Gibson)
 * [Times Tables Quiz](https://codepen.io/goldenrod/pen/PoKjrYV) (by Olivia Gibson)
 * [Shopping Cart](https://codepen.io/daz4126/pen/WNjmQyB)
 * [Noughts & Crosses (Tic-Tac-Toe)](https://codepen.io/daz4126/pen/xxdYvpz)
