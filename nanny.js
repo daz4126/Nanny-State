@@ -10,7 +10,7 @@ function Nanny(
     After = State.After,
     Debug = State.Debug,
     LocalStorageKey = State.LocalStorageKey,
-    Render = State.Render
+    Render = State.Render || true
   } = {}
 ) {
   // Retrieve state from local storage.
