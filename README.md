@@ -40,7 +40,7 @@ The state is the single source of truth in the application and it can only be ch
 
 NANNY STATE was inspired by [Hyperapp](https://hyperapp.dev) and [Redux](https://redux.js.org) and uses the [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
 
-The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE protects all the app data by storing it centrally. I'm also a big fan of [the non-alcoholic beer with the same name](https://www.brewdog.com/uk/nanny-state-4-x-cans).
+The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE protects all the app data by storing it centrally.
 
 ## Installation
 
@@ -76,7 +76,7 @@ Building a NANNY STATE app is simple and straightforward. It always follows thes
    ```javascript
    import { Nanny, html } from 'nanny-state'
    ````
-2. Decide on the structure of your data and create a state object (app settings are also properties of state but are capitalized):
+2. Decide on the structure of your data and create a state object (settings are also properties of the `State` object but are always written in PascalCase):
    ````javascript
    const State = { 
       name: "World",
@@ -149,7 +149,7 @@ Next, create an object to represent the initial state (the state is usally an ob
 const State = { name: "World" }
 ```
 
-Our next job is to create the view - this is a function that accepts the state as an argument and returns a string of HTML that depends on the value of the state's properties. In NANNY STATE, everything is stored as a property of the state, even the app settings such as the view! Properties that are app settins are capitalized to differentiate them from the other state properties, so we store the view in a property of the state called `View`. This can be set like so:
+Our next job is to create the view - this is a function that accepts the state as an argument and returns a string of HTML that depends on the value of the state's properties. In NANNY STATE, everything is stored as a property of the state, even the app settings such as the view! Properties that are settings are written in PascalCase to differentiate them from the other state properties that are written in camelCase. So we store the view template in a property of the state called `View`. This can be set like so:
 
 ```javascript
 State.View = state => html`<h1>Hello ${state.name}</h1>`
