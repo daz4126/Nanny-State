@@ -4,7 +4,7 @@ function Nanny(
   State = {},
   {
     Element = State.Element || document.body,
-    Template = State.Layouyt || State.View || `NANNY STATE`,
+    Template = State.Layout || State.View || `NANNY STATE`,
     Views = State.Views,
     Before = State.Before,
     After = State.After,
