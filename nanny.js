@@ -15,7 +15,7 @@ function Nanny(
 ) {
   // Retrieve state from local storage.
   if(LocalStorageKey) {
-    State = localStorage.getItem(LocalStorageKey) ? JSON.parse(localStorage.getItem(LocalStorageKey)) : State;
+    State = localStorage.getItem(LocalStorageKey) ? {...State,...JSON.parse(localStorage.getItem(LocalStorageKey))} : State;
   }
   // Remove any settings from the state object
   delete State.Element;
