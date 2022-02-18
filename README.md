@@ -190,36 +190,12 @@ Next we'll create the view template and assign it to the variable `View` (rememb
 ```javascript
 const View = state => 
   html`<h1>Hello ${state.name}</h1>
-       <button onclick=${beBatman}>I'm Batman</button>`
+       <button onclick=${state.beBatman}>I'm Batman</button>`
 ```
 
-This view is similar to the one we used in the Hello World example, but it also contains a button with an event listener. We'll get to this soon, but first we need to create the initial state:
+This view is similar to the one we used in the Hello World example, but it also contains a button with an inline event listener. When the button is clicked the event handler `beBatman` will be called. We want this function to update the state object so the 'name' property changes to 'Batman'. This is exactly what the `Update` function is for.
 
-```javascript
-const State = { 
-  name: 'Bruce Wayne', 
-  View 
-}
-```
-
-Notice that as well as assigning the 'name' property the value of 'Bruce Wayne', we also add the `View` variable as a property of the `State` object using the shorthand object assignment.
-
-Now let's take a look at the inline event listener attached to the button, using `onclick`. When the button is clicked the event handler 'beBatman' will be called. We want this function to update the state object so the 'name' property changes to 'Batman'.
-
-In **NANNY STATE**, the `Update` function is the only way that the state can be updated. The `Update` function is returned by the `Nanny` function.
-
-Calling the `Nanny` function does 2 things:
-
-1. Renders the initial view based on the initial state provided as an argument (as we saw in the Hello World example).
-2. Returns the `Update` function that is the only way to update the state.
-
-To be able to use the `Update` function, we need to assign it to a variable when we call the `Nanny` function. The convention is to call it `Update` but it can be any legal variable name:
-
-```javascript
-const Update = Nanny(State)
-```
-
-The `Update` function can now be used to make changes to the state by passing a new representation of the state as an argument. After any change to the state, **NANNY STATE** will automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
+To update the state a new representation of the state is passed as an argument to the `Update` function. **NANNY STATE** will then automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
   
 It's really easy to update the state using the `Update` function - simply pass it an object containing any state properties that you want to update or create (any other properties of the state will be assumed to have stayed the same). These new properties are then merged into the current state and a new state is created. The view is then re-rendered to reflect this update.
 
@@ -231,9 +207,30 @@ The `Update` function accepts an object containing any state properties that we 
 const beBatman = event => Update({name: "Batman"})
 ```
 
-_Note: this function needs to go *before* the `View` function in your code_
-
 Because `beBatman` is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this function is to call the `Update` function that changes the 'name' property to 'Batman', but it's useful to know that it's an event handler. 
+
+Next, we need to assign the initial state object to the `State` variable:
+
+```javascript
+const State = { 
+  name: 'Bruce Wayne',
+  beBatman, 
+  View 
+}
+```
+
+Notice that as well as assigning the 'name' property the value of 'Bruce Wayne', we also add the `View` and `beBatman` svariable as a properties of the `State` object using the shorthand object assignment. In **NANNY STATE**, evething is a property of the state!
+
+Last of all, we need to call the `Nanny` function. The `Update` function returned by the `Nanny` function, so we assign it to the variable `Update`  (not that the convention is to call it `Update` but it can be any legal variable name):
+
+```javascript
+const Update = Nanny(State)
+```
+
+Calling the `Nanny` function does 2 things:
+
+1. Renders the initial view based on the initial state provided as an argument (as we saw in the Hello World example).
+2. Returns the `Update` function that is the only way to update the state.
 
 We now have everything wired up correctly. When the user clicks the button, the `beBatman` event handler is called. This calls the `Update` function which changes the 'name' property to 'Batman' and re-renders the page based on this new state.
 
