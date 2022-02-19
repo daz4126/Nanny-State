@@ -5,7 +5,6 @@ function Nanny(
   {
     Element = State.Element || document.body,
     Template = State.Layout || State.View || `NANNY STATE`,
-    Views = State.Views,
     Before = State.Before,
     After = State.After,
     Debug = State.Debug,
@@ -19,8 +18,7 @@ function Nanny(
   }
 
   // Set value of Content if required
-  State.Content = Views && typeof Views[State.View] === "function" ? Views[State.View](State) : "";
-
+  State.Content = typeof State[State.View] === "function" ? State[State.View](State) : ""
   // Render view based on initial state.
   if(Render) {
     render(Element,Template(State));
@@ -52,8 +50,7 @@ function Nanny(
     }
 
     // Set value of Content if required
-    State.Content = Views && typeof Views[State.View] === "function" ? Views[State.View](State) : ""
-
+    State.Content = typeof State[State.View] === "function" ? State[State.View](State) : ""
     // Re-render the view based on updated state.
     if(Render){
       render(Element,Template(State));
