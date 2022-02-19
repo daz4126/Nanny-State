@@ -17,21 +17,9 @@ function Nanny(
   if(LocalStorageKey) {
     State = localStorage.getItem(LocalStorageKey) ? {...State,...JSON.parse(localStorage.getItem(LocalStorageKey))} : State;
   }
-  // Remove any settings from the state object
-  delete State.Element;
-  delete State.Layout;
-  delete State.Views;
-  delete State.Before;
-  delete State.After;
-  delete State.Debug;
-  delete State.LocalStorageKey;
-  delete State.Render;
-  if(typeof State.View === "function") {
-    delete State.View;
-  }
 
   // Set value of Content if required
-  State.Content = Views && typeof Views[State.View] === "function" ? Views[State.View](State) : ""
+  State.Content = Views && typeof Views[State.View] === "function" ? Views[State.View](State) : "";
 
   // Render view based on initial state.
   if(Render) {
