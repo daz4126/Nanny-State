@@ -30,7 +30,11 @@ function Nanny(
 
   return (transformer,{Render=true}={}) => {
     if (Before) {
-      Before(State);
+      State =
+      Object.prototype.toString.call(State) === "[object Object]"
+        ? { ...State, ...Before(State) }
+        : Before(State);
+      ;
     }
 
     // Update state based on the arguments.
@@ -46,7 +50,10 @@ function Nanny(
         : newState;
 
     if (After) {
-      After(State);
+      State =
+      Object.prototype.toString.call(State) === "[object Object]"
+        ? { ...State, ...After(State) }
+        : After(State);
     }
 
     // Set value of Content if required
