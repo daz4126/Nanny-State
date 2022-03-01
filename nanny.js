@@ -5,6 +5,7 @@ function Nanny(
   {
     Element = State.Element || document.body,
     Template = State.Layout || State.View || `NANNY STATE`,
+    Initiate = State.Initiate,
     Before = State.Before,
     After = State.After,
     Debug = State.Debug,
@@ -19,6 +20,12 @@ function Nanny(
 
   // Set value of Content if required
   State.Content = typeof State[State.View] === "function" ? State[State.View](State) : ""
+  if(Initiate) {
+    State =
+      Object.prototype.toString.call(State) === "[object Object]"
+        ? { ...State, ...Initiate(State) }
+        : Initiate(State);
+  }
   // Render view based on initial state.
   if(Render) {
     render(Element,Template(State));
@@ -34,7 +41,6 @@ function Nanny(
       Object.prototype.toString.call(State) === "[object Object]"
         ? { ...State, ...Before(State) }
         : Before(State);
-      ;
     }
 
     // Update state based on the arguments.
