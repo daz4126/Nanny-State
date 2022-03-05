@@ -20,7 +20,9 @@ function Nanny(
     State = localStorage.getItem(LocalStorageKey) ? {...State,...JSON.parse(localStorage.getItem(LocalStorageKey))} : State;
   }
   // Set value of Content if required
-  State.Content = typeof State[State.View] === "function" ? State[State.View](State) : ""
+  if(Object.prototype.toString.call(State) === "[object Object]" && typeof State[State.View] === "function") {
+    State.Content = State[State.View](State)
+  }
   // Run any setup code once
   if(Initiate) {
     State =
