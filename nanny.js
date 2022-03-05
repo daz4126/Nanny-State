@@ -67,7 +67,9 @@ function Nanny(
     }
 
     // Set value of Content if required
-    State.Content = typeof State[State.View] === "function" ? State[State.View](State) : ""
+    if(Object.prototype.toString.call(State) === "[object Object]" && typeof State[State.View] === "function") {
+      State.Content = State[State.View](State)
+    }
     // Re-render the view based on updated state.
     if(Render){
       render(Element,Template(State));
