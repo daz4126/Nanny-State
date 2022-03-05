@@ -1,6 +1,6 @@
 {
   "name": "nanny-state",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "description": "simple state management for vanilla JS",
   "main": "nanny.js",
   "type": "module",
