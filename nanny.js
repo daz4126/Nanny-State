@@ -10,14 +10,17 @@ function Nanny(
     Before = State.Before,
     After = State.After,
     Debug = State.Debug,
-    LocalStorageKey = State.LocalStorageKey,
-    Render = State.Render || true
+    LocalStorageKey = State.LocalStorageKey
   } = {}
 ) {
   const Template = Layout || View || "NANNY STATE"
   // Retrieve state from local storage.
   if(LocalStorageKey) {
-    State = localStorage.getItem(LocalStorageKey) ? {...State,...JSON.parse(localStorage.getItem(LocalStorageKey))} : State;
+    State = localStorage.getItem(LocalStorageKey) 
+      ? Object.prototype.toString.call(State) === "[object Object]"
+        ? {...State,...JSON.parse(localStorage.getItem(LocalStorageKey))} 
+        : JSON.parse(localStorage.getItem(LocalStorageKey)
+      : State;
   }
   // Set value of Content if required
   if(Object.prototype.toString.call(State) === "[object Object]" && typeof State[State.View] === "function") {
@@ -25,15 +28,16 @@ function Nanny(
   }
   // Run any setup code once
   if(Initiate) {
-    State =
-      Object.prototype.toString.call(State) === "[object Object]"
-        ? { ...State, ...Initiate(State) }
-        : Initiate(State);
+    const newState = Initiate(State);
+    State = newState
+      ? Object.prototype.toString.call(State) === "[object Object]"
+        ? { ...State, ...newState }
+        : newState
+      : State;
   }
   // Render view based on initial state.
-  if(Render) {
-    render(Element,Template(State));
-  }
+  render(Element,Template(State));
+
 
   if (Debug) {
     console.log(State);
@@ -41,11 +45,13 @@ function Nanny(
 
   return (transformer,{Render=true}={}) => {
     if (Before) {
-      State =
-      Object.prototype.toString.call(State) === "[object Object]"
-        ? { ...State, ...Before(State) }
-        : Before(State);
-    }
+      const newState = Before(State);
+    State = newState
+      ? Object.prototype.toString.call(State) === "[object Object]"
+        ? { ...State, ...newState }
+        : newState
+      : State;
+  }
 
     // Update state based on the arguments.
     const newState =
@@ -60,10 +66,12 @@ function Nanny(
         : newState;
 
     if (After) {
-      State =
-      Object.prototype.toString.call(State) === "[object Object]"
-        ? { ...State, ...After(State) }
-        : After(State);
+      const newState = After(State);
+    State = newState
+      ? Object.prototype.toString.call(State) === "[object Object]"
+        ? { ...State, ...newState }
+        : newState
+      : State;
     }
 
     // Set value of Content if required
@@ -71,9 +79,7 @@ function Nanny(
       State.Content = State[State.View](State)
     }
     // Re-render the view based on updated state.
-    if(Render){
-      render(Element,Template(State));
-    }
+    render(Element,Template(State));
 
     if(LocalStorageKey){
       localStorage.setItem(LocalStorageKey,JSON.stringify(State))
