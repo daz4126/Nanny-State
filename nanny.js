@@ -19,7 +19,7 @@ function Nanny(
     State = localStorage.getItem(LocalStorageKey) 
       ? Object.prototype.toString.call(State) === "[object Object]"
         ? {...State,...JSON.parse(localStorage.getItem(LocalStorageKey))} 
-        : JSON.parse(localStorage.getItem(LocalStorageKey)
+        : JSON.parse(localStorage.getItem(LocalStorageKey))
       : State;
   }
   // Set value of Content if required
@@ -37,7 +37,6 @@ function Nanny(
   }
   // Render view based on initial state.
   render(Element,Template(State));
-
 
   if (Debug) {
     console.log(State);
@@ -84,6 +83,7 @@ function Nanny(
     if(LocalStorageKey){
       localStorage.setItem(LocalStorageKey,JSON.stringify(State))
     }
+
     if (Debug) {
       console.log(State);
     }
