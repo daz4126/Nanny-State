@@ -11,7 +11,7 @@ function Nanny(
     Debug = State.Debug,
     LocalStorageKey = State.LocalStorageKey
   } = {}
-)
+){
   // Retrieve state from local storage.
   if(LocalStorageKey) {
     State = localStorage.getItem(LocalStorageKey) 
