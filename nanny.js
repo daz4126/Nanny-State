@@ -4,7 +4,6 @@ function Nanny(
   State = {},
   {
     Element = State.Element || document.body,
-    Layout = State.Layout,
     View = State.View,
     Initiate = State.Initiate,
     Before = State.Before,
@@ -12,8 +11,7 @@ function Nanny(
     Debug = State.Debug,
     LocalStorageKey = State.LocalStorageKey
   } = {}
-) {
-  const Template = Layout || View || "NANNY STATE"
+)
   // Retrieve state from local storage.
   if(LocalStorageKey) {
     State = localStorage.getItem(LocalStorageKey) 
@@ -22,10 +20,31 @@ function Nanny(
         : JSON.parse(localStorage.getItem(LocalStorageKey))
       : State;
   }
+
+  // append Route method to State
+  State.Route = path => event => {
+    event.preventDefault();
+    path = State.Path = path || event.target.attributes.href.value;
+    const route = State.Routes.find(route => route.path === State.Path);
+    document.title = route.title;
+    State.Content = route.view(State);
+    render(Element, View(State));
+    window.history.pushState({ path }, path, `${path}`);
+  };
+
+  // event listener to update State.Path when the URL changes
+  window.addEventListener("popstate", event => {
+    State.Path = window.location.pathname;
+    State.Content = State.Routes.find(route => route.path === State.Path).view(State);
+    render(Element, View(State));
+  });
+
+  // set the path to the address bar
+  State.Path = window.location.pathname;
+
   // Set value of Content if required
-  if(Object.prototype.toString.call(State) === "[object Object]" && typeof State[State.View] === "function") {
-    State.Content = State[State.View](State)
-  }
+  State.Content = State.Routes.find((route) => route.path === State.Path).view(State);
+
   // Run any setup code once
   if(Initiate) {
     const newState = Initiate(State);
@@ -74,9 +93,8 @@ function Nanny(
     }
 
     // Set value of Content if required
-    if(Object.prototype.toString.call(State) === "[object Object]" && typeof State[State.View] === "function") {
-      State.Content = State[State.View](State)
-    }
+    State.Content = State.Routes.find((route) => route.path === State.Path).view(State);
+
     // Re-render the view based on updated state.
     render(Element,Template(State));
 
