@@ -55,7 +55,7 @@ function Nanny(
       : State;
   }
   // Render view based on initial state.
-  render(Element,Template(State));
+  render(Element,View(State));
 
   if (Debug) {
     console.log(State);
@@ -96,7 +96,7 @@ function Nanny(
     State.Content = State.Routes.find((route) => route.path === State.Path).view(State);
 
     // Re-render the view based on updated state.
-    render(Element,Template(State));
+    render(Element,View(State));
 
     if(LocalStorageKey){
       localStorage.setItem(LocalStorageKey,JSON.stringify(State))
