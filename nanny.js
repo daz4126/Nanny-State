@@ -26,8 +26,8 @@ function Nanny(
     event.preventDefault();
     path = State.Path = path || event.target.attributes.href.value;
     const route = State.Routes.find(route => route.path === State.Path);
-    document.title = route.title;
-    State.Content = route.view(State);
+    document.title = route.title || "";
+    State.Content = route.view(State) || "";
     render(Element, View(State));
     window.history.pushState({ path }, path, `${path}`);
   };
@@ -35,7 +35,7 @@ function Nanny(
   // event listener to update State.Path when the URL changes
   window.addEventListener("popstate", event => {
     State.Path = window.location.pathname;
-    State.Content = State.Routes.find(route => route.path === State.Path).view(State);
+    State.Content = State.Routes.find(route => route.path === State.Path).view(State) || "";
     render(Element, View(State));
   });
 
@@ -43,7 +43,7 @@ function Nanny(
   State.Path = window.location.pathname;
 
   // Set value of Content if required
-  State.Content = State.Routes.find((route) => route.path === State.Path).view(State);
+  State.Content = State.Routes.find((route) => route.path === State.Path).view(State) || "";
 
   // Run any setup code once
   if(Initiate) {
@@ -93,7 +93,7 @@ function Nanny(
     }
 
     // Set value of Content if required
-    State.Content = State.Routes.find((route) => route.path === State.Path).view(State);
+    State.Content = State.Routes.find((route) => route.path === State.Path).view(State) || "";
 
     // Re-render the view based on updated state.
     render(Element,View(State));
