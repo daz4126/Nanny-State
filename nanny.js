@@ -13,38 +13,59 @@ function Nanny(
     LocalStorageKey = State.LocalStorageKey
   } = {}
 ){
+  // Helper functions
+  function findRoute(path) {
+    return (path === '/'
+      ? ['/']
+      : path.split('/').filter(char => char !== '')
+    ).reduce(
+      (obj, path, i) => obj?.routes?.find(r => r.path === path)
+          ? obj?.routes?.find(r => r.path === path)
+          : { ...obj?.routes?.find(r => r.path[0] === ':'), params: path },
+      { routes: Routes }
+    );
+  }
+
+  function Render() {
+    const route = findRoute(State.Path);
+    document.title = route?.title || document.title
+    if (route.update) {
+      const newState = route.params
+        ? route.update(route.params)(State)
+        : route.update(State);
+      State = newState
+        ? Object.prototype.toString.call(State) === '[object Object]'
+          ? { ...State, ...newState }
+          : newState
+        : State;
+    }
+    State.Content = route?.view(State) || '';
+    render(Element, View(State));
+  }
+
   // Retrieve state from local storage.
-  if(LocalStorageKey) {
-    State = localStorage.getItem(LocalStorageKey) 
-      ? Object.prototype.toString.call(State) === "[object Object]"
+  if(LocalStorageKey && localStorage.getItem(LocalStorageKey)) {
+    State =  Object.prototype.toString.call(State) === "[object Object]"
         ? {...State,...JSON.parse(localStorage.getItem(LocalStorageKey))} 
-        : JSON.parse(localStorage.getItem(LocalStorageKey))
-      : State;
+        : JSON.parse(localStorage.getItem(LocalStorageKey));
   }
 
   // append Route method to State
   State.Route = path => event => {
     event.preventDefault();
     path = State.Path = path || event.target.attributes.href.value;
-    const route = Routes?.find(route => route.path === State.Path);
-    document.title = route.title || "";
-    State.Content = route.view(State) || "";
-    render(Element, View(State));
+    Render()
     window.history.pushState({ path }, path, `${path}`);
   };
 
   // event listener to update State.Path when the URL changes
   window.addEventListener("popstate", event => {
     State.Path = window.location.pathname;
-    State.Content = Routes?.find((route) => route.path === State.Path).view(State) || "";
-    render(Element, View(State));
+    Render();
   });
 
   // set the path to the address bar
   State.Path = window.location.pathname;
-
-  // Set value of Content if required
-  State.Content = Routes?.find((route) => route.path === State.Path).view(State) || "";
 
   // Run any setup code once
   if(Initiate) {
@@ -55,8 +76,9 @@ function Nanny(
         : newState
       : State;
   }
+
   // Render view based on initial state.
-  render(Element,View(State));
+  Render();
 
   if (Debug) {
     console.log(State);
@@ -65,12 +87,12 @@ function Nanny(
   return (transformer,{Render=true}={}) => {
     if (Before) {
       const newState = Before(State);
-    State = newState
-      ? Object.prototype.toString.call(State) === "[object Object]"
-        ? { ...State, ...newState }
-        : newState
-      : State;
-  }
+      State = newState
+        ? Object.prototype.toString.call(State) === "[object Object]"
+          ? { ...State, ...newState }
+          : newState
+        : State;
+    }
 
     // Update state based on the arguments.
     const newState =
@@ -79,28 +101,24 @@ function Nanny(
         : transformer;
 
     // If the state is an object, create a copy and augment any changes to it.
-    State =
-      Object.prototype.toString.call(State) === "[object Object]"
+    State = Object.prototype.toString.call(State) === "[object Object]"
         ? { ...State, ...newState }
         : newState;
 
     if (After) {
       const newState = After(State);
-    State = newState
-      ? Object.prototype.toString.call(State) === "[object Object]"
-        ? { ...State, ...newState }
-        : newState
-      : State;
+      State = newState
+        ? Object.prototype.toString.call(State) === "[object Object]"
+          ? { ...State, ...newState }
+          : newState
+        : State;
     }
 
-    // Set value of Content if required
-    State.Content = Routes?.find((route) => route.path === State.Path).view(State) || "";
-
-    // Re-render the view based on updated state.
-    render(Element,View(State));
+    // Re-render the view based on updated state
+    Render();
 
     if(LocalStorageKey){
-      localStorage.setItem(LocalStorageKey,JSON.stringify(State))
+      localStorage.setItem(LocalStorageKey,JSON.stringify(State));
     }
 
     if (Debug) {
