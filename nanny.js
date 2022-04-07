@@ -84,7 +84,7 @@ function Nanny(
     console.log(State);
   }
 
-  return (transformer,{Render=true}={}) => {
+  return (transformer) => {
     if (Before) {
       const newState = Before(State);
       State = newState
@@ -115,7 +115,7 @@ function Nanny(
     }
 
     // Re-render the view based on updated state
-    render(Element, View(State));
+    Render();
 
     if(LocalStorageKey){
       localStorage.setItem(LocalStorageKey,JSON.stringify(State));
