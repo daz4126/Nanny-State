@@ -39,7 +39,7 @@ function Nanny(
           : newState
         : State;
     }
-    State.Content = route?.view(State) || '';
+    State.Content = route.view ? route.view(State) : '';
     render(Element, View(State));
   }
 
@@ -115,7 +115,7 @@ function Nanny(
     }
 
     // Re-render the view based on updated state
-    Render();
+    render(Element, View(State));
 
     if(LocalStorageKey){
       localStorage.setItem(LocalStorageKey,JSON.stringify(State));
