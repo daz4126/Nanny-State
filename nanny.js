@@ -9,69 +9,69 @@ function Nanny(
     Before = State.Before,
     After = State.After,
     Debug = State.Debug,
-    Routes = State.Routes,
+    Routes = State.Routes || [],
     LocalStorageKey = State.LocalStorageKey
   } = {}
 ){
   // Helper functions
-  function findRoute(path) {
-    return (path === '/'
-      ? ['/']
-      : path.split('/').filter(char => char !== '')
-    ).reduce(
-      (obj, path, i) => obj?.routes?.find(r => r.path === path)
+  const StateIsObject = Object.prototype.toString.call(State) === "[object Object]";
+
+  const findRoute = path => (path === '/' ? ['/'] : path.split('/').filter(char => char !== ''))
+  .reduce((obj, path, i) => 
+        obj?.routes?.find(r => r.path === path)
           ? obj?.routes?.find(r => r.path === path)
           : { ...obj?.routes?.find(r => r.path[0] === ':'), params: path },
       { routes: Routes }
     );
-  }
 
   function Render() {
-    const route = findRoute(State.Path);
+    const route = State.Path ? findRoute(State.Path) : null;
     document.title = route?.title || document.title
-    if (route.update) {
+    if (route?.update) {
       const newState = route.params
         ? route.update(route.params)(State)
         : route.update(State);
       State = newState
-        ? Object.prototype.toString.call(State) === '[object Object]'
+        ? StateIsObject
           ? { ...State, ...newState }
           : newState
         : State;
     }
-    State.Content = route.view ? route.view(State) : '';
+    if(StateIsObject) State.Content = route?.view ? route?.view(State) : '';
     render(Element, View(State));
   }
 
   // Retrieve state from local storage.
   if(LocalStorageKey && localStorage.getItem(LocalStorageKey)) {
-    State =  Object.prototype.toString.call(State) === "[object Object]"
+    State =  StateIsObject
         ? {...State,...JSON.parse(localStorage.getItem(LocalStorageKey))} 
         : JSON.parse(localStorage.getItem(LocalStorageKey));
   }
 
   // append Route method to State
-  State.Route = path => event => {
-    event.preventDefault();
-    path = State.Path = path || event.target.attributes.href.value;
-    Render()
-    window.history.pushState({ path }, path, `${path}`);
-  };
+  if(StateIsObject){
+    State.Route = path => event => {
+      event.preventDefault();
+      path = State.Path = path || event.target.attributes.href.value;
+      Render()
+      window.history.pushState({ path }, path, `${path}`);
+    };
+  }
 
   // event listener to update State.Path when the URL changes
   window.addEventListener("popstate", event => {
-    State.Path = window.location.pathname;
+    if(StateIsObject) State.Path = window.location.pathname;
     Render();
   });
 
   // set the path to the address bar
-  State.Path = window.location.pathname;
+  if(StateIsObject) State.Path = window.location.pathname;
 
   // Run any setup code once
   if(Initiate) {
     const newState = Initiate(State);
     State = newState
-      ? Object.prototype.toString.call(State) === "[object Object]"
+      ? StateIsObject
         ? { ...State, ...newState }
         : newState
       : State;
@@ -88,7 +88,7 @@ function Nanny(
     if (Before) {
       const newState = Before(State);
       State = newState
-        ? Object.prototype.toString.call(State) === "[object Object]"
+        ? StateIsObject
           ? { ...State, ...newState }
           : newState
         : State;
@@ -100,15 +100,14 @@ function Nanny(
         ? transformer(State)
         : transformer;
 
-    // If the state is an object, create a copy and augment any changes to it.
-    State = Object.prototype.toString.call(State) === "[object Object]"
+    State = StateIsObject
         ? { ...State, ...newState }
         : newState;
 
     if (After) {
       const newState = After(State);
       State = newState
-        ? Object.prototype.toString.call(State) === "[object Object]"
+        ? StateIsObject
           ? { ...State, ...newState }
           : newState
         : State;
