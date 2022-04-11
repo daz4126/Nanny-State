@@ -57,8 +57,8 @@ function Nanny(
   if(Routes && StateIsObject){
     State.Route = path => event => {
       event.preventDefault();
-      path = path || event.target.attributes.href.value;
-      window.history.pushState({ path }, path, `${path}`);
+      Path = path || event.target.attributes.href.value;
+      window.history.pushState({ Path }, Path, `${Path}`);
       Render()
     };
 
