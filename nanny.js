@@ -9,7 +9,7 @@ function Nanny(
     Before = State.Before,
     After = State.After,
     Debug = State.Debug,
-    Routes = State.Routes,
+    Routes = State.Routes || [],
     Path = window.location.pathname,
     LocalStorageKey = State.LocalStorageKey
   } = {}
@@ -28,7 +28,7 @@ function Nanny(
   )
 
   function Render() {
-    if(Routes){
+    if(Routes.length){
       const route = findRoute(Path);
       document.title = route?.title || document.title
       if (route?.update) {
