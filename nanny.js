@@ -25,7 +25,7 @@ function Nanny(
         ? {...obj?.routes?.find(r => r.path === path),params: obj.params}
         : { ...param, params: {...obj.params,[param.path.slice(1)]: path} }
     },{ routes: Routes }
-  )
+  );
 
   function Render() {
     if(Routes.length){
