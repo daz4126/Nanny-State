@@ -5,8 +5,8 @@
 > simple state management for vanilla JS
 
 [![npm](https://img.shields.io/npm/v/nanny-state)](https://www.npmjs.com/package/nanny-state)
-[![License](https://img.shields.io/badge/License-Unlicense-blue)](#license)
-![Blazingly Fast](https://img.shields.io/badge/speed-blazing%20🔥-blue.svg)
+[![License](https://img.shields.io/badge/License-Unlicense-hotpink)](#license)
+![Blazingly Fast](https://img.shields.io/badge/speed-blazing%20🔥-gold.svg)
 
 </div>
 
