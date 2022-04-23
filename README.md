@@ -16,7 +16,9 @@ _simple, fast & minimal state management for vanilla JS_
 - **FAST** - automatic page renders that are blazingly fast.
 - **MINIMAL** - only 3kb minified and zipped.
 
-**NANNY STATE** stores data in a single state object and automatically renders the view when it changes. This keeps your code organized and easier to maintain without the bloat of other libraries. And everything is written in vanilla JS and HTML, which means you don't have to learn any new syntax!
+## The State Is Everything
+
+**NANNY STATE** stores everything about the app in a single state object and automatically re-renders the view when the state changes. This means that your code is more organized and easier to maintain without the bloat of other libraries. And everything is written in vanilla JS and HTML, which means you don't have to learn any new syntax!
 
 It's easy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
