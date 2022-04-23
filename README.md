@@ -2,7 +2,7 @@
 
 # ![NANNY STATE](https://user-images.githubusercontent.com/16646/164916454-c7c9d9e8-2d58-4629-af46-7a5205d39304.png)
 
-> simple state management for vanilla JS
+_simple state management for vanilla JS_
 
 [![npm](https://img.shields.io/npm/v/nanny-state)](https://www.npmjs.com/package/nanny-state)
 [![License](https://img.shields.io/badge/License-Unlicense-hotpink)](#license)
@@ -55,7 +55,7 @@ npm install nanny-state
 Then import like this:
 
 ```javascript
-import { Nanny, html } from "nanny-state";
+import { Nanny, html } from "nanny-state"
 ```
 
 ### ES Modules
@@ -64,7 +64,7 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
 
 ```html
 <script type="module">
-  import { Nanny,html } from 'https://cdn.skypack.dev/nanny-state';
+  import { Nanny,html } from 'https://cdn.skypack.dev/nanny-state'
 </script>
 ```
 
