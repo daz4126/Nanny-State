@@ -10,7 +10,7 @@
 
 </div>
 
-**NANNY STATE** makes it simple to build state-based web apps in vanilla JS.
+**NANNY STATE** makes it simple to build dynamic, state-based web apps in vanilla JS.
 
 - **SIMPLE** - build interactive user-interfaces with just a few lines of code.
 - **FAST** - automatic page renders that are blazingly fast.
@@ -76,44 +76,32 @@ Building a NANNY STATE app is simple and straightforward. It always follows thes
    ```javascript
    import { Nanny, html } from 'nanny-state'
    ````
-2. Decide on the structure of your data and create a state object (settings are also properties of the `State` object but are always written in PascalCase):
-   ````javascript
-   const State = { 
-      name: "World",
-      View
-     }
-   ```
-3. Decide how you want the data to be displayed and create a view template:
+
+2. Create the `View` template - a pure function that accepts the state as its only parameter and outputs a string of HTML:
    ```javascript
    const View = state =>
       html`<h1>Hello ${name}
-           <button onclick=${hello}>Click Me</button>`
+           <button onclick=${state._hello}>Click Me</button>`
    ```
-4. Create an event handler to call the `Update` function and update the state:
+   
+3. Create an event handler to call the `Update` function and update the state:
   ```javascript
-  const hello = event => Update({ name: "Nanny State" })
+  const _hello = event => Update({ name: "Nanny State" })
   ```
+  
+4. Create the initial `State` object (everything goes in the State, the properties and the View and event handler):
+   ````javascript
+   const State = { 
+      name: "World",
+      _hello,
+      View
+     }
+   ```
 
 5. Assign the `Update` function to the return value of `Nanny(State)`:
   ```javascript
   const Update = Nanny(State)
   ```
-
-The basic structure of any NANNY STATE app is:
-
-```javascript
-import { Nanny, html } from 'nanny-state'
-
-const View = state => html`some view code here`
-const State = { 
-  prop: value, 
-  View
-}
-
-const handler = event => Update({newState})
-
-const Update = Nanny(State)
-```
 
 <div id="examples">
   
