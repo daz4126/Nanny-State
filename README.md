@@ -2,7 +2,7 @@
 
 # ![NANNY STATE](https://user-images.githubusercontent.com/16646/164916454-c7c9d9e8-2d58-4629-af46-7a5205d39304.png)
 
-_simple state management for vanilla JS_
+_simple, fast & minimal state management for vanilla JS_
 
 [![npm](https://img.shields.io/npm/v/nanny-state)](https://www.npmjs.com/package/nanny-state)
 [![License](https://img.shields.io/badge/License-Unlicense-hotpink)](#license)
@@ -16,7 +16,7 @@ _simple state management for vanilla JS_
 - **FAST** - automatic page renders that are blazingly fast.
 - **MINIMAL** - only 3kb minified and zipped.
 
-**NANNY STATE** stores data in a single state object and automatically renders the view when it changes. This keeps your code organized and easier to maintain without the bloat of other libraries. And everything is written in vanila JS and HTML, which means you don't have to learn any new syntax!
+**NANNY STATE** stores data in a single state object and automatically renders the view when it changes. This keeps your code organized and easier to maintain without the bloat of other libraries. And everything is written in vanilla JS and HTML, which means you don't have to learn any new syntax!
 
 It's easy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
