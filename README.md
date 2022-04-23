@@ -1,6 +1,6 @@
 <div align="center">
 
-# ![NANNY STATE](https://user-images.githubusercontent.com/16646/139462604-74d6670e-bcdb-4fa2-9974-1403cb157fc2.png)
+# ![NANNY STATE](https://user-images.githubusercontent.com/16646/164916454-c7c9d9e8-2d58-4629-af46-7a5205d39304.png)
 
 > simple state management for vanilla JS
 
