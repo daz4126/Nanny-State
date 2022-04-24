@@ -36,7 +36,7 @@ NANNY STATE uses a one-way data flow model comprised of 3 interdependent parts:
 
 </div>
 
-The state is the single source of truth in the application and it can only be changed using the `Update` function, ensuring that any changes are deterministic with predictable outcomes. The view is an HTML representation of the data stored in the state. When a user interacts with the page, the `Update` function changes the state and the view is automatically re-rendered to reflect these changes.
+In NANNY STATE, the state is everything. It is the single source of truth in the application and it can only be changed using the `Update` function, ensuring that any changes are deterministic with predictable outcomes. The view is an HTML representation of the data stored in the state. When a user interacts with the page, the `Update` function changes the state and the view is automatically re-rendered to reflect these changes.
 
 ## Background
 
@@ -123,9 +123,7 @@ And if you want it to look pretty, just copy the CSS code from the examples on C
 
 </div>
 
-This is a simple example to show how Nanny State renders the view based on the state.
-
-You can see finished app and code on [CodePen](https://codepen.io/daz4126/pen/zYwZjWw).
+This example will show how the 3 elements of Nanny State, State, View and the Update function, work.
 
 Start by importing the relevant functions:
 
@@ -133,21 +131,24 @@ Start by importing the relevant functions:
 import { Nanny, html } from 'nanny-state'
 ```
 
-Next, create an object to represent the initial state (the state is usally an object, but can be any data-type). The state stores every bit of information about our app as data. In this simple example, we just want to store the value of a property called 'name':
+Next we'll create the view. This is a function that accepts the state as an argument and returns a string of HTML that depends on the value of the state's properties. 
 
 ```javascript
-const State = { name: "World" }
+const View = state => html`<h1>Hello World</h1>`
 ```
 
-Our next job is to create the view - this is a function that accepts the state as an argument and returns a string of HTML that depends on the value of the state's properties. In NANNY STATE, everything is stored as a property of the state, even the app settings such as the view! Properties that are settings are written in PascalCase to differentiate them from the other state properties that are written in camelCase. So we store the view template in a property of the state called `View`. This can be set like so:
-
-```javascript
-State.View = state => html`<h1>Hello ${state.name}</h1>`
-```
-
-Views in NANNY STATE use the `html` template function that is part of µhtml. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code for the view and uses `${expression}` placeholders to insert values from the state.
+Views in NANNY STATE use the `html` template function that is part of µhtml. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code that we want to display in our app. 
 
 These values are then bound to the view and will automatically update to reflect any changes in the state. In this example we are inserting the value of the state object's 'name' property into the `<h1>` element.
+```
+
+In NANNY STATE, everything is stored as a property of the state, even the app settings such as the view! This means that we have to add the `View` code to the `State` object. Since we named the variable `View`, we can just use object-shortand notation to add this to the `State` object, like so:
+
+```javascript
+const State = { 
+  View 
+}
+```
 
 Last of all, we need to call the `Nanny` function with `State` provided as an argument:
 
@@ -156,6 +157,17 @@ Nanny(State)
 ```
 
 This passes the `State` object into the `Nanny` function, which renders the view based on the initial state.
+
+You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBryB).
+
+
+
+
+
+
+for the view and uses `${expression}` placeholders to insert values from the state.
+
+Next, create an object to represent the initial state (the state is usally an object, but can be any data-type). The state stores every bit of information about our app as data. In this simple example, we just want to store the value of a property called 'name':
 
 ### Hello Batman Example
 
