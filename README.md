@@ -32,7 +32,7 @@ NANNY STATE uses a one-way data flow model comprised of 3 interdependent parts:
 
 <div align="center">
   
-![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/135819511-36cbb9cf-54b4-4ea5-93df-1d203f31fe76.png)
+![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/164986422-203df76e-05c8-49f7-bc3b-3a0a108aca03.png)
 
 </div>
 
@@ -119,7 +119,7 @@ And if you want it to look pretty, just copy the CSS code from the examples on C
 
 <div align="center">
 
-![Hello World screenshot](https://user-images.githubusercontent.com/16646/139462902-53948f26-1883-45eb-b657-9426f3a8f72a.png)
+![Hello World screenshot](https://user-images.githubusercontent.com/16646/164986455-102d1310-c092-45a5-a8af-c939252da436.png)
 
 </div>
 
