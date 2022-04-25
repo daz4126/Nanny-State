@@ -175,7 +175,22 @@ Now let's update the `View` to use this property:
 ```javascript
 const View = state => html`<h1>Hello ${state.name}</h1>`
 ```
+Even though, outwardly, nothing seems to have changed, we are now using properties of the `State` in the `View`.
 
+You can this code on [CodePen](https://codepen.io/daz4126/pen/jOYeqoN).
+
+Our next job is to make the view dynamic. First of all we'll add a button:
+  
+```javascript
+const View = state => html`<h1>Hello ${state.name}</h1>`
+```
+  
+  
+  
+  
+  
+  
+  
 ### Hello Batman Example
 
 <div align="center">
