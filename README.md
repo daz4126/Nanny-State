@@ -82,20 +82,20 @@ Building a NANNY STATE app is simple and straightforward. It always follows thes
 2. Create the `View` template - a pure function that accepts the state as its only parameter and outputs a string of HTML:
    ```javascript
    const View = state =>
-      html`<h1>Hello ${name}
-           <button onclick=${state._hello}>Click Me</button>`
+      html`<h1>Hello ${state.name}
+           <button onclick=${state._changeName}>Click Me</button>`
    ```
    
 3. Create an event handler to call the `Update` function and update the state:
   ```javascript
-  const _hello = event => Update({ name: "Nanny State" })
+  const _changeName = event => Update({ name: "Nanny State" })
   ```
   
 4. Create the initial `State` object (everything goes in the State, the properties and the View and event handler):
    ````javascript
    const State = { 
       name: "World",
-      _hello,
+      _changeName,
       View
      }
    ```
@@ -159,14 +159,22 @@ This passes the `State` object into the `Nanny` function, which renders the view
 
 You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBryB).
 
+This is just a static piece of HTML though. The view in Nanny State can display dynamic expressions using `${expression}` placeholders to insert properties from the state.
 
-
-
-
-
-for the view and uses `${expression}` placeholders to insert values from the state.
-
-Next, create an object to represent the initial state (the state is usally an object, but can be any data-type). The state stores every bit of information about our app as data. In this simple example, we just want to store the value of a property called 'name':
+Let's add a property called 'name', with a value of the string "World", to the state:
+  
+  ```javascript
+  State = {
+    name: "World",
+    View
+  }
+  ```
+  
+Now let's update the `View` to use this property:
+  
+```javascript
+const View = state => html`<h1>Hello ${state.name}</h1>`
+```
 
 ### Hello Batman Example
 
