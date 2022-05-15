@@ -219,6 +219,8 @@ Because `_changeName` is an event handler, its only parameter is the `event` obj
 We now have everything wired up correctly. When the user clicks the button, the `_changeName` event handler is called. This calls the `Update` function which changes the 'name' property to 'Nanny State' and re-renders the page based on this new state.
 
 You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clicking the button to see the view change!
+  
+![May-15-2022 22-55-26](https://user-images.githubusercontent.com/16646/168495502-3be53eae-ff34-4abd-ae32-bd500c9eb07d.gif)
 
 Now let's try adding an event handler that uses some information passed to it in the `event` object. We'll create an input field that allows the user to update the `name` property as they type. Change the view to the following:
   
