@@ -158,9 +158,13 @@ Nanny(State)
 This passes the `State` object into the `Nanny` function, which renders the view based on the initial state.
 
 You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBryB).
+
 <div align="center">
+  
 ![Screenshot 2022-05-15 at 22 57 27](https://user-images.githubusercontent.com/16646/168495571-19bd4fa0-0854-4560-9f77-68541a08c602.png)
-  </div>
+
+</div>
+
 This is just a static piece of HTML though. The view in Nanny State can display dynamic expressions using `${expression}` placeholders to insert properties from the state.
 
 Let's add a property called 'name', with a value of the string "World", to the state:
@@ -223,7 +227,9 @@ We now have everything wired up correctly. When the user clicks the button, the 
 You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clicking the button to see the view change!
 
 <div align="center">
+  
 ![May-15-2022 22-55-26](https://user-images.githubusercontent.com/16646/168495502-3be53eae-ff34-4abd-ae32-bd500c9eb07d.gif)
+
 </div>
   
 Now let's try adding an event handler that uses some information passed to it in the `event` object. We'll create an input field that allows the user to update the `name` property as they type. Change the view to the following:
@@ -248,8 +254,10 @@ This time the `Update` function is passed an object that replaces the `name` pro
 You can this code on [CodePen](https://codepen.io/daz4126/pen/qBpJNOp). Try typing into the input field and see the view change as you type!
 
 <div align="center">
+  
 ![May-15-2022 22-44-35](https://user-images.githubusercontent.com/16646/168495145-b2f74553-3515-4874-8b9e-a4bc1e1f542a.gif)
-  </div>
+
+</div>
 
 ### Counter Example
 
