@@ -216,11 +216,32 @@ To do this we need to add the `_changeName` event handler to the State:
 
 Because `_changeName` is an event handler, its only parameter is the `event` object (although it isn't actually needed in this example, but it is useful to identify the function as an event handler). In this case, the purpose of the function is to call the `Update` function that changes the 'name' property to "Nanny State" by passing the object `{name: "Nanny State"}` as an argument to the `Update` function. Note that you ony have to include any properties of the State that need updating in this object(**Nanny State** assumes that all the other properties will stay the same). **NANNY STATE** will then automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
 
-We now have everything wired up correctly. When the user clicks the button, the `beBatman` event handler is called. This calls the `Update` function which changes the 'name' property to 'Batman' and re-renders the page based on this new state.
+We now have everything wired up correctly. When the user clicks the button, the `_changeName` event handler is called. This calls the `Update` function which changes the 'name' property to 'Nanny State' and re-renders the page based on this new state.
 
-Try clicking the button to see the view change based on user input!
+You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clicking the button to see the view change!
 
-You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB).
+Now let's try adding an event handler that uses some information passed to it in the `event` object. We'll create an input field that allows the user to update the `name` property as they type. Change the view to the following:
+  
+```javascript
+const View = state => html`<h1>Hello ${state.name}</h1>
+<input oninput=${state._changeName}>`
+```
+  
+We've replaced the button element with an input field that uses the inline event listener `oninput` to call the `_changeName` event handler. We need to update this function inside the `State` object:
+  
+```javascript
+ const State = {
+  name: "World",
+  _changeName: event => Update({name: event.target.value}),
+  View
+} 
+```
+  
+This time the `Update` function is passed an object that replaces the `name` property of the state with the value of `event.target.value` which corresponds to the text entered into the input field. Every time the input changes, this event will fire and the view will be re-rendered to correspond to what has been typed into the input field.
+
+You can this code on [CodePen](https://codepen.io/daz4126/pen/qBpJNOp). Try typing into the input field and see the view change as you type!
+  
+![May-15-2022 22-44-35](https://user-images.githubusercontent.com/16646/168495145-b2f74553-3515-4874-8b9e-a4bc1e1f542a.gif)
 
 
 ### Counter Example
