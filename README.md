@@ -91,7 +91,7 @@ Building a NANNY STATE app is simple and straightforward. It always follows thes
   const _changeName = event => Update({ name: "Nanny State" })
   ```
   
-4. Create the initial `State` object (everything goes in the State, the properties and the View and event handler):
+4. Create the initial `State` object (everything goes in the State, props, the View and event handlers):
    ````javascript
    const State = { 
       name: "World",
@@ -179,86 +179,49 @@ Even though, outwardly, nothing seems to have changed, we are now using properti
 
 You can this code on [CodePen](https://codepen.io/daz4126/pen/jOYeqoN).
 
-Our next job is to make the view dynamic. First of all we'll add a button:
+Our next job is to make the view dynamic. First of all we'll add a button to the view:
   
-```javascript
-const View = state => html`<h1>Hello ${state.name}</h1>`
-```
-  
-  
-  
-  
-  
-  
-  
-### Hello Batman Example
-
-<div align="center">
-
-![Hello Batman screenshot](https://user-images.githubusercontent.com/16646/139463339-2353a4b8-f6b9-40ea-a9ad-9959973c76b1.png)
-
-</div>
-
-This example shows how the state object can be updated using the `Update` function.
-
-You can see the finished app and code on [CodePen](https://codepen.io/daz4126/pen/oNWZdyd).
-
-It starts in the same way as the last example, by importing the same two functions:
-
-```javascript
-import { Nanny, html } from 'nanny-state'
-```
-
-Next we'll create the view template and assign it to the variable `View` (remember that this is a function that accepts the current state as an argument):
-
 ```javascript
 const View = state => 
   html`<h1>Hello ${state.name}</h1>
-       <button onclick=${state.beBatman}>I'm Batman</button>`
+       <button onclick=${state._changeName}>Hello</button>`
 ```
 
-This view is similar to the one we used in the Hello World example, but it also contains a button with an inline event listener. When the button is clicked the event handler `beBatman` will be called. We want this function to update the state object so the 'name' property changes to 'Batman'. This is exactly what the `Update` function is for.
-
-To update the state a new representation of the state is passed as an argument to the `Update` function. **NANNY STATE** will then automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
+The button element has an inline event listener. When the button is clicked the event handler `_changeName` will be called (by convention, event handlers start with an `_` to differentiate them from other properties in the State). We want this function to update the state object so the 'name' property changes to 'Nanny State'. This is exactly what the `Update` function is for.
   
-It's really easy to update the state using the `Update` function - simply pass it an object containing any state properties that you want to update or create (any other properties of the state will be assumed to have stayed the same). These new properties are then merged into the current state and a new state is created. The view is then re-rendered to reflect this update.
+The `Update` function is returned when the `Nanny` function is called. Calling the `Nanny` function does 2 things:
 
-To see this in action, let's write the `beBatman` event handler function to use the `Update` function to update the state and change the 'name' property to 'Batman'. 
-
-The `Update` function accepts an object containing any state properties that we want to change. In our example, we want to change the 'name' property to 'Batman' so we just need to pass the object `{name: "Batman"}` as an argument to the `Update` function like so:
-
-```javascript
-const beBatman = event => Update({name: "Batman"})
-```
-
-Because `beBatman` is an event handler, the only parameter is the event object (although it isn't actually needed in this example). The purpose of this function is to call the `Update` function that changes the 'name' property to 'Batman', but it's useful to know that it's an event handler. 
-
-Next, we need to assign the initial state object to the `State` variable:
-
-```javascript
-const State = { 
-  name: 'Bruce Wayne',
-  beBatman, 
-  View 
-}
-```
-
-Notice that as well as assigning the 'name' property the value of 'Bruce Wayne', we also add the `View` and `beBatman` svariable as a properties of the `State` object using the shorthand object assignment. In **NANNY STATE**, evething is a property of the state!
-
-Last of all, we need to call the `Nanny` function. The `Update` function returned by the `Nanny` function, so we assign it to the variable `Update`  (not that the convention is to call it `Update` but it can be any legal variable name):
-
+1. Renders the initial view based on the initial value of the `State` variable that is passed to it.
+2. Returns the `Update` function - this is the only way that the state can be updated in the app.
+  
+To create the `Update` function, change the last line of code so it assigns the variable `Update` to the return value of `Nanny(State)`:
+  
 ```javascript
 const Update = Nanny(State)
 ```
+  
+*Note that it is only called `Update` by convention and can actually be called any legal variable name.*
 
-Calling the `Nanny` function does 2 things:
+Now we can use the `Update` function to update the state when the button is clicked. This is really easy to do - simply pass an object representing the new state as an argument to the `Update` function.
+  
+To do this we need to add the `_changeName` event handler to the State:
+  
+```javascript
+ const State = {
+  name: "World",
+  _changeName: event => Update({name: "Nanny State"}),
+  View
+} 
+```
 
-1. Renders the initial view based on the initial state provided as an argument (as we saw in the Hello World example).
-2. Returns the `Update` function that is the only way to update the state.
+Because `_changeName` is an event handler, its only parameter is the `event` object (although it isn't actually needed in this example, but it is useful to identify the function as an event handler). In this case, the purpose of the function is to call the `Update` function that changes the 'name' property to "Nanny State" by passing the object `{name: "Nanny State"}` as an argument to the `Update` function. Note that you ony have to include any properties of the State that need updating in this object(**Nanny State** assumes that all the other properties will stay the same). **NANNY STATE** will then automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
 
 We now have everything wired up correctly. When the user clicks the button, the `beBatman` event handler is called. This calls the `Update` function which changes the 'name' property to 'Batman' and re-renders the page based on this new state.
 
 Try clicking the button to see the view change based on user input!
+
+You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB).
+
 
 ### Counter Example
 
