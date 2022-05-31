@@ -394,43 +394,55 @@ const Update = Nanny(State)
 
 This will render the initial view with the count set to `0` and allow you to increase the count by clicking on the button.
   
-You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoByma). Click on the button to toggle the heading and button content!
+You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoByma). Click on the button to increase the count!
 
 <div align="center">
   
 ![Counter example](https://user-images.githubusercontent.com/16646/171259876-ef897b54-a78a-4091-a600-e61b5f88c38e.gif)
 
 </div>
+
+### Adding Additional Arguments to Event Handlers
+
+If you want an event handler to have parameters in addition to the event, then this can be done using a 'double-arrow' function and partial application. The additional arguments always come first and the event should be the last parameter provided to the function:
+
+```javascript
+const handler = params = state => newState
+```
   
+_Note that this is a standard Vanilla JS technique and not unique to Nanny State_
 
+For example, if we wanted our counter app to have buttons that increased the count by 1, 2 or even decreased it by 1, then instead of writing a separate event handler for each button, we could write a function that accepted an extra parameter of how much to increase the value of `state.count` by. We could rewerite `_incrementCount` like so:
+
+```javascript
+_incrementCount: (n=1) => event => 
+    Update(state => ({count: state.count + n}))
+```
+
+Here the parameter `n` is used to determine how much `state.count` is increased by and has a default value of `1`. This makes the event handler much more flexible.
+
+When calling an event handler with parameters in the View, it needs to be partially applied with any arguments that are required. For example, this is how the View would now look with our extra buttons:
+
+```javascript
+const View = state => html`
+<h1>${state.count}</h1>
+<div>
+  <button onclick=${state._incrementCount()}>+1</button>
+  <button onclick=${state._incrementCount(2)}>+2</button>
+  <button onclick=${state._incrementCount(-1)}>-1</button>
+</div>`
+```
   
+Notice that the `state._incrementCount` function is actually *called* in the view with the first parameter provided (or if no parameter is provided the default value of `1` will be used. The `event` object will still be implicityly passed to the event handler (even though it isn't used in this example).
+  
+You can see the code for this updated counter example on [CodePen](https://codepen.io/daz4126/pen/NWXOmpd). Click on the buttons to increase or decrease the count by different amounts!
 
+<div align="center">
+  
+![Counter example with partial application](https://user-images.githubusercontent.com/16646/171265054-dd46ddcf-aeea-4fac-8467-be0b7c2b3886.gif)
 
-### Adding Additional Arguments to Transformer Functions
-
-If you want a transformer function to have parameters in addition to the state, then this must be done using a 'double-arrow' function and partial application. The additional arguments always come first and the state should be the last parameter provided to the transfomer function:
-
-```javascript
-const transformer = params = state => newState
-```
-
-For example, if we wanted a counter app that had buttons that increased the count by 1, 2 or 3, instead of writing a separate transformer function for each button, we could write a single transformer function with a parameter of how much to increase the value of `state.count` by. It would look like this:
-
-```javascript
-const increaseBy = n => state => ({count: state.count + n})
-```
-
-Here the parameter `n` is used to determine how much `state.count` is increased by, making the transformer function more flexible.
-
-When passing a transformer function with parameters to the `Update` function, it needs to be partially applied with any arguments. For example, this is how we could use the `increaseBy` transformer function in the view:
-
-```javascript
-const Counter = number => 
-html`<div id='counter'>${number}</div>
-     <button onclick=${e=>Update(increaseBy(1))}>Add 1</button>
-     <button onclick=${e=>Update(increaseBy(2))}>Add 2</button>
-     <button onclick=${e=>Update(increaseBy(3))}>Add 3</button>
-```
+</div>
+  
   
 ### Anonymous Event Handlers In The View
   
@@ -522,6 +534,22 @@ State.Debug = true
   ```
   
 ### Routing
+  
+Routing is baked in to **NANNY STATE**. Remember that the State Is Everything, so it just gets set up in the `State` object. Simply define a property called `Routes` as an array of **route objects**. Route objects contain the following properties:
+  
+  * `path`: the path used to access the route
+  * `title`: the title property of the route
+  * `view`: a function that works exactly like the main `View` function (a bit like a sub-view) and accepts the current state as an argument and returns a string of HTML
+  
+Here's a basic example:
+  
+```javascript
+Routes: [
+    { path: '/', title: 'Home', view: state => html`<h1>Home</h1> },
+    { path: '/about', title: 'About', view: state => html`<h1>About Us</h1> },
+    { path: '/contact', title: 'Contact', view: state => html`<h1>Contact Us</h1> }
+  ]
+```
 
 
 ## License
