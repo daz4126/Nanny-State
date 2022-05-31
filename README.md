@@ -407,7 +407,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoByma). Click on
 If you want an event handler to have parameters in addition to the event, then this can be done using a 'double-arrow' function and partial application. The additional arguments always come first and the event should be the last parameter provided to the function:
 
 ```javascript
-const handler = params = state => newState
+const handler = params = event => newState
 ```
   
 _Note that this is a standard Vanilla JS technique and not unique to Nanny State_
