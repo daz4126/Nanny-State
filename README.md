@@ -161,7 +161,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBryB).
 
 <div align="center">
   
-![Screenshot 2022-05-15 at 22 57 27](https://user-images.githubusercontent.com/16646/168495571-19bd4fa0-0854-4560-9f77-68541a08c602.png)
+![Hello World!](https://user-images.githubusercontent.com/16646/168495571-19bd4fa0-0854-4560-9f77-68541a08c602.png)
 
 </div>
 
@@ -228,7 +228,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clic
 
 <div align="center">
   
-![May-15-2022 22-55-26](https://user-images.githubusercontent.com/16646/168495502-3be53eae-ff34-4abd-ae32-bd500c9eb07d.gif)
+![Click and change](https://user-images.githubusercontent.com/16646/168495502-3be53eae-ff34-4abd-ae32-bd500c9eb07d.gif)
 
 </div>
   
@@ -255,11 +255,11 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/qBpJNOp). Try typi
 
 <div align="center">
   
-![May-15-2022 22-44-35](https://user-images.githubusercontent.com/16646/168495145-b2f74553-3515-4874-8b9e-a4bc1e1f542a.gif)
+![Dyncamic content](https://user-images.githubusercontent.com/16646/168495145-b2f74553-3515-4874-8b9e-a4bc1e1f542a.gif)
 
 </div>
   
-### Hello World, Goodby World
+### Hello World, Goodbye World
   
 This next example shows how to implement a toggle function as well as how to render parts of the view based on the value of properties in the State.
 
@@ -309,20 +309,28 @@ Transformer functions must be **[pure functions](https://en.wikipedia.org/wiki/P
 state => newState
 ```
 
-If the transformer function needs to accept parameters, then the 'double arrow' notation is used to perform [partial application](#partial-application):
-
+In the `_changeSalutation` example above,the transformer functions checks the value of the `state.salutation` property and then toggles the value accordingly, so if the value is "Hello" it updates it to "Goodbye" and vice-versa:
+  
 ```javascript
-state => params => newState
+state => ({salutation: state.salutation === "Hello" ? "Goodbye" : "Hello"})
+```
+  
+Transformer functions are passed *by reference* to the `Update` function. The current state is implicityly passed as an argument to any transformer function (similiar to the way the event object is implicitly passed to event handlers when they are called).
+
+All we we need to do now is start everything running and define the `Update` function:
+  
+```javascript
+Nanny(State)
 ```
 
-In the Counter example above, we could use the following transformer functions:
+You can this code on [CodePen](https://codepen.io/daz4126/pen/vYpVKJv). Click on the button to toggle the heading and button content!
+
+<div align="center">
   
-```
-const increment = state => state + 1
-const decrement = state => state - 1
-```
-  
-Transformer functions are passed *by reference* to the `Update` function. The current state is implicityly passed as an argument to any transformer function (similiar to the way the event object is implicitly passed to event handlers).
+![Toggle content](https://user-images.githubusercontent.com/16646/171235861-6ee53a08-fb95-49c1-80b1-b3439eba1f5c.gif)
+
+
+</div>
 
 ### Counter Example
 
@@ -375,51 +383,9 @@ const Update = Nanny(State,{ View })
 
 This will render the initial view with the count set to 10 and allow you to increase or decrease the count by clicking on the buttons.
   
-## Transformer Functions
+
   
-In the examples we've just seen, the `Update` function was passed a new representation of the state, but it can also accept a *transformer function*. They are particularly useful when the new state is based on the previous state.
 
-A transformer function accepts the current state as an argument and returns a new representation of the state. They are basically a mapping function from the current state to a new state as shown in the diagram below:
-
-<div align="center">
-
-![Transformer function diagram](https://user-images.githubusercontent.com/16646/125978502-29d3f173-626a-48b1-8214-5368f1fe7824.png)
-
-</div>
-  
-ES6 arrow functions are perfect for transformer functions as they visually show the mapping of the current state to a new representation of the state.
-
-Transformer functions must be **[pure functions](https://en.wikipedia.org/wiki/Pure_function)**. They should always return the same value given the same arguments and should not cause any side-effects. They take the following structure:
-
-```javascript
-state => newState
-```
-
-If the transformer function needs to accept parameters, then the 'double arrow' notation is used to perform [partial application](#partial-application):
-
-```javascript
-state => params => newState
-```
-
-In the Counter example above, we could use the following transformer functions:
-  
-```
-const increment = state => state + 1
-const decrement = state => state - 1
-```
-  
-Transformer functions are passed *by reference* to the `Update` function. The current state is implicityly passed as an argument to any transformer function (similiar to the way the event object is implicitly passed to event handlers).
-  
-For example, we could use the `increment` and `decrement` transformer functions in the Counter example with the following view:
-  
-```javascript
-const Counter = state => 
-html`<div id='counter'>${state}</div>
-     <button onclick=${e=>Update(decrement)}>-</button>
-     <button onclick=${e=>Update(increment)}>+</button>`
-```
-  
-  _Note: The current state is implicitly provided as an argument by the Update function, so does not need to be included when calling `Update`._
   
   Transformer functions don't need to return an object that represents every property of the new state. They only need to return an object that contains the properties that have actually changed. For example, if the initial state is represented by the following object:
 
@@ -470,52 +436,25 @@ html`<div id='counter'>${number}</div>
      <button onclick=${e=>Update(increaseBy(3))}>Add 3</button>
 ```
   
-### Anonymous Or Named Functions?
+### Anonymous Event Handlers In The View
   
-Because NANNY STATE uses vanilla JS, you can choose to use named or anonymous event handlers and transformer functions or a combination of the two in your code. This is often a question of coding style, but there are a few nuances to condsider with each appraoch. To demonstrate the different approaches, let's look at 4 different ways of writing the code for the counter example:
+Because **NANNY STATE** just uses vanilla JS, you can define anonymous event handlers directly inside the `View`. For example, the counter example above could have been written with the following view instead:
   
-  1) Anonymous event handlers, anonymous transformer functions:
-  ```javascript
-  const Counter = state => 
-     html`<div id='counter'>${state}</div>
-     <button onclick=${e=>Update(state => state - 1)}>-</button>
-     <button onclick=${e=>Update(state => state + 1)}>+</button>`
-  ```
+```javascript
+  const View = state => html`
+  <button onclick=${e => Update(state => ({count: state.count + 1}))}>
+    I've been pressed ${state.count} time${state.count === 1 ? "" : "s"}
+  </button>`
+```
+This uses the following anonymous event handler:
   
-  2) Named event handlers, anonymous transformer functions:
-  ```javascript
-  const Counter = state => 
-     html`<div id='counter'>${state}</div>
-     <button onclick=${increment}>-</button>
-     <button onclick=${decrement}>+</button>`
+```javascript
+  e => Update(state => ({count: state.count + 1}))
+```
   
-  const decrement = event => Update(state => state - 1)
-  const increment = event => Update(state => state + 1)
-  ```
-  
-  3) Anonymous event handlers, named transformer functions:
-  ```javascript
-  const Counter = state => 
-     html`<div id='counter'>${state}</div>
-     <button onclick=${e=>Update(count(-1))}>-</button>
-     <button onclick=${e=>Update(count(1))}>+</button>`
-  
- const count = n => state => state + n
-  ```
-  
-  4) Named event handler, named transformer functions:
-  ```javascript
-  const Counter = state => 
-     html`<div id='counter'>${state}</div>
-     <button onclick=${increment}>-</button>
-     <button onclick=${decrement}>+</button>`
-  
-  const decrement = event => Update(count(-1))
-  const increment = event => Update(count(1))
-  const count = n => state => state + n
-  ```
-  
-Named event handlers and transformer functions work in a similar way. A named event handler will have the event object passed to it implicityly and named transformer functions have the state passed to them implicitly. One thing to consider is that anonymous event handlers can access the state becasue they are defined inside the `View` function, which accepts the current state as an argument, whereas named event handlers do not have access to the state.
+This saves the event handler having to be defined in the `State` object, which can be useful for small updates such as this, although it could get unweildy for more complicated updates.
+
+One advantage of using anonymous event handlers directly in the view is that they can access the state because the `View` function accepts the current state as an argument, whereas event handlers that are defined in the `State` object do not have access to the state.
 
 ## More NANNY STATE Examples
 
@@ -585,14 +524,8 @@ State.Debug = true
   ```javascript
   State.LocalStorageKey = 'nanny'
   ```
-
-## Docs
-
-You can see [more in-depth docs here](https://github.com/daz4126/Nanny-State/tree/main/docs)
-
-* The Nanny State [API](https://github.com/daz4126/Nanny-State/blob/main/docs/api.md)
-* [Code Organization](https://github.com/daz4126/Nanny-State/blob/main/docs/code-organization.md) in Nanny State
-* Nanny State [Structure](https://github.com/daz4126/Nanny-State/blob/main/docs/structure.md)
+  
+### Routing
 
 
 ## License
