@@ -258,6 +258,71 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/qBpJNOp). Try typi
 ![May-15-2022 22-44-35](https://user-images.githubusercontent.com/16646/168495145-b2f74553-3515-4874-8b9e-a4bc1e1f542a.gif)
 
 </div>
+  
+### Hello World, Goodby World
+  
+This next example shows how to implement a toggle function as well as how to render parts of the view based on the value of properties in the State.
+
+Start, in the usual way, by importing the relevant functions:
+
+```javascript
+import { Nanny, html } from 'nanny-state'
+```
+  
+Next we'll create the view:
+
+```javascript
+const View = state => html`<h1>${state.salutation} World</h1>
+  <button onclick=${state._changeSalutation}>${state.salutation === "Hello" ? "Goodbye" : "Hello"}</button>`
+```
+  
+This view displays a property of the State called `salutation` followed by the string "World" inside `<h1>` tags. The value of `State.salutation` will either be "Hello" or "Goodbye". After this is a button element with an `onclick` event handler attached to it that calles the `_changeSalutation` State method. Inside the button we use a ternary operator to display "Goodbye" if the salutation is currenlty "Hello" or display "Hello" otherwise. We want the value of `State.salutation` to toggle between "Hello" and "Goodbye" when this button is clicked. 
+  
+Let's create the initial State and implement the `_changeSalutation` method:
+  
+```javascript
+const State = {
+  salutation: "Hello",
+  _changeSalutation: event => 
+    Update(state => ({salutation: state.salutation === "Hello" ? "Goodbye" : "Hello"})),
+  View
+}
+```
+  
+As you can see, the `salutation` property is set to "Hello" initially and the `View` function is added to the `State` as usual. Let's take a closer look at the `_changeSalutation` method. In the previous examples, the `Update` function was passed a new representation of the state, but in this example it is passed a *transformer function*. These are particularly useful when the new state is based on the previous state, as in this case.
+  
+### Transformer Functions
+
+A transformer function accepts the current state as an argument and returns a new representation of the state. They are basically a mapping function from the current state to a new state as shown in the diagram below:
+
+<div align="center">
+
+![Transformer function diagram](https://user-images.githubusercontent.com/16646/125978502-29d3f173-626a-48b1-8214-5368f1fe7824.png)
+
+</div>
+  
+ES6 arrow functions are perfect for transformer functions as they visually show the mapping of the current state to a new representation of the state.
+
+Transformer functions must be **[pure functions](https://en.wikipedia.org/wiki/Pure_function)**. They should always return the same value given the same arguments and should not cause any side-effects. They take the following structure:
+
+```javascript
+state => newState
+```
+
+If the transformer function needs to accept parameters, then the 'double arrow' notation is used to perform [partial application](#partial-application):
+
+```javascript
+state => params => newState
+```
+
+In the Counter example above, we could use the following transformer functions:
+  
+```
+const increment = state => state + 1
+const decrement = state => state - 1
+```
+  
+Transformer functions are passed *by reference* to the `Update` function. The current state is implicityly passed as an argument to any transformer function (similiar to the way the event object is implicitly passed to event handlers).
 
 ### Counter Example
 
