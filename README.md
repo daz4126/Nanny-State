@@ -329,65 +329,39 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/vYpVKJv). Click on
   
 ![Toggle content](https://user-images.githubusercontent.com/16646/171235861-6ee53a08-fb95-49c1-80b1-b3439eba1f5c.gif)
 
-
 </div>
 
 ### Counter Example
 
-The next example will be a simple counter app that lets the user increase or decrease the count by pressing buttons. The state will change with every click of a button, so this example will show how easy NANNY STATE makes dynamic updates.
+**Nanny State** wouldn't be a state managememnt library without a counter example!
 
-<div align="center">
-
-![Counter Example screenshot](https://user-images.githubusercontent.com/16646/139466309-5574464c-756e-4afa-8bc6-e1e4a62a9ded.png)
-
-</div>
-
-You can see the finished app and code on [CodePen](https://codepen.io/daz4126/pen/vYgdLdX)
-
-The value of the count will be stored in the state as a number (the state is usually an object, but it doesn't have to be).
-Let's import the relevant functions and initialize the state with a value of 10:
+We start in the usual way by importing the necessary functions:
 
 ```javascript
 import { Nanny, html } from 'nanny-state';
-
-const State = 10;
 ```
 
 Now let's create the view that will return the HTML we want to display:
 
 ```javascript
-const View = state => 
-html`<h1>Nanny State</h1>
-     <h2>Counter Example</h2>
-     ${Counter(state)}`
+const View = state => html`<button onclick=${state._incrementCount}>${state.count}</button>`
 ```
 
-This view contains a **component** called `Counter`. A component is a function that returns some view code that can be reused throughout the app. They are easy to insert into the main view using the `${ComponentName}` placeholder notation inside the template literal.
+This is a button that displays the number of times the button has been clicked on, which is a property of the State called `count`. It also has an `onclick` event listener attached that is a method of the State called `_incrementCount`. This will be responsible for increasing the value of the `count` property by 1 every time the button is pressed.
 
-Now we need to write the code for the `Counter` component (note it is convention to use PascalCase when naming components):
+Now we need to define the `State` object:
 
 ```javascript
-const Counter = state => 
-html`<div id='counter'>${state}</div>
-     <button onclick=${e=>Update(state - 1)}>-</button>
-     <button onclick=${e=>Update(state + 1)}>+</button>`
+const State = {
+  count: 0,
+  _incrementCount: event => Update(state => ({count: state.count + 1})),
+  View
+}
 ```
-
-The two buttons call inline event handlers that call the `Update` function to change the value of the state when they are pressed.
-
-Last of all, we just need to call the `Nanny` function and assign its return value to the variable `Update`. In this example, the state is a number, so we cannot assign any properties to it. This means we can't make the view a property of `State`. Fortunately, the `Nanny` function accepts a second `options` parameter. This is an object that has a property called 'view' that can be assigned to the variable `View` using the object property shorthand notation:
-
-```javascript
-const Update = Nanny(State,{ View })
-```
-
-This will render the initial view with the count set to 10 and allow you to increase or decrease the count by clicking on the buttons.
   
-
+This sets the initial value of the `count` property to `0` and defines the `_incrementCount` method. It calls the `Update` function and passes a transformer function that sets the new value of `count` to the current value of `state.count` with `1` added on. 
   
-
-  
-  Transformer functions don't need to return an object that represents every property of the new state. They only need to return an object that contains the properties that have actually changed. For example, if the initial state is represented by the following object:
+Transformer functions don't need to return an object that represents every property of the new state. They only need to return an object that contains the properties that have actually changed. For example, if the initial state is represented by the following object:
 
 ```javascript
 const State = {
@@ -399,7 +373,7 @@ const State = {
 If we write a transformer function that doubles the count, then we only need to return an object that shows the new value of the 'count' property and don't need to worry about the 'name' property:
 
 ```javascript
-const double = state => ({ count: state.count * 2})
+state => ({ count: state.count * 2})
 ```
 
 _Note: when arrow functions return an object literal, it needs wrapping in parentheses_
@@ -407,8 +381,30 @@ _Note: when arrow functions return an object literal, it needs wrapping in paren
 The state object in the parameter can also be destructured so that it only references properties required by the transformer function:
 
 ```javascript
-const double = { count } => ({ count: count * 2})
+{ count } => ({ count: count * 2})
+``` 
+  
+As usual, the `State` object also requires `View` to be added as well.
+
+Last of all, we just need to call the `Nanny` function and assign its return value to the variable `Update`:
+
+```javascript
+const Update = Nanny(State)
 ```
+
+This will render the initial view with the count set to `0` and allow you to increase the count by clicking on the button.
+  
+You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoByma). Click on the button to toggle the heading and button content!
+
+<div align="center">
+  
+![Counter example](https://user-images.githubusercontent.com/16646/171259876-ef897b54-a78a-4091-a600-e61b5f88c38e.gif)
+
+</div>
+  
+
+  
+
 
 ### Adding Additional Arguments to Transformer Functions
 
