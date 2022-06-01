@@ -546,8 +546,8 @@ Here's a basic example:
 ```javascript
 Routes: [
     { path: '/', title: 'Home', view: state => html`<h1>Home</h1>` },
-    { path: '/about', title: 'About', view: state => html`<h1>About Us</h1>` },
-    { path: '/contact', title: 'Contact', view: state => html`<h1>Contact Us</h1>` }
+    { path: 'about', title: 'About', view: state => html`<h1>About Us</h1>` },
+    { path: 'contact', title: 'Contact', view: state => html`<h1>Contact Us</h1>` }
   ]
 ```
   
@@ -577,8 +577,8 @@ Now we just need to create the initial `State` object. This needs to contain the
 const State = {
    Routes: [
     { path: '/', title: 'Home', view: state => html`<h1>Home</h1>` },
-    { path: '/about', title: 'About', view: state => html`<h1>About Us</h1>` },
-    { path: '/contact', title: 'Contact', view: state => html`<h1>Contact Us</h1>` }
+    { path: 'about', title: 'About', view: state => html`<h1>About Us</h1>` },
+    { path: 'contact', title: 'Contact', view: state => html`<h1>Contact Us</h1>` }
   ],
   View
 }  
@@ -592,7 +592,7 @@ Nanny(State)
 
 _Note that in the is example we didn't need the `Update` function_
 
-You can see this example on [CodeSandbox]() (_note that routing won't work on CodePen_).
+You can see this example on [CodeSandbox](https://si96c4.csb.app) (_note that routing won't work on CodePen_).
     
 ### Nested Routes
 
