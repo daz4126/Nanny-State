@@ -545,12 +545,58 @@ Here's a basic example:
   
 ```javascript
 Routes: [
-    { path: '/', title: 'Home', view: state => html`<h1>Home</h1> },
-    { path: '/about', title: 'About', view: state => html`<h1>About Us</h1> },
-    { path: '/contact', title: 'Contact', view: state => html`<h1>Contact Us</h1> }
+    { path: '/', title: 'Home', view: state => html`<h1>Home</h1>` },
+    { path: '/about', title: 'About', view: state => html`<h1>About Us</h1>` },
+    { path: '/contact', title: 'Contact', view: state => html`<h1>Contact Us</h1>` }
   ]
 ```
+  
+Let's use those route objects to build a mini single-page website.
+  
+First of all we need to create the main `View`. When using routes, this takes the form of a template layout for *all* pages and we use the special `Content` property of the State to indicate where the specific content from each route will be displayed in the layout. Here's a basic example:
+  
+```javascript
+const View = state => html` <h1>Nanny State</h1>
+  <h2>Router</h2>
+  <nav>
+    <ul>
+      <li><a href="/" onclick=${state.Route()}>Home</a></li>
+      <li><a href="/about" onclick=${state.Route()}>About</a></li>
+      <li><a href="/contact" onclick=${state.Route()}>Contact</a></li>
+    </ul>
+  </nav>
+  <main>${state.Content}</main>`
+```
+The first thing to notice here are the `state.Content` property inside the `<main>` tags. This will render a different view, depending on the route. This is the function that is provided as the `view` property in the route object.
 
+The other thing to notice is the built-in `state.Route()` method. This will update the current route to the argument provided. If no argument is provided then it will automatically use the value of the `href` attribute. So, in the example above, clicking on the 'About' link will update the route to '/about'.
+  
+Now we just need to create the initial `State` object. This needs to contain the `Routes` array that contains a route object for each route as well as the `View`:
+  
+```javascript
+const State = {
+   Routes: [
+    { path: '/', title: 'Home', view: state => html`<h1>Home</h1>` },
+    { path: '/about', title: 'About', view: state => html`<h1>About Us</h1>` },
+    { path: '/contact', title: 'Contact', view: state => html`<h1>Contact Us</h1>` }
+  ],
+  View
+}  
+```
+
+Last of all we just need to start the Nanny State:
+  
+```javascript
+Nanny(State)
+```
+
+_Note that in the is example we didn't need the `Update` function_
+
+You can see this example on [CodeSandbox]() (_note that routing won't work on CodePen_).
+    
+### Nested Routes
+
+### Widlcard Routes
 
 ## License
 
