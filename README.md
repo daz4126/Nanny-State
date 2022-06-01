@@ -32,7 +32,7 @@ NANNY STATE uses a one-way data flow model comprised of 3 interdependent parts:
 
 <div align="center">
   
-![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/164986422-203df76e-05c8-49f7-bc3b-3a0a108aca03.png)
+![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/171490664-2859a7ea-f4c4-47c3-8b96-edfa6f196bbb.png)
 
 </div>
 
@@ -297,7 +297,7 @@ A transformer function accepts the current state as an argument and returns a ne
 
 <div align="center">
 
-![Transformer function diagram](https://user-images.githubusercontent.com/16646/171219151-031dd881-45dd-42e9-9f74-942fb75db2a4.png)
+![Transformer function diagram](https://user-images.githubusercontent.com/16646/171490767-5ac02acb-0ed8-4d63-962b-f6bbf40ce553.png)
 
 </div>
   
