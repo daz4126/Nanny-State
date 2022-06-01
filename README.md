@@ -482,30 +482,40 @@ You can see a full set of examples of how Nanny State can be used, with source c
 ## Extra Info
 
 Now that you've learnt the basics of NANNY STATE, here's some extra info that helps give you some extra control over the settings.
+  
+### Initiate Function
+
+The `Initiate` function is a method of the state object that is called once before the initial render. It has access to the state and works in the same way as the `Update` function in that its return value updates the state.
+  
+For example, adding the following method to the `State` object in the counter example will set the start value of the `count` property to `42`:
+  
+```javascript
+Initiate: state => ({count: 42})
+```
+
+Of course this could have just been hard coded into the `State` object directly, but sometimes it's useful to programatically set the initial state using a funciton when the app is initialized.
 
 ### Before and After Functions
 
-`Before` and `After` are properties of the state object and are functions that are called before or after a state update respectively. They can also be passed to the `Nanny` function as part of the `options` object.
+The `Before` and `After` functions are methods of the state object that are called before or after a state update respectively. They have access to the state and work in the same way as the `Update` function in that their return value update the state.
 
-For example, try updating the last line of the 'Hello Batman' example to the following code instead:
+For example, try adding the following methods to the `State` object in the 'Hello Nanny State' example to the following:
 
 ```javascript
-State.Before = state => console.log('Before:', state)
-State.After = state => console.log('After:', state)
-
-const Update = Nanny(State)
+Before: state => console.log('Before:', state.name)
+After: state => console.log('After:', state.name)
 ```
 
-Now, when you press the `I'm Batman` button, the following is logged to the console, showing how the state has changed:
+Now, when you press the `Hello` button, the following is logged to the console, showing how the state has changed:
 
 ```
 "Before:"
 {
-  "name": "Bruce Wayne"
+  "name": "World"
 }
 "After:"
 {
-  "name": "Batman"
+  "name": "Nanny State"
 }
 ```
 
@@ -609,7 +619,6 @@ Routes: [
 ```
 
 The `routes` array in any route object can contain as many nested routes as required.
-  
 
 ### Widlcard Routes
 
