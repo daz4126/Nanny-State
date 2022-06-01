@@ -535,7 +535,7 @@ State.Debug = true
   
 ### Routing
   
-Routing is baked in to **NANNY STATE**. Remember that the State Is Everything, so it just gets set up in the `State` object. Simply define a property called `Routes` as an array of **route objects**. Route objects contain the following properties:
+Routing is baked in to **NANNY STATE**. Remember that the State Is Everything, so all the routes are set up in the `State` object. Simply define a property called `Routes` as an array of **route objects**. Route objects contain the following properties:
   
   * `path`: the path used to access the route
   * `title`: the title property of the route
@@ -595,6 +595,21 @@ _Note that in the is example we didn't need the `Update` function_
 You can see this example on [CodeSandbox](https://si96c4.csb.app) (_note that routing won't work on CodePen_).
     
 ### Nested Routes
+  
+You can create nested routes by adding a `routes` property to a route object. This is an array that acts in the same way as the top-level `Routes` property and contains nested route objects.
+  
+For example, if you wanted the route '/about/us' to go to display the About page, you could update the `Routes` array above to the following:
+  
+```javascript
+Routes: [
+    { path: '/', title: 'Home', view: state => html`<h1>Home</h1>` },
+    { path: 'about', routes: [ { path: 'us', title: 'About Us', view: state => html`<h1>About Us</h1>` }] },
+    { path: 'contact', title: 'Contact', view: state => html`<h1>Contact Us</h1>` }
+  ]
+```
+
+The `routes` array in any route object can contain as many nested routes as required.
+  
 
 ### Widlcard Routes
 
