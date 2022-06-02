@@ -550,9 +550,9 @@ Here's a basic example:
   
 ```javascript
 Routes: [
-    { path: '/', title: 'Home', view: state => html`<h1>Home</h1>` },
-    { path: 'about', title: 'About', view: state => html`<h1>About Us</h1>` },
-    { path: 'contact', title: 'Contact', view: state => html`<h1>Contact Us</h1>` }
+    { path: "/", title: "Home", view: state => html`<h1>Home</h1>` },
+    { path: "about", title: "About", view: state => html`<h1>About Us</h1>` },
+    { path: "contact", title: "Contact", view: state => html`<h1>Contact Us</h1>` }
   ]
 ```
   
@@ -581,9 +581,9 @@ Now we just need to create the initial `State` object. This needs to contain the
 ```javascript
 const State = {
    Routes: [
-    { path: '/', title: 'Home', view: state => html`<h1>Home</h1>` },
-    { path: 'about', title: 'About', view: state => html`<h1>About Us</h1>` },
-    { path: 'contact', title: 'Contact', view: state => html`<h1>Contact Us</h1>` }
+    { path: "/", title: "Home", view: state => html`<h1>Home</h1>` },
+    { path: "about", title: "About", view: state => html`<h1>About Us</h1>` },
+    { path: "contact", title: "Contact", view: state => html`<h1>Contact Us</h1>` }
   ],
   View
 }  
@@ -613,15 +613,31 @@ For example, if you wanted the route '/about/us' to go to display the About page
   
 ```javascript
 Routes: [
-    { path: '/', title: 'Home', view: state => html`<h1>Home</h1>` },
-    { path: 'about', routes: [ { path: 'us', title: 'About Us', view: state => html`<h1>About Us</h1>` }] },
-    { path: 'contact', title: 'Contact', view: state => html`<h1>Contact Us</h1>` }
+    { path: "/", title: "Home", view: state => html`<h1>Home</h1>` },
+    { path: "about", routes: [ { path: "us", title: "About Us", view: state => html`<h1>About Us</h1>` }] },
+    { path: "contact", title: "Contact", view: state => html`<h1>Contact Us</h1>` }
   ]
 ```
 
 The `routes` array in any route object can contain as many nested routes as required.
 
-### Widlcard Routes
+### Wildcard Routes
+  
+The `:` symbol can be used to denote a *wildcard* route. For example, the following route object using a wildcard called `:id` in its path property:
+  
+```javascript
+    { path: ":name", title: "Programming Languages", view: state => html`<h1>${state.language)</h1>` }
+```
+  
+When the user visits the URL path '/javascript' a `params` object will be created with the a key of "name" and value of "javascript". This can then be used in an `update` function that can be added to the route object and works in exactly the same way as the **NANNY STATE** `Update` function, it accepts the current state and returns a new state. The different is that this also accepts the params object as its first parameter (this is passed automatically to the `update` function along with the state.
+  
+In this example we could add the following `update` function to the route object:
+  
+```javascript
+    { path: ":name", title: "Programming Languages", view: state => html`<h1>${state.language)</h1>`, update: params => state => ({ language: params.name})  }
+```
+  
+This will set the `language` property of the state to be the same as the `name` property of the `params` object, in other words it will be set to whatever was entered into the URL. This property is then displayed as a heading in the view for this route.
 
 ## License
 
