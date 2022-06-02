@@ -222,7 +222,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clic
 
 <div align="center">
   
-![Click and change](https://user-images.githubusercontent.com/16646/171663080-79fda838-2f6e-41ba-8493-b66a5963df65.gif)
+![Click and change](https://user-images.githubusercontent.com/16646/171669503-68faffbe-dc5e-4122-99f2-3cedb6916543.gif)
 
 </div>
   
