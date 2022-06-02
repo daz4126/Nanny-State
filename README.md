@@ -604,6 +604,12 @@ Nanny(State)
 _Note that in the is example we didn't need the `Update` function_
 
 You can see this example on [CodeSandbox](https://si96c4.csb.app) (_note that routing won't work on CodePen_).
+  
+<div align="center">
+  
+![Routing in Nanny State](https://user-images.githubusercontent.com/16646/171664411-8912caad-9908-4d4e-99bb-6f7c9ae3c59f.gif)
+
+</div>
     
 ### Nested Routes
   
