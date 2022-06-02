@@ -161,7 +161,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBryB).
 
 <div align="center">
   
-![Hello World!](https://user-images.githubusercontent.com/16646/168495571-19bd4fa0-0854-4560-9f77-68541a08c602.png)
+![Hello World!](https://user-images.githubusercontent.com/16646/171663007-2eb40385-b469-41cd-9b7a-c833ce89dac9.png)
 
 </div>
 
@@ -228,7 +228,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clic
 
 <div align="center">
   
-![Click and change](https://user-images.githubusercontent.com/16646/168495502-3be53eae-ff34-4abd-ae32-bd500c9eb07d.gif)
+![Click and change](https://user-images.githubusercontent.com/16646/171663080-79fda838-2f6e-41ba-8493-b66a5963df65.gif)
 
 </div>
   
@@ -255,7 +255,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/qBpJNOp). Try typi
 
 <div align="center">
   
-![Dyncamic content](https://user-images.githubusercontent.com/16646/168495145-b2f74553-3515-4874-8b9e-a4bc1e1f542a.gif)
+![Dyncamic content](https://user-images.githubusercontent.com/16646/171663176-e7e23297-ff09-4f65-b541-70e65001e873.gif)
 
 </div>
   
@@ -327,7 +327,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/vYpVKJv). Click on
 
 <div align="center">
   
-![Toggle content](https://user-images.githubusercontent.com/16646/171235861-6ee53a08-fb95-49c1-80b1-b3439eba1f5c.gif)
+![Toggle content](https://user-images.githubusercontent.com/16646/171663262-5ca1a802-280c-4810-aeee-aec66156d7fb.gif)
 
 </div>
 
@@ -398,7 +398,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoByma). Click on
 
 <div align="center">
   
-![Counter example](https://user-images.githubusercontent.com/16646/171259876-ef897b54-a78a-4091-a600-e61b5f88c38e.gif)
+![Counter example](https://user-images.githubusercontent.com/16646/171663339-baa00f54-8a19-46d2-8ecd-eef52f2df197.gif)
 
 </div>
 
@@ -432,6 +432,7 @@ const View = state => html`
   <button onclick=${state._incrementCount(-1)}>-1</button>
 </div>`
 ```
+
   
 Notice that the `state._incrementCount` function is actually *called* in the view with the first parameter provided (or if no parameter is provided the default value of `1` will be used. The `event` object will still be implicityly passed to the event handler (even though it isn't used in this example).
   
@@ -439,7 +440,7 @@ You can see the code for this updated counter example on [CodePen](https://codep
 
 <div align="center">
   
-![Counter example with partial application](https://user-images.githubusercontent.com/16646/171265054-dd46ddcf-aeea-4fac-8467-be0b7c2b3886.gif)
+![Counter example with partial application](https://user-images.githubusercontent.com/16646/171663464-bcb2f6c0-35b1-4c0e-a673-1fd549f62a6f.gif)
 
 </div>
   
