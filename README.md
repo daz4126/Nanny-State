@@ -1,6 +1,6 @@
 <div align="center">
 
-# ![NANNY STATE](https://user-images.githubusercontent.com/16646/164916454-c7c9d9e8-2d58-4629-af46-7a5205d39304.png)
+# ![NANNY STATE](https://user-images.githubusercontent.com/16646/171668121-e4cea27b-225c-408f-bdf4-e73fdcb63226.png)
 
 _simple, fast & minimal state management for vanilla JS_
 
@@ -116,12 +116,6 @@ Alternatively you could set up a basic HTML file and place all the code inside t
 And if you want it to look pretty, just copy the CSS code from the examples on CodePen!
 
 ### Hello World Example
-
-<div align="center">
-
-![Hello World screenshot](https://user-images.githubusercontent.com/16646/164986455-102d1310-c092-45a5-a8af-c939252da436.png)
-
-</div>
 
 This example will show how the 3 elements of Nanny State, State, View and the Update function, work.
 
