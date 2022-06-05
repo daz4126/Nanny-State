@@ -327,7 +327,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/vYpVKJv). Click on
 
 ### Counter Example
 
-**Nanny State** wouldn't be a state managememnt library without a counter example!
+Every state managememnt library needs a counter example!
 
 We start in the usual way by importing the necessary functions:
 
