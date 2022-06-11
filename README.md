@@ -83,19 +83,19 @@ Building a NANNY STATE app is simple and straightforward. It always follows thes
    ```javascript
    const View = state =>
       html`<h1>Hello ${state.name}
-           <button onclick=${state._changeName}>Click Me</button>`
+           <button onclick=${state.changeName}>Click Me</button>`
    ```
    
 3. Create an event handler to call the `Update` function and update the state:
   ```javascript
-  const _changeName = event => Update({ name: "Nanny State" })
+  const changeName = event => Update({ name: "Nanny State" })
   ```
   
 4. Create the initial `State` object (everything goes in the State, props, the View and event handlers):
    ````javascript
    const State = { 
       name: "World",
-      _changeName,
+      changeName,
       View
      }
    ```
@@ -184,10 +184,10 @@ Our next job is to make the view dynamic. First of all we'll add a button to the
 ```javascript
 const View = state => 
   html`<h1>Hello ${state.name}</h1>
-       <button onclick=${state._changeName}>Hello</button>`
+       <button onclick=${state.changeName}>Hello</button>`
 ```
 
-The button element has an inline event listener. When the button is clicked the event handler `_changeName` will be called (by convention, event handlers start with an `_` to differentiate them from other properties in the State). We want this function to update the state object so the 'name' property changes to 'Nanny State'. This is exactly what the `Update` function is for.
+The button element has an inline event listener. When the button is clicked the event handler `changeName` will be called (by convention, event handlers start with an `_` to differentiate them from other properties in the State). We want this function to update the state object so the 'name' property changes to 'Nanny State'. This is exactly what the `Update` function is for.
   
 The `Update` function is returned when the `Nanny` function is called. Calling the `Nanny` function does 2 things:
 
@@ -204,19 +204,19 @@ const Update = Nanny(State)
 
 Now we can use the `Update` function to update the state when the button is clicked. This is really easy to do - simply pass an object representing the new state as an argument to the `Update` function.
   
-To do this we need to add the `_changeName` event handler to the State:
+To do this we need to add the `changeName` event handler to the State:
   
 ```javascript
  const State = {
   name: "World",
-  _changeName: event => Update({name: "Nanny State"}),
+  changeName: event => Update({name: "Nanny State"}),
   View
 } 
 ```
 
-Because `_changeName` is an event handler, its only parameter is the `event` object (although it isn't actually needed in this example, but it is useful to identify the function as an event handler). In this case, the purpose of the function is to call the `Update` function that changes the 'name' property to "Nanny State" by passing the object `{name: "Nanny State"}` as an argument to the `Update` function. Note that you ony have to include any properties of the State that need updating in this object(**Nanny State** assumes that all the other properties will stay the same). **NANNY STATE** will then automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
+Because `changeName` is an event handler, its only parameter is the `event` object (although it isn't actually needed in this example, but it is useful to identify the function as an event handler). In this case, the purpose of the function is to call the `Update` function that changes the 'name' property to "Nanny State" by passing the object `{name: "Nanny State"}` as an argument to the `Update` function. Note that you ony have to include any properties of the State that need updating in this object(**Nanny State** assumes that all the other properties will stay the same). **NANNY STATE** will then automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
 
-We now have everything wired up correctly. When the user clicks the button, the `_changeName` event handler is called. This calls the `Update` function which changes the 'name' property to 'Nanny State' and re-renders the page based on this new state.
+We now have everything wired up correctly. When the user clicks the button, the `changeName` event handler is called. This calls the `Update` function which changes the 'name' property to 'Nanny State' and re-renders the page based on this new state.
 
 You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clicking the button to see the view change!
 
@@ -230,15 +230,15 @@ Now let's try adding an event handler that uses some information passed to it in
   
 ```javascript
 const View = state => html`<h1>Hello ${state.name}</h1>
-<input oninput=${state._changeName}>`
+<input oninput=${state.changeName}>`
 ```
   
-We've replaced the button element with an input field that uses the inline event listener `oninput` to call the `_changeName` event handler. We need to update this function inside the `State` object:
+We've replaced the button element with an input field that uses the inline event listener `oninput` to call the `changeName` event handler. We need to update this function inside the `State` object:
   
 ```javascript
  const State = {
   name: "World",
-  _changeName: event => Update({name: event.target.value}),
+  changeName: event => Update({name: event.target.value}),
   View
 } 
 ```
@@ -267,23 +267,23 @@ Next we'll create the view:
 
 ```javascript
 const View = state => html`<h1>${state.salutation} World</h1>
-  <button onclick=${state._changeSalutation}>${state.salutation === "Hello" ? "Goodbye" : "Hello"}</button>`
+  <button onclick=${state.changeSalutation}>${state.salutation === "Hello" ? "Goodbye" : "Hello"}</button>`
 ```
   
-This view displays a property of the State called `salutation` followed by the string "World" inside `<h1>` tags. The value of `State.salutation` will either be "Hello" or "Goodbye". After this is a button element with an `onclick` event handler attached to it that calles the `_changeSalutation` State method. Inside the button we use a ternary operator to display "Goodbye" if the salutation is currenlty "Hello" or display "Hello" otherwise. We want the value of `State.salutation` to toggle between "Hello" and "Goodbye" when this button is clicked. 
+This view displays a property of the State called `salutation` followed by the string "World" inside `<h1>` tags. The value of `State.salutation` will either be "Hello" or "Goodbye". After this is a button element with an `onclick` event handler attached to it that calles the `changeSalutation` State method. Inside the button we use a ternary operator to display "Goodbye" if the salutation is currenlty "Hello" or display "Hello" otherwise. We want the value of `State.salutation` to toggle between "Hello" and "Goodbye" when this button is clicked. 
   
-Let's create the initial State and implement the `_changeSalutation` method:
+Let's create the initial State and implement the `changeSalutation` method:
   
 ```javascript
 const State = {
   salutation: "Hello",
-  _changeSalutation: event => 
+  changeSalutation: event => 
     Update(state => ({salutation: state.salutation === "Hello" ? "Goodbye" : "Hello"})),
   View
 }
 ```
   
-As you can see, the `salutation` property is set to "Hello" initially and the `View` function is added to the `State` as usual. Let's take a closer look at the `_changeSalutation` method. In the previous examples, the `Update` function was passed a new representation of the state, but in this example it is passed a *transformer function*. These are particularly useful when the new state is based on the previous state, as in this case.
+As you can see, the `salutation` property is set to "Hello" initially and the `View` function is added to the `State` as usual. Let's take a closer look at the `changeSalutation` method. In the previous examples, the `Update` function was passed a new representation of the state, but in this example it is passed a *transformer function*. These are particularly useful when the new state is based on the previous state, as in this case.
   
 ### Transformer Functions
 
@@ -303,7 +303,7 @@ Transformer functions must be **[pure functions](https://en.wikipedia.org/wiki/P
 state => newState
 ```
 
-In the `_changeSalutation` example above,the transformer functions checks the value of the `state.salutation` property and then toggles the value accordingly, so if the value is "Hello" it updates it to "Goodbye" and vice-versa:
+In the `changeSalutation` example above,the transformer functions checks the value of the `state.salutation` property and then toggles the value accordingly, so if the value is "Hello" it updates it to "Goodbye" and vice-versa:
   
 ```javascript
 state => ({salutation: state.salutation === "Hello" ? "Goodbye" : "Hello"})
@@ -327,7 +327,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/vYpVKJv). Click on
 
 ### Counter Example
 
-**Nanny State** wouldn't be a state managememnt library without a counter example!
+Every state managememnt library needs a counter example!
 
 We start in the usual way by importing the necessary functions:
 
@@ -338,22 +338,22 @@ import { Nanny, html } from 'nanny-state';
 Now let's create the view that will return the HTML we want to display:
 
 ```javascript
-const View = state => html`<button onclick=${state._incrementCount}>${state.count}</button>`
+const View = state => html`<button onclick=${state.incrementCount}>${state.count}</button>`
 ```
 
-This is a button that displays the number of times the button has been clicked on, which is a property of the State called `count`. It also has an `onclick` event listener attached that is a method of the State called `_incrementCount`. This will be responsible for increasing the value of the `count` property by 1 every time the button is pressed.
+This is a button that displays the number of times the button has been clicked on, which is a property of the State called `count`. It also has an `onclick` event listener attached that is a method of the State called `incrementCount`. This will be responsible for increasing the value of the `count` property by 1 every time the button is pressed.
 
 Now we need to define the `State` object:
 
 ```javascript
 const State = {
   count: 0,
-  _incrementCount: event => Update(state => ({count: state.count + 1})),
+  incrementCount: event => Update(state => ({count: state.count + 1})),
   View
 }
 ```
   
-This sets the initial value of the `count` property to `0` and defines the `_incrementCount` method. It calls the `Update` function and passes a transformer function that sets the new value of `count` to the current value of `state.count` with `1` added on. 
+This sets the initial value of the `count` property to `0` and defines the `incrementCount` method. It calls the `Update` function and passes a transformer function that sets the new value of `count` to the current value of `state.count` with `1` added on. 
   
 Transformer functions don't need to return an object that represents every property of the new state. They only need to return an object that contains the properties that have actually changed. For example, if the initial state is represented by the following object:
 
@@ -406,10 +406,10 @@ const handler = params = event => newState
   
 _Note that this is a standard Vanilla JS technique and not unique to Nanny State_
 
-For example, if we wanted our counter app to have buttons that increased the count by 1, 2 or even decreased it by 1, then instead of writing a separate event handler for each button, we could write a function that accepted an extra parameter of how much to increase the value of `state.count` by. We could rewerite `_incrementCount` like so:
+For example, if we wanted our counter app to have buttons that increased the count by 1, 2 or even decreased it by 1, then instead of writing a separate event handler for each button, we could write a function that accepted an extra parameter of how much to increase the value of `state.count` by. We could rewerite `incrementCount` like so:
 
 ```javascript
-_incrementCount: (n=1) => event => 
+incrementCount: (n=1) => event => 
     Update(state => ({count: state.count + n}))
 ```
 
@@ -421,14 +421,14 @@ When calling an event handler with parameters in the View, it needs to be partia
 const View = state => html`
 <h1>${state.count}</h1>
 <div>
-  <button onclick=${state._incrementCount()}>+1</button>
-  <button onclick=${state._incrementCount(2)}>+2</button>
-  <button onclick=${state._incrementCount(-1)}>-1</button>
+  <button onclick=${state.incrementCount()}>+1</button>
+  <button onclick=${state.incrementCount(2)}>+2</button>
+  <button onclick=${state.incrementCount(-1)}>-1</button>
 </div>`
 ```
 
   
-Notice that the `state._incrementCount` function is actually *called* in the view with the first parameter provided (or if no parameter is provided the default value of `1` will be used. The `event` object will still be implicityly passed to the event handler (even though it isn't used in this example).
+Notice that the `state.incrementCount` function is actually *called* in the view with the first parameter provided (or if no parameter is provided the default value of `1` will be used. The `event` object will still be implicityly passed to the event handler (even though it isn't used in this example).
   
 You can see the code for this updated counter example on [CodePen](https://codepen.io/daz4126/pen/NWXOmpd). Click on the buttons to increase or decrease the count by different amounts!
 
