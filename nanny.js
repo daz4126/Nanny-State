@@ -28,7 +28,7 @@ function Nanny(State){
         State.Content = route.view(State);
       }
     }
-    render(Element, View(State));
+    render(Element, State.View(State));
   }
 
   // Retrieve state from local storage.
