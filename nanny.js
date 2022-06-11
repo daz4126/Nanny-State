@@ -1,10 +1,10 @@
 import {html, svg, render} from 'uhtml';
 
-function Nanny(State){
+function Nanny(State, Path = window.location.pathname){
   // Default settings
   const Element = State.Element || document.body,
-        Routes = State.Routes || [],
-        Path = window.location.pathname
+        Routes = State.Routes || []
+       
 
   // Helper function to find the route object in the state given the path
   const findRoute = path => (path === '/' ? ['/'] : path.split('/').filter(char => char !== ''))
