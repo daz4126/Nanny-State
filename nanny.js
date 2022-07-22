@@ -1,11 +1,41 @@
 import {html, svg, render} from 'uhtml';
 
-function Nanny(State, Path = window.location.pathname){
+export default function Nanny(State, Path = window.location.pathname){
   // Default settings
-  const Element = State.Element || document.body,
-        Routes = State.Routes || []
-       
+  const App = State.App || State.View,
+        Routes = State.Routes || [];
+  
+  State = { ...State, ...(State.Calculate ? State.Calculate(State) : {}) };
+  State.Evaluate = () => ({...State});
+  State.Render = html;
+  State.RenderSVG = svg; 
+  State.Update = (newState,Rerender=true) => {
+    if (State.Before) {
+      State = { ...State, ...State.Before(State) };
+    }
 
+    State = { ...State, ...(typeof newState === "function" ? newState(State) : newState), ...(State.Calculate ? State.Calculate(typeof newState === "function" ? newState(State) : newState) : {}) };
+
+    if (State.After) {
+      State = { ...State, ...State.After(State) };
+    }
+
+    if (State.LocalStorageKey){
+      localStorage.setItem(State.LocalStorageKey,JSON.stringify(State));
+    }
+
+    if (State.Debug) {
+      console.log(JSON.stringify(State));
+    } 
+    
+    // Re-render the view basd on updated state
+    if (Rerender) {
+      Render();
+    }
+
+    return State;
+  };
+       
   // Helper function to find the route object in the state given the path
   const findRoute = path => (path === '/' ? ['/'] : path.split('/').filter(char => char !== ''))
   .reduce(
@@ -28,7 +58,7 @@ function Nanny(State, Path = window.location.pathname){
         State.Content = route.view(State);
       }
     }
-    render(Element, State.View(State));
+    render(State.Element || document.body, App(State));
   }
 
   // Retrieve state from local storage.
@@ -62,31 +92,9 @@ function Nanny(State, Path = window.location.pathname){
   if (State.Debug) {
     console.log(JSON.stringify(State));
   }
-
-  return (newState) => {
-    if (State.Before) {
-      State = { ...State, ...State.Before(State) };
-    }
-
-    State = { ...State, ...(typeof newState === "function" ? newState(State) : newState) };
-
-    if (State.After) {
-      State = { ...State, ...State.After(State) };
-    }
-
-    if (State.LocalStorageKey){
-      localStorage.setItem(State.LocalStorageKey,JSON.stringify(State));
-    }
-
-    if (State.Debug) {
-      console.log(JSON.stringify(State));
-    } 
-    
-    // Re-render the view based on updated state
-    Render();
-
-    return State;
-  };
+  
+  return State.Update
 }
 
-export { Nanny,html,svg };
+export { Nanny, html, svg }
+export { html as Render, svg as RenderSVG}
