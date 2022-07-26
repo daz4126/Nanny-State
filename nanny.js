@@ -7,7 +7,7 @@ export default function Nanny(State, Path = window.location.pathname){
   
   State = { ...State, ...(State.Calculate ? State.Calculate(State) : {}) };
   State.Evaluate = () => ({...State});
-  State.Render = html;
+  State.Create = html;
   State.RenderSVG = svg; 
   State.Update = (newState,Rerender=true) => {
     if (State.Before) {
