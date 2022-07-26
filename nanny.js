@@ -97,4 +97,4 @@ export default function Nanny(State, Path = window.location.pathname){
 }
 
 export { Nanny, html, svg }
-export { html as Render, svg as RenderSVG}
+export { html as Create, svg as CreateSVG}
