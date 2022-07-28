@@ -9,7 +9,7 @@
     "url": "https://github.com/daz4126/Nanny-State/"
   },
   "dependencies": {
-    "uhtml": "^2.7.6"
+    "uhtml": "^3.0.1"
   },
   "scripts": {
     "test": "No tests yet"
