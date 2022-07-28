@@ -2,23 +2,25 @@ import {html, svg, render} from 'uhtml';
 
 export default function Nanny(State, Path = window.location.pathname){
   // Default settings
-  const App = State.App || State.View,
-        Routes = State.Routes || [];
+  const  Routes = State.Routes || [];
   
   State = { ...State, ...(State.Calculate ? State.Calculate(State) : {}) };
   State.Evaluate = () => ({...State});
-  State.Create = html;
-  State.RenderSVG = svg; 
+  State.Decimate = () => State.Update({});
+  State.HTML = html;
+  State.SVG = svg; 
   State.Update = (newState,Rerender=true) => {
-    if (State.Before) {
-      State = { ...State, ...State.Before(State) };
+
+    if (State.Predate) {
+      State = { ...State, ...State.Predate(State) };
     }
 
-    State = { ...State, ...(typeof newState === "function" ? newState(State) : newState), ...(State.Calculate ? State.Calculate(typeof newState === "function" ? newState(State) : newState) : {}) };
+    State = { ...State, ...(typeof newState === "function" ? newState(State) : newState), ...(State.Calculate ? State.Calculate({...State,...(typeof newState === "function" ? newState(State) : newState)}) : {}) };
 
-    if (State.After) {
-      State = { ...State, ...State.After(State) };
+    if (State.Postdate) {
+      State = { ...State, ...State.Postdate(State) };
     }
+
 
     if (State.LocalStorageKey){
       localStorage.setItem(State.LocalStorageKey,JSON.stringify(State));
@@ -58,7 +60,7 @@ export default function Nanny(State, Path = window.location.pathname){
         State.Content = route.view(State);
       }
     }
-    render(State.Element || document.body, App(State));
+    render(State.Element || document.body, State.View(State));
   }
 
   // Retrieve state from local storage.
