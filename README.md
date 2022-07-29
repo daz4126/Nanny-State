@@ -76,7 +76,7 @@ NANNY STATE uses a one-way data flow model comprised of 3 interdependent parts:
 
 * **State** - an object or value that stores all the app data
 * **View** -  a function that returns a string of HTML based on the current state
-* **Update** - a function that is the only way to change the state and re-render the view
+* **Update** - a method of the State that is the only way to change the state and re-render the view
 
 <div align="center">
   
@@ -144,15 +144,7 @@ const State = {
 }
 ```
 
-The View in NANNY STATE .It is a pure functions that always accept the state as the only parameter. This means it has access to all the properties of the state as well as the `state.HTML` template function that is provided by µhtml. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code that we want to display in our app. 
-
-These values are then bound to the view and will automatically update to reflect any changes in the state. In this example we are inserting the value of the state object's 'name' property into the `<h1>` element.
-
-In NANNY STATE, everything is stored as a property of the state, even the app settings such as the view! This means that we have to add the `View` code to the `State` object. Since we named the variable `View`, we can just use object-shortand notation to add this to the `State` object, like so:
-
-```javascript
-
-```
+The View in NANNY STATE is a method of the state (*everything* is part of the state!). It is a pure functions that always accept the state as the only parameter. This means it has access to all the properties of the state as well as the `state.HTML` template function that is provided by µhtml. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code that we want to display in our app. 
 
 Last of all, we need to call the `Nanny` function with `State` provided as an argument:
 
@@ -170,64 +162,38 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBryB).
 
 </div>
 
-This is just a static piece of HTML though. The view in Nanny State can display dynamic expressions using `${expression}` placeholders to insert properties from the state.
+This is just a static piece of HTML though. The view in Nanny State can display properties of the state using `${prop}` placeholders.
+  
+Even though the View is a property of the State object, it's not really practical to define it directly inside `State` like we did in the example above, especially when the view code becomes quite long. Instead, we can define it as a variable named `View`, then use object-shortand notation to add this to the `State` object, like so:
 
-Let's add a property called 'name', with a value of the string "World", to the state:
-  
-  ```javascript
-  State = {
-    name: "World",
-    View
-  }
-  ```
-  
-Now let's update the `View` to use this property:
-  
 ```javascript
-const View = state => html`<h1>Hello ${state.name}</h1>`
+const View = state => state.HTML`<h1>Hello ${state.name}</h1>`
+
+State = {
+  name: "World",
+  View
+}
 ```
-Even though, outwardly, nothing seems to have changed, we are now using properties of the `State` in the `View`.
+
+Even though, outwardly, this example looks identical to the previous one, we are now showing properties of the `State` in the `View`. These properties are bound to the view and it will automatically update to reflect any changes in the state. In this example we are inserting the value of the state object's 'name' property into the `<h1>` element.
 
 You can this code on [CodePen](https://codepen.io/daz4126/pen/jOYeqoN).
 
-Our next job is to make the view dynamic. First of all we'll add a button to the view:
+Our next job is to make the example dynamic. First of all we'll add a button to the view:
   
 ```javascript
 const View = state => 
-  html`<h1>Hello ${state.name}</h1>
-       <button onclick=${state.changeName}>Hello</button>`
+  state.HTML`<h1>Hello ${state.name}</h1>
+       <button onclick=${e => state.Update({name: "Nanny State"}),}>Hello</button>`
 ```
 
-The button element has an inline event listener. When the button is clicked the event handler `changeName` will be called (by convention, event handlers start with an `_` to differentiate them from other properties in the State). We want this function to update the state object so the 'name' property changes to 'Nanny State'. This is exactly what the `Update` function is for.
+The button element has an inline `onclick` event listener. When the button is clicked the inline event handler is called. The purpose of this function is to update the state object so the 'name' property changes to 'Nanny State'. This is exactly what the built-in `state.Update` function is for.
   
-The `Update` function is returned when the `Nanny` function is called. Calling the `Nanny` function does 2 things:
+The `state.Update` function to the *only* way to update the state object. In this example it will change the value of the 'name' property when the button is clicked. This is really easy to do - simply pass an object representing the new state as an argument to the function.
+  
+In the example above, we pass the object `{name: "Nanny State"}` as an argument to the `state.Update` function. Note that you ony have to include any properties of the State that need updating in this object(**Nanny State** assumes that all the other properties will stay the same). The view will then automatically be re-rendered using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
 
-1. Renders the initial view based on the initial value of the `State` variable that is passed to it.
-2. Returns the `Update` function - this is the only way that the state can be updated in the app.
-  
-To create the `Update` function, change the last line of code so it assigns the variable `Update` to the return value of `Nanny(State)`:
-  
-```javascript
-const Update = Nanny(State)
-```
-  
-*Note that it is only called `Update` by convention and can actually be called any legal variable name.*
-
-Now we can use the `Update` function to update the state when the button is clicked. This is really easy to do - simply pass an object representing the new state as an argument to the `Update` function.
-  
-To do this we need to add the `changeName` event handler to the State:
-  
-```javascript
- const State = {
-  name: "World",
-  changeName: event => Update({name: "Nanny State"}),
-  View
-} 
-```
-
-Because `changeName` is an event handler, its only parameter is the `event` object (although it isn't actually needed in this example, but it is useful to identify the function as an event handler). In this case, the purpose of the function is to call the `Update` function that changes the 'name' property to "Nanny State" by passing the object `{name: "Nanny State"}` as an argument to the `Update` function. Note that you ony have to include any properties of the State that need updating in this object(**Nanny State** assumes that all the other properties will stay the same). **NANNY STATE** will then automatically re-render the view using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
-
-We now have everything wired up correctly. When the user clicks the button, the `changeName` event handler is called. This calls the `Update` function which changes the 'name' property to 'Nanny State' and re-renders the page based on this new state.
+We now have everything wired up correctly. When the user clicks the button, the event handler uses the `state.Update` function to update the 'name' property to 'Nanny State' and re-renders the page based on this new state.
 
 You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clicking the button to see the view change!
 
@@ -240,21 +206,25 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clic
 Now let's try adding an event handler that uses some information passed to it in the `event` object. We'll create an input field that allows the user to update the `name` property as they type. Change the view to the following:
   
 ```javascript
-const View = state => html`<h1>Hello ${state.name}</h1>
-<input oninput=${state.changeName}>`
+const View = state => {
+  const changeName = event => state.Update({name: event.target.value})
+  return state.HTML`<h1>Hello ${state.name}</h1>
+  <input oninput=${changeName}>
+}`
 ```
   
-We've replaced the button element with an input field that uses the inline event listener `oninput` to call the `changeName` event handler. We need to update this function inside the `State` object:
+We've defined an event handler called `changeName` at the top of the `View` function. This means that we have to explicity return the `state.HTML` string at the end of the function. This is similar to the previous example, but we've replaced the button with an input field with an inline `oninput` event listener.
+  
+The `changeName` event handler uses the `state.Update` to replace the `name` property of the state with the value of `event.target.value` which corresponds to the text entered into the input field. Every time the input changes, this event will fire and the view will be re-rendered to correspond to what has been typed into the input field.
+  
+The `State` object stays the same:
   
 ```javascript
  const State = {
   name: "World",
-  changeName: event => Update({name: event.target.value}),
   View
 } 
 ```
-  
-This time the `Update` function is passed an object that replaces the `name` property of the state with the value of `event.target.value` which corresponds to the text entered into the input field. Every time the input changes, this event will fire and the view will be re-rendered to correspond to what has been typed into the input field.
 
 You can this code on [CodePen](https://codepen.io/daz4126/pen/qBpJNOp). Try typing into the input field and see the view change as you type!
 
@@ -268,61 +238,36 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/qBpJNOp). Try typi
   
 This next example shows how to implement a toggle function as well as how to render parts of the view based on the value of properties in the State.
 
-Start, in the usual way, by importing the relevant functions:
+Start, in the usual way, by importing the `Nanny` function:
 
 ```javascript
-import { Nanny, html } from 'nanny-state'
+import Nanny from 'nanny-state'
 ```
   
 Next we'll create the view:
 
 ```javascript
-const View = state => html`<h1>${state.salutation} World</h1>
-  <button onclick=${state.changeSalutation}>${state.salutation === "Hello" ? "Goodbye" : "Hello"}</button>`
+const View = state => {
+  const changeSalutation = event => state.Update({salutation: state.salutation === "Hello" ? "Goodbye" : "Hello"})
+  return state.HTML`<h1>${state.salutation} World</h1>
+  <button onclick=${changeSalutation}>${state.salutation === "Hello" ? "Goodbye" : "Hello"}</button>
+}`
 ```
   
-This view displays a property of the State called `salutation` followed by the string "World" inside `<h1>` tags. The value of `State.salutation` will either be "Hello" or "Goodbye". After this is a button element with an `onclick` event handler attached to it that calles the `changeSalutation` State method. Inside the button we use a ternary operator to display "Goodbye" if the salutation is currenlty "Hello" or display "Hello" otherwise. We want the value of `State.salutation` to toggle between "Hello" and "Goodbye" when this button is clicked. 
+This view displays a property of the State called `salutation` followed by the string "World" inside `<h1>` tags. The value of `State.salutation` will either be "Hello" or "Goodbye". After this is a button element with an `onclick` event listener attached to it that calls the `changeSalutation` event handler that is defined at the top of the `View` function. Inside the button we use a ternary operator to display "Goodbye" if the salutation is currenlty "Hello" or display "Hello" otherwise. We want the value of `State.salutation` to toggle between "Hello" and "Goodbye" when this button is clicked. 
   
-Let's create the initial State and implement the `changeSalutation` method:
+Let's create the `State` object with the initial value of the `salutation` property set to be "Hello":
   
 ```javascript
 const State = {
   salutation: "Hello",
-  changeSalutation: event => 
-    Update(state => ({salutation: state.salutation === "Hello" ? "Goodbye" : "Hello"})),
   View
 }
 ```
   
-As you can see, the `salutation` property is set to "Hello" initially and the `View` function is added to the `State` as usual. Let's take a closer look at the `changeSalutation` method. In the previous examples, the `Update` function was passed a new representation of the state, but in this example it is passed a *transformer function*. These are particularly useful when the new state is based on the previous state, as in this case.
+As you can see, the `salutation` property is set to "Hello" initially and the `View` function is added to the `State` as usual. Let's take a closer look at the `changeSalutation` event handler. In the previous examples, the `Update` function was passed a new representation of the state, but in this example it is passed a *transformer function*. These are particularly useful when the new state is based on the previous state, as in this case.
   
-### Transformer Functions
-
-A transformer function accepts the current state as an argument and returns a new representation of the state. They are basically a mapping function from the current state to a new state as shown in the diagram below:
-
-<div align="center">
-
-![Transformer function diagram](https://user-images.githubusercontent.com/16646/171490767-5ac02acb-0ed8-4d63-962b-f6bbf40ce553.png)
-
-</div>
-  
-ES6 arrow functions are perfect for transformer functions as they visually show the mapping of the current state to a new representation of the state.
-
-Transformer functions must be **[pure functions](https://en.wikipedia.org/wiki/Pure_function)**. They should always return the same value given the same arguments and should not cause any side-effects. They take the following structure:
-
-```javascript
-state => newState
-```
-
-In the `changeSalutation` example above,the transformer functions checks the value of the `state.salutation` property and then toggles the value accordingly, so if the value is "Hello" it updates it to "Goodbye" and vice-versa:
-  
-```javascript
-state => ({salutation: state.salutation === "Hello" ? "Goodbye" : "Hello"})
-```
-  
-Transformer functions are passed *by reference* to the `Update` function. The current state is implicityly passed as an argument to any transformer function (similiar to the way the event object is implicitly passed to event handlers when they are called).
-
-All we we need to do now is start everything running and define the `Update` function:
+All we we need to do now is start the Nanny State!:
   
 ```javascript
 Nanny(State)
@@ -343,7 +288,7 @@ Every state managememnt library needs a counter example!
 We start in the usual way by importing the necessary functions:
 
 ```javascript
-import { Nanny, html } from 'nanny-state';
+import Nanny from 'nanny-state';
 ```
 
 Now let's create the view that will return the HTML we want to display:
