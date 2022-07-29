@@ -48,17 +48,19 @@ Nanny(State)
 Building a NANNY STATE app always involves just 3 simple steps:
 
 1. Create the `View` template - a pure function that accepts the state as its only parameter and returns a string of HTML using the `state.HTML` function:
-   ```javascript
+   
+ ```javascript
    const View = state => state.HTML`
   <h1>${state.count}</h1>
   <div>
     <button onclick=${e => state.Update({count: state.count - 1})}>-</button>
     <button onclick=${e => state.Update({count: state.count + 1})}>+</button>
   </div>`
-   ```
+  ```
   
 2. Create the initial `State` object with any initial property values (and the View):
-   ````javascript
+   
+  ````javascript
   const State = { 
     count: 0, 
     View 
@@ -66,6 +68,7 @@ Building a NANNY STATE app always involves just 3 simple steps:
    ```
 
 3. start the Nanny State!:
+  
   ```javascript
   Nanny(State)
   ```
