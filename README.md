@@ -268,7 +268,7 @@ const State = {
 }
 ```
   
-As you can see, the `salutation` property is set to "Hello" initially and the `View` function is added to the `State` as usual. Let's take a closer look at the `changeSalutation` event handler. In the previous examples, the `Update` function was passed a new representation of the state, but in this example it is passed a *transformer function*. These are particularly useful when the new state is based on the previous state, as in this case.
+As you can see, the `salutation` property is set to "Hello" initially and the `View` function is added to the `State` as usual. Let's take a closer look at the `changeSalutation` event handler. In the previous examples, the `state.Update` function was passed a new representation of the state with hard-coded values, but in this example the new value depends on the current value of the state. If the `salutation` property is "Hello" then it will change it to "Goodbye" and vice versa.
   
 All we we need to do now is start the Nanny State!:
   
@@ -297,52 +297,26 @@ import Nanny from 'nanny-state';
 Now let's create the view that will return the HTML we want to display:
 
 ```javascript
-const View = state => html`<button onclick=${state.incrementCount}>${state.count}</button>`
+const View = state => state.HTML`<button onclick=${e => state.Update({count: state.count + 1})}>${state.count}</button>`
 ```
 
-This is a button that displays the number of times the button has been clicked on, which is a property of the State called `count`. It also has an `onclick` event listener attached that is a method of the State called `incrementCount`. This will be responsible for increasing the value of the `count` property by 1 every time the button is pressed.
+This is a button that displays the number of times the button has been clicked on, which is a property of the State called `count`. It also has an `onclick` event listener and an inline event handler that increases the value of the `count` property by 1 every time the button is pressed.
 
-Now we need to define the `State` object:
+Now we need to define the `State` object, setting the inital value of the `count` property to `0`:
 
 ```javascript
 const State = {
   count: 0,
-  incrementCount: event => Update(state => ({count: state.count + 1})),
   View
 }
 ```
   
-This sets the initial value of the `count` property to `0` and defines the `incrementCount` method. It calls the `Update` function and passes a transformer function that sets the new value of `count` to the current value of `state.count` with `1` added on. 
-  
-Transformer functions don't need to return an object that represents every property of the new state. They only need to return an object that contains the properties that have actually changed. For example, if the initial state is represented by the following object:
-
-```javascript
-const State = {
-  name: "World",
-  count: 10
-}
-```
-
-If we write a transformer function that doubles the count, then we only need to return an object that shows the new value of the 'count' property and don't need to worry about the 'name' property:
-
-```javascript
-state => ({ count: state.count * 2})
-```
-
-_Note: when arrow functions return an object literal, it needs wrapping in parentheses_
-
-The state object in the parameter can also be destructured so that it only references properties required by the transformer function:
-
-```javascript
-{ count } => ({ count: count * 2})
-``` 
-  
 As usual, the `State` object also requires `View` to be added as well.
 
-Last of all, we just need to call the `Nanny` function and assign its return value to the variable `Update`:
+Last of all, we just need to call the `Nanny` function to start the Nanny State:
 
 ```javascript
-const Update = Nanny(State)
+Nanny(State)
 ```
 
 This will render the initial view with the count set to `0` and allow you to increase the count by clicking on the button.
@@ -365,11 +339,10 @@ const handler = params = event => newState
   
 _Note that this is a standard Vanilla JS technique and not unique to Nanny State_
 
-For example, if we wanted our counter app to have buttons that increased the count by 1, 2 or even decreased it by 1, then instead of writing a separate event handler for each button, we could write a function that accepted an extra parameter of how much to increase the value of `state.count` by. We could rewerite `incrementCount` like so:
+For example, if we wanted our counter app to have buttons that increased the count by 1, 2 or even decreased it by 1, then instead of writing a separate event handler for each button, we could write a function that accepted an extra parameter of how much to increase the value of `state.count` by. We could write an `incrementCount` event handler like so:
 
 ```javascript
-incrementCount: (n=1) => event => 
-    Update(state => ({count: state.count + n}))
+const incrementCount = (n=1) => event => state.Update({count: state.count + n})
 ```
 
 Here the parameter `n` is used to determine how much `state.count` is increased by and has a default value of `1`. This makes the event handler much more flexible.
@@ -377,17 +350,20 @@ Here the parameter `n` is used to determine how much `state.count` is increased 
 When calling an event handler with parameters in the View, it needs to be partially applied with any arguments that are required. For example, this is how the View would now look with our extra buttons:
 
 ```javascript
-const View = state => html`
+const View = state => {
+const incrementCount = (n=1) => event => state.Update({count: state.count + n})
+return state.HTML`
 <h1>${state.count}</h1>
 <div>
-  <button onclick=${state.incrementCount()}>+1</button>
-  <button onclick=${state.incrementCount(2)}>+2</button>
-  <button onclick=${state.incrementCount(-1)}>-1</button>
-</div>`
+  <button onclick=${incrementCount()}>+1</button>
+  <button onclick=${incrementCount(2)}>+2</button>
+  <button onclick=${incrementCount(-1)}>-1</button>
+</div>
+}`
 ```
 
   
-Notice that the `state.incrementCount` function is actually *called* in the view with the first parameter provided (or if no parameter is provided the default value of `1` will be used. The `event` object will still be implicityly passed to the event handler (even though it isn't used in this example).
+Notice that the `incrementCount` function is actually *called* in the view with the first parameter provided (or if no parameter is provided the default value of `1` will be used. The `event` object will still be implicityly passed to the event handler (even though it isn't used in this example).
   
 You can see the code for this updated counter example on [CodePen](https://codepen.io/daz4126/pen/NWXOmpd). Click on the buttons to increase or decrease the count by different amounts!
 
@@ -397,27 +373,6 @@ You can see the code for this updated counter example on [CodePen](https://codep
 
 </div>
   
-  
-### Anonymous Event Handlers In The View
-  
-Because **NANNY STATE** just uses vanilla JS, you can define anonymous event handlers directly inside the `View`. For example, the counter example above could have been written with the following view instead:
-  
-```javascript
-  const View = state => html`
-  <button onclick=${e => Update(state => ({count: state.count + 1}))}>
-    I've been pressed ${state.count} time${state.count === 1 ? "" : "s"}
-  </button>`
-```
-This uses the following anonymous event handler:
-  
-```javascript
-  e => Update(state => ({count: state.count + 1}))
-```
-  
-This saves the event handler having to be defined in the `State` object, which can be useful for small updates such as this, although it could get unweildy for more complicated updates.
-
-One advantage of using anonymous event handlers directly in the view is that they can access the state because the `View` function accepts the current state as an argument, whereas event handlers that are defined in the `State` object do not have access to the state.
-
 ## More NANNY STATE Examples
 
 You can see a full set of examples of how Nanny State can be used, with source code, on [CodePen](https://codepen.io/collection/RzbNmw). This includes:
