@@ -2,7 +2,7 @@
 
 # ![NANNY STATE](https://user-images.githubusercontent.com/16646/171668597-4c84201f-de31-4996-be3c-d20be74154d1.png)
 
-_simple, fast & minimal state management for vanilla JS_
+_simple, small & speedy state management for vanilla JS_
 
 [![npm](https://img.shields.io/npm/v/nanny-state?color=19191c)](https://www.npmjs.com/package/nanny-state)
 [![License](https://img.shields.io/badge/License-Unlicense-19191c)](#license)
@@ -12,15 +12,63 @@ _simple, fast & minimal state management for vanilla JS_
 
 **NANNY STATE** makes it simple to build dynamic, state-based web apps in vanilla JS.
 
-- **SIMPLE** - build interactive user-interfaces with just a few lines of code.
-- **FAST** - automatic page renders that are blazingly fast.
-- **MINIMAL** - only 3kb minified and zipped.
+- **SIMPLE** - build interactive user-interfaces with in no time at all.
+- **SMALL** - less than 4kb minified and zipped.
+- **SPEEDY** - automatic page renders that are blazingly fast.
 
 ## The State Is Everything
 
 **NANNY STATE** stores everything about the app in a single state object and automatically re-renders the view when the state changes. This means that your code is more organized and easier to maintain without the bloat of other libraries. And everything is written in vanilla JS and HTML, which means you don't have to learn any new syntax!
 
 It's easy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
+
+
+## Quick Start
+
+If you want to dive right in, here's a Counter example that shows how easy is to build a NANNY STATE app:
+
+```
+import Nanny from "nanny-state"
+
+const View = state => state.HTML`
+  <h1>${state.count}</h1>
+  <div>
+    <button onclick=${e => state.Update({count: state.count - 1})}>-</button>
+    <button onclick=${e => state.Update({count: state.count + 1})}>+</button>
+  </div>`
+  
+const State = { 
+  count: 0, 
+  View 
+}
+
+Nanny(State)
+```
+
+NANNY STATE app involves just 3 simple steps:
+
+1. Create the `View` template - a pure function that accepts the state as its only parameter and returns a string of HTML using the `state.HTML` function:
+   ```javascript
+   const View = state => state.HTML`
+  <h1>${state.count}</h1>
+  <div>
+    <button onclick=${e => state.Update({count: state.count - 1})}>-</button>
+    <button onclick=${e => state.Update({count: state.count + 1})}>+</button>
+  </div>
+   ```
+  
+2. Create the initial `State` object (everything goes in the State, props, the View and event handlers):
+   ````javascript
+  const State = { 
+    count: 0, 
+    View 
+  }
+   ```
+
+3. start the Nanny State!:
+  ```javascript
+  Nanny(State)
+  ```
 
 ## What Is NANNY STATE?
 
@@ -36,7 +84,7 @@ NANNY STATE uses a one-way data flow model comprised of 3 interdependent parts:
 
 </div>
 
-In NANNY STATE, the state is everything. It is the single source of truth in the application and it can only be changed using the `Update` function, ensuring that any changes are deterministic with predictable outcomes. The view is an HTML representation of the data stored in the state. When a user interacts with the page, the `Update` function changes the state and the view is automatically re-rendered to reflect these changes.
+In NANNY STATE, the state is everything. It is the single source of truth in the application and it can only be changed using the `state.Update` function, ensuring that any changes are deterministic with predictable outcomes. The view is an HTML representation of the data stored in the state. When a user interacts with the page, the `Update` function changes the state and the view is automatically re-rendered to reflect these changes.
 
 ## Background
 
@@ -57,7 +105,7 @@ npm install nanny-state
 Then import like this:
 
 ```javascript
-import { Nanny, html } from "nanny-state"
+import Nanny from "nanny-state"
 ```
 
 ### ES Modules
@@ -66,44 +114,9 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
 
 ```html
 <script type="module">
-  import { Nanny,html } from 'https://cdn.skypack.dev/nanny-state'
+  import Nanny from 'https://cdn.skypack.dev/nanny-state'
 </script>
 ```
-
-## Quick Start Guide
-
-Building a NANNY STATE app is simple and straightforward. It always follows these steps:
-
-1. Import the `Nanny` and `html` functions:
-   ```javascript
-   import { Nanny, html } from 'nanny-state'
-   ````
-
-2. Create the `View` template - a pure function that accepts the state as its only parameter and outputs a string of HTML:
-   ```javascript
-   const View = state =>
-      html`<h1>Hello ${state.name}
-           <button onclick=${state.changeName}>Click Me</button>`
-   ```
-   
-3. Create an event handler to call the `Update` function and update the state:
-  ```javascript
-  const changeName = event => Update({ name: "Nanny State" })
-  ```
-  
-4. Create the initial `State` object (everything goes in the State, props, the View and event handlers):
-   ````javascript
-   const State = { 
-      name: "World",
-      changeName,
-      View
-     }
-   ```
-
-5. Assign the `Update` function to the return value of `Nanny(State)`:
-  ```javascript
-  const Update = Nanny(State)
-  ```
 
 <div id="examples">
   
@@ -111,7 +124,7 @@ Building a NANNY STATE app is simple and straightforward. It always follows thes
 
 The easiest way to learn how NANNY STATE works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. 
 
-Alternatively you could set up a basic HTML file and place all the code inside the `<script>` tags. You can see [example files here](https://github.com/daz4126/Nanny-State/tree/main/examples/counter).
+Alternatively you could set up a basic HTML file and place all the code inside the `<script>` tags.
 
 And if you want it to look pretty, just copy the CSS code from the examples on CodePen!
 
@@ -122,25 +135,25 @@ This example will show how the 3 elements of Nanny State, State, View and the Up
 Start by importing the relevant functions:
 
 ```javascript
-import { Nanny, html } from 'nanny-state'
+import Nanny from 'nanny-state'
 ```
 
 Next we'll create the view. This is a function that accepts the state as an argument and returns a string of HTML that depends on the value of the state's properties. 
 
 ```javascript
-const View = state => html`<h1>Hello World</h1>`
+const State = { 
+  View: state => state.HTML`<h1>Hello World</h1>`
+}
 ```
 
-Views in NANNY STATE use the `html` template function that is part of µhtml. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code that we want to display in our app. 
+The View in NANNY STATE .It is a pure functions that always accept the state as the only parameter. This means it has access to all the properties of the state as well as the `state.HTML` template function that is provided by µhtml. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code that we want to display in our app. 
 
 These values are then bound to the view and will automatically update to reflect any changes in the state. In this example we are inserting the value of the state object's 'name' property into the `<h1>` element.
 
 In NANNY STATE, everything is stored as a property of the state, even the app settings such as the view! This means that we have to add the `View` code to the `State` object. Since we named the variable `View`, we can just use object-shortand notation to add this to the `State` object, like so:
 
 ```javascript
-const State = { 
-  View 
-}
+
 ```
 
 Last of all, we need to call the `Nanny` function with `State` provided as an argument:
