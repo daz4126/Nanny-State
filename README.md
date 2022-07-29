@@ -67,7 +67,7 @@ const State = {
 }
 ```
 
-3. start the Nanny State!:
+3. Start the Nanny State!:
 
 ```javascript
   Nanny(State)
