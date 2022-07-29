@@ -6,19 +6,19 @@ export default function Nanny(State, Path = window.location.pathname){
   
   State = { ...State, ...(State.Calculate ? State.Calculate(State) : {}) };
   State.Evaluate = () => ({...State});
-  State.Decimate = () => State.Update({});
+  State.JSON = () => JSON.stringify(State);
   State.HTML = html;
   State.SVG = svg; 
   State.Update = (newState,Rerender=true) => {
 
-    if (State.Predate) {
-      State = { ...State, ...State.Predate(State) };
+    if (State.Before) {
+      State = { ...State, ...State.Before(State) };
     }
 
     State = { ...State, ...(typeof newState === "function" ? newState(State) : newState), ...(State.Calculate ? State.Calculate({...State,...(typeof newState === "function" ? newState(State) : newState)}) : {}) };
 
-    if (State.Postdate) {
-      State = { ...State, ...State.Postdate(State) };
+    if (State.After) {
+      State = { ...State, ...State.After(State) };
     }
 
 
@@ -27,7 +27,7 @@ export default function Nanny(State, Path = window.location.pathname){
     }
 
     if (State.Debug) {
-      console.log(JSON.stringify(State));
+      console.log(State.JSON());
     } 
     
     // Re-render the view basd on updated state
@@ -70,7 +70,7 @@ export default function Nanny(State, Path = window.location.pathname){
 
   if (Routes.length) {
       // append Route method to State
-      State.Route = path => event => {
+      State.Link = path => event => {
         event.preventDefault();
         Path = path || event.target.attributes.href.value;
         window.history.pushState({ Path }, Path, `${Path}`);
@@ -92,11 +92,11 @@ export default function Nanny(State, Path = window.location.pathname){
   Render();
 
   if (State.Debug) {
-    console.log(JSON.stringify(State));
+    console.log(State.JSON());
   }
   
   return State.Update
 }
 
 export { Nanny, html, svg }
-export { html as Create, svg as CreateSVG}
+export { html as HTML, svg as SVG}
