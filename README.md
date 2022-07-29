@@ -10,7 +10,7 @@ _simple, small & speedy state management for vanilla JS_
 
 </div>
 
-**NANNY STATE** makes it simple to build dynamic, state-based web apps in vanilla JS.
+**NANNY STATE** is a *small* library that makes it *simple* to build *speedy*, state-based web apps in vanilla JS.
 
 - **SIMPLE** - build interactive user-interfaces with in no time at all.
 - **SMALL** - less than 4kb minified and zipped.
