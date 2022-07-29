@@ -25,7 +25,7 @@ It's easy to get started - just follow the [examples](#examples) below and you'l
 
 ## Quick Start
 
-If you want to dive right in, here's a Counter example that shows how easy is to build a NANNY STATE app:
+If you want to dive right in, here's a Counter example that shows how easy is to build a NANNY STATE app. Every app comprises of a View function and a State object:
 
 ```
 import Nanny from "nanny-state"
@@ -54,7 +54,7 @@ Building a NANNY STATE app always involves just 3 simple steps:
   <div>
     <button onclick=${e => state.Update({count: state.count - 1})}>-</button>
     <button onclick=${e => state.Update({count: state.count + 1})}>+</button>
-  </div>
+  </div>`
    ```
   
 2. Create the initial `State` object with any initial property values (and the View):
