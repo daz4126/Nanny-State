@@ -1,7 +1,6 @@
 import {html, svg, render} from 'uhtml';
 
 export default function Nanny(State, Path = window.location.pathname){
-  // Default settings
   const  Routes = State.Routes || [];
   
   State = { ...State, ...(State.Calculate ? State.Calculate(State) : {}) };
@@ -20,7 +19,6 @@ export default function Nanny(State, Path = window.location.pathname){
     if (State.After) {
       State = { ...State, ...State.After(State) };
     }
-
 
     if (State.LocalStorageKey){
       localStorage.setItem(State.LocalStorageKey,JSON.stringify(State));
