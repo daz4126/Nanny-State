@@ -60,7 +60,7 @@ const View = state => state.HTML`
   
 2. Create the initial `State` object with any initial property values (and the View):
    
-````javascript
+```javascript
 const State = { 
   count: 0, 
   View 
