@@ -45,7 +45,7 @@ const State = {
 Nanny(State)
 ```
 
-NANNY STATE app involves just 3 simple steps:
+Building a NANNY STATE app always involves just 3 simple steps:
 
 1. Create the `View` template - a pure function that accepts the state as its only parameter and returns a string of HTML using the `state.HTML` function:
    ```javascript
@@ -57,7 +57,7 @@ NANNY STATE app involves just 3 simple steps:
   </div>
    ```
   
-2. Create the initial `State` object (everything goes in the State, props, the View and event handlers):
+2. Create the initial `State` object with any initial property values (and the View):
    ````javascript
   const State = { 
     count: 0, 
@@ -123,8 +123,6 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
 ## Usage examples
 
 The easiest way to learn how NANNY STATE works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. 
-
-Alternatively you could set up a basic HTML file and place all the code inside the `<script>` tags.
 
 And if you want it to look pretty, just copy the CSS code from the examples on CodePen!
 
