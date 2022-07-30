@@ -418,6 +418,8 @@ ${Button(state,"-1",-1)}
 ```
 
 This will display a button element with the text of "-1" and 'increment' the value by `-1`, essentially making the count go down by 1, every time it is pressed.
+
+You can this code on [CodePen](https://codepen.io/daz4126/pen/poLpJXV).
   
 ## More NANNY STATE Examples
 
@@ -438,9 +440,9 @@ You can see a full set of examples of how Nanny State can be used, with source c
 
 The state has a number of methods that can be used . Built-in methods or properties are always written in PascalCase (starting with an upper-case letter), so it's recommended to only define properties that start with a lower-case letter in the state to avoid clashes with any of the built-in methods.
   
-### Initiate Function
+### `Initiate`
 
-The `Initiate` function is a method of the state object that is called once before the initial render. It has access to the state and works in the same way as the `Update` function in that its return value updates the state.
+`Initiate` is a method of the state object that is called once before the initial render. It has access to the state and works in the same way as the `Update` function in that its return value updates the state.
   
 For example, adding the following method to the `State` object in the counter example will set the start value of the `count` property to `42`:
   
@@ -450,9 +452,9 @@ Initiate: state => ({count: 42})
 
 Of course this could have just been hard coded into the `State` object directly, but sometimes it's useful to programatically set the initial state using a funciton when the app is initialized.
 
-### Before and After Functions
+### `Before` and `After`
 
-The `Before` and `After` functions are methods of the state object that are called before or after a state update respectively. They have access to the state and work in the same way as the `Update` function in that their return value update the state.
+`Before` and `After` are methods of the state object that are called before or after a state update respectively. They have access to the state and work in the same way as the `Update` function in that their return value update the state.
 
 For example, try adding the following methods to the `State` object in the 'Hello Nanny State' example to the following:
 
@@ -474,7 +476,7 @@ Now, when you press the `Hello` button, the following is logged to the console, 
 }
 ```
 
-### Default Element
+### `Element`
 
 By Default the view will be rendered inside the `body` element of the page. This can be changed using the `Element` property of the state object or by providing it as part of the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'app', you just need to specify this as an option when you call the `Nanny` function:
 
@@ -482,7 +484,7 @@ By Default the view will be rendered inside the `body` element of the page. This
 State.Element = document.getElementById('app')
 ```
 
-### Debug Mode
+### `Debug`
 
 `Debug` is a property of the state that is `false` by default, but if you set it to `true`, then the value of the state will be logged to the console after the initial render and after any state update"
 
@@ -490,7 +492,7 @@ State.Element = document.getElementById('app')
 State.Debug = true
 ```
   
-### Local Storage
+### `LocalStorageKey`
 
 `LocalStorageKey` is a property of the state that ensures that the state is automatically persisted using the browser's [local storage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). It will also retrieve the state from the user's local storage every time they visit the site, ensuring persitance of the state between sessions. To use it, simply set this property to the string value that you want to be used as the local storage key. For example, the following setting will use the string "nanny" as the local storage key and ensure that the state is saved to local storage after every update:
   
