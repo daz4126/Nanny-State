@@ -27,7 +27,7 @@ It's easy to get started - just follow the [examples](#examples) below and you'l
 
 If you want to dive right in, here's a Counter example that shows how easy is to build a NANNY STATE app. Every app comprises of a View function and a State object:
 
-```
+```javascript
 import Nanny from "nanny-state"
 
 const View = state => state.HTML`
