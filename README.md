@@ -119,7 +119,7 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
 
 <div id="examples">
   
-## Usage examples
+## Examples
 
 The easiest way to learn how NANNY STATE works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. 
 
@@ -129,13 +129,13 @@ And if you want it to look pretty, just copy the CSS code from the examples on C
 
 This example will show how the 3 elements of Nanny State, State, View and the Update function, work.
 
-Start by importing the relevant functions:
+Start by importing the `Nanny` function:
 
 ```javascript
 import Nanny from 'nanny-state'
 ```
 
-Next we'll create the view. This is a function that accepts the state as an argument and returns a string of HTML that depends on the value of the state's properties. 
+In NANNY STATE, the state is everything, so we'll create that next. In this example, it will have a single property called `View`:
 
 ```javascript
 const State = { 
@@ -143,7 +143,7 @@ const State = {
 }
 ```
 
-The View in NANNY STATE is a method of the state (*everything* is part of the state!). It is a pure functions that always accept the state as the only parameter. This means it has access to all the properties of the state as well as the `state.HTML` template function that is provided by µhtml. This is a tag function that accepts a template literal as an argument. The template literal contains the HTML code that we want to display in our app. 
+The `View` in NANNY STATE is a method of the state (*everything* is part of the state!). It is a pure functions that always accept the state as its only parameter. This means it has access to all the properties of the state, including the `state.HTML` function that is provided by µhtml. This is a template tag function that returns the HTML code that we want to display in our app. 
 
 Last of all, we need to call the `Nanny` function with `State` provided as an argument:
 
