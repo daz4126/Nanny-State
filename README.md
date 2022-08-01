@@ -346,15 +346,15 @@ When calling an event handler with parameters in the View, it needs to be partia
 
 ```javascript
 const View = state => {
-const incrementCount = (n=1) => event => state.Update({count: state.count + n})
-return state.HTML`
-<h1>${state.count}</h1>
-<div>
-  <button onclick=${incrementCount()}>+1</button>
-  <button onclick=${incrementCount(2)}>+2</button>
-  <button onclick=${incrementCount(-1)}>-1</button>
-</div>
-}`
+  const incrementCount = (n=1) => event => state.Update({count: state.count + n})
+  return state.HTML`
+  <h1>${state.count}</h1>
+  <div>
+    <button onclick=${incrementCount()}>+1</button>
+    <button onclick=${incrementCount(2)}>+2</button>
+    <button onclick=${incrementCount(-1)}>-1</button>
+  </div>`
+}
 ```
 
   
