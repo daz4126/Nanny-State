@@ -12,9 +12,9 @@ _small, simple & speedy state management_
 
 ## The State Is Everything
 
-**NANNY STATE** is a *small* library that makes it *simple* to build *speedy*, state-based web apps.
+**NANNY STATE** is an unbelievably *small* library that makes it super *simple* to build blazingly *speedy*, state-based web apps.
 
-- **SMALL** - less than 4kb minified and zipped.
+- **SMALL** - about 3kb minified and zipped.
 - **SIMPLE** - build interactive user-interfaces in no time at all.
 - **SPEEDY** - automatic page renders that are blazingly fast.
 
@@ -44,33 +44,7 @@ const State = {
 Nanny(State)
 ```
 
-Building a NANNY STATE app always involves just 3 simple steps:
-
-1. Create the `View` template - a pure function that accepts the state as its only parameter and returns a string of HTML using the `state.HTML` function:
-   
-```javascript
-const View = state => state.HTML`
-  <h1>${state.count}</h1>
-  <div>
-    <button onclick=${e => state.Update({count: state.count - 1})}>-</button>
-    <button onclick=${e => state.Update({count: state.count + 1})}>+</button>
-  </div>`
-```
-  
-2. Create the initial `State` object with any initial property values (and the View):
-   
-```javascript
-const State = { 
-  count: 0, 
-  View 
-}
-```
-
-3. Start the Nanny State!:
-
-```javascript
-  Nanny(State)
-```
+The `View` function accepts the state as its only parameter and returns a string of HTML and the `State` object contains all the initial data values (plus the View).
 
 ## What Is NANNY STATE?
 
@@ -122,11 +96,9 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
 
 The easiest way to learn how NANNY STATE works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. 
 
-And if you want it to look pretty, just copy the CSS code from the examples on CodePen!
-
 ### Hello World Example
 
-This example will show how the 3 elements of Nanny State, State, View and the Update function, work.
+Let's start in the traditional way.
 
 Start by importing the `Nanny` function:
 
@@ -134,7 +106,7 @@ Start by importing the `Nanny` function:
 import Nanny from 'nanny-state'
 ```
 
-In NANNY STATE, the state is everything, so we'll create that next. In this example, it will have a single property called `View`:
+In NANNY STATE, the state is everything, so we'll create that next. In this example, it will just contain a single method called `View`:
 
 ```javascript
 const State = { 
@@ -142,15 +114,15 @@ const State = {
 }
 ```
 
-The `View` in NANNY STATE is a method of the state (*everything* is part of the state!). It is a pure functions that always accept the state as its only parameter. This means it has access to all the properties of the state, including the `state.HTML` function that is provided by µhtml. This is a template tag function that returns the HTML code that we want to display in our app. 
+The `View` in NANNY STATE is a method of the state (*everything* is part of the state!). It is a pure functions that always accept the state as its only parameter. This means it has access to all the properties of the state, including the `state.HTML` function that is provided by µhtml. This is a tag function that returns the HTML code that we want to display on the page. 
 
-Last of all, we need to call the `Nanny` function with `State` provided as an argument:
+Last of all, we need to call the `Nanny` function providing `State` as an argument:
 
 ```javascript
 Nanny(State)
 ```
 
-This passes the `State` object into the `Nanny` function, which renders the view based on the initial state.
+This renders the view based on the initial state.
 
 You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBryB).
 
@@ -173,11 +145,11 @@ State = {
 }
 ```
 
-Even though, outwardly, this example looks identical to the previous one, we are now showing properties of the `State` in the `View`. These properties are bound to the view and it will automatically update to reflect any changes in the state. In this example we are inserting the value of the state object's 'name' property into the `<h1>` element.
+Even though, outwardly, this example looks identical to the previous one, it's different behind the scenes because we are inserting the value of the state object's 'name' property into the `<h1>` element.
 
 You can this code on [CodePen](https://codepen.io/daz4126/pen/jOYeqoN).
 
-Our next job is to make the example dynamic. First of all we'll add a button to the view:
+Our next job is to make the view dynamic. Let's start by adding a button:
   
 ```javascript
 const View = state => 
