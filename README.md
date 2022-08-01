@@ -32,7 +32,7 @@ It's simple learn - just follow the [examples](#examples) below and you'll see s
 
 ## Quick Start
 
-All you need in a NANNY STATE app is a `View` function and `State` object:
+All you need in a NANNY STATE app is a view component and `State` object:
 
 ```javascript
 import Nanny from "nanny-state"
@@ -52,7 +52,7 @@ const State = {
 Nanny(State)
 ```
 
-The `View` function accepts the state as its only parameter and returns a string of HTML and the `State` object contains all the initial data values (plus the View).
+The view component is a function accepts the state as its only parameter and returns a string of HTML and the `State` object contains all the initial data values.
 
 ## What Is NANNY STATE?
 
