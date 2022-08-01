@@ -14,9 +14,9 @@ _small, simple & speedy state management_
 
 **NANNY STATE** is an unbelievably *small* library that makes it super *simple* to build blazingly *speedy* web apps.
 
-- **SMALL** - about 3kb minified and zipped.
-- **SIMPLE** - build interactive user-interfaces in no time at all.
-- **SPEEDY** - automatic page renders that are blazingly fast.
+- **SMALL** - about 3kb minified and zipped!
+- **SIMPLE** - build interactive user-interfaces in no time at all!
+- **SPEEDY** - automatic page renders that are blazingly fast!
 
 **NANNY STATE** stores everything about the app in a single state object and automatically re-renders the view when the state changes. This means that your code is more organized and easier to maintain without the bloat of other libraries. 
 
