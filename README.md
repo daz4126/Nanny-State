@@ -2,7 +2,7 @@
 
 # ![NANNY STATE](https://user-images.githubusercontent.com/16646/171668597-4c84201f-de31-4996-be3c-d20be74154d1.png)
 
-_small, simple & speedy state management for vanilla JS_
+_small, simple & speedy state management_
 
 [![npm](https://img.shields.io/npm/v/nanny-state?color=19191c)](https://www.npmjs.com/package/nanny-state)
 [![License](https://img.shields.io/badge/License-Unlicense-19191c)](#license)
@@ -10,10 +10,10 @@ _small, simple & speedy state management for vanilla JS_
 
 </div>
 
-**NANNY STATE** is a *small* library that makes it *simple* to build *speedy*, state-based web apps in vanilla JS.
+**NANNY STATE** is a *small* library that makes it *simple* to build *speedy*, state-based web apps.
 
 - **SMALL** - less than 4kb minified and zipped.
-- **SIMPLE** - build interactive user-interfaces with in no time at all.
+- **SIMPLE** - build interactive user-interfaces in no time at all.
 - **SPEEDY** - automatic page renders that are blazingly fast.
 
 ## The State Is Everything
@@ -21,7 +21,6 @@ _small, simple & speedy state management for vanilla JS_
 **NANNY STATE** stores everything about the app in a single state object and automatically re-renders the view when the state changes. This means that your code is more organized and easier to maintain without the bloat of other libraries. And everything is written in vanilla JS and HTML, which means you don't have to learn any new syntax!
 
 It's easy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
-
 
 ## Quick Start
 
@@ -83,13 +82,13 @@ NANNY STATE uses a one-way data flow model between the state and view:
 
 </div>
 
-In NANNY STATE, the state is everything. It is the single source of truth in the application and stores all the app data as properties. The view is an HTML representation of the data stored in the state and returns a string of HTML based on the state. When a user interacts with the page, they trigger event handlers defined in the view that hook into the `Update` function stored in the state. This is the only way any properties in the state can be changed and ensures that any changes are deterministic with predictable outcomes. After any updates to the state, the view is automatically re-rendered to reflect the changes made. 
+In NANNY STATE, the state is everything. It is the single source of truth in the application where all the app data is stored. The view is an HTML representation of the state. When a user interacts with the page, they trigger event handlers defined in the view that hook into the state's `Update` method. This is the only way the state can be changed and ensures that any updates are deterministic with predictable outcomes. After any updates to the state, the view is automatically re-rendered to reflect the changes made. 
 
 ## Background
 
 NANNY STATE was inspired by [Hyperapp](https://hyperapp.dev) and [Redux](https://redux.js.org) and uses the [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
 
-The name is inspired by the [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE protects all the app data by storing it centrally and provides the only way the data can be updated.
+The name is a [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE stores all the app data centrally and controls how it is updated.
 
 ## Installation
 
