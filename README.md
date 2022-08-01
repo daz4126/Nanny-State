@@ -182,7 +182,7 @@ Our next job is to make the example dynamic. First of all we'll add a button to 
 ```javascript
 const View = state => 
   state.HTML`<h1>Hello ${state.name}</h1>
-       <button onclick=${e => state.Update({name: "Nanny State"}),}>Hello</button>`
+       <button onclick=${e => state.Update({name: "Nanny State"})}>Hello</button>`
 ```
 
 The button element has an inline `onclick` event listener. When the button is clicked the inline event handler is called. The purpose of this function is to update the state object so the 'name' property changes to 'Nanny State'. This is exactly what the built-in `state.Update` function is for.
