@@ -10,21 +10,21 @@ _small, simple & speedy state management_
 
 </div>
 
+## The State Is Everything
+
 **NANNY STATE** is a *small* library that makes it *simple* to build *speedy*, state-based web apps.
 
 - **SMALL** - less than 4kb minified and zipped.
 - **SIMPLE** - build interactive user-interfaces in no time at all.
 - **SPEEDY** - automatic page renders that are blazingly fast.
 
-## The State Is Everything
-
 **NANNY STATE** stores everything about the app in a single state object and automatically re-renders the view when the state changes. This means that your code is more organized and easier to maintain without the bloat of other libraries. And everything is written in vanilla JS and HTML, which means you don't have to learn any new syntax!
 
-It's easy to get started - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
+It's easy learn - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
 ## Quick Start
 
-If you want to dive right in, here's a Counter example that shows how easy is to build a NANNY STATE app. Every app comprises of a View function and a State object:
+All you need in a NANNY STATE app is a `View` function and `State` object:
 
 ```javascript
 import Nanny from "nanny-state"
