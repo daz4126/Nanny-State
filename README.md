@@ -18,9 +18,17 @@ _small, simple & speedy state management_
 - **SIMPLE** - build interactive user-interfaces in no time at all.
 - **SPEEDY** - automatic page renders that are blazingly fast.
 
-**NANNY STATE** stores everything about the app in a single state object and automatically re-renders the view when the state changes. This means that your code is more organized and easier to maintain without the bloat of other libraries. And everything is written in vanilla JS and HTML, which means you don't have to learn any new syntax!
+**NANNY STATE** stores everything about the app in a single state object and automatically re-renders the view when the state changes. This means that your code is more organized and easier to maintain without the bloat of other libraries. 
 
-It's easy learn - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
+* State is shared across the whole app, so no more prop drilling!
+* Just one method for updating any value, so need to learn loads of different hooks!
+* Everything is written in vanilla JS and HTML, so new syntax to learn!
+* Add local storage with a single line of code!
+* Built-in router that makes building single page web apps a breeze!
+* Super simple to mock up a quick prototype, but scales up as your project grows!
+* Just a single import and no build process required!
+
+It's simple learn - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
 ## Quick Start
 
