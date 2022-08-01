@@ -207,8 +207,8 @@ Now let's try adding an event handler that uses some information passed to it in
 const View = state => {
   const changeName = event => state.Update({name: event.target.value})
   return state.HTML`<h1>Hello ${state.name}</h1>
-  <input oninput=${changeName}>
-}`
+  <input oninput=${changeName}>`
+}
 ```
   
 We've defined an event handler called `changeName` at the top of the `View` function. This means that we have to explicity return the `state.HTML` string at the end of the function. This is similar to the previous example, but we've replaced the button with an input field with an inline `oninput` event listener.
