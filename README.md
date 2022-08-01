@@ -37,7 +37,7 @@ All you need in a NANNY STATE app is a `View` function and `State` object:
 ```javascript
 import Nanny from "nanny-state"
 
-const View = state => state.HTML`
+const Counter = state => state.HTML`
   <h1>${state.count}</h1>
   <div>
     <button onclick=${e => state.Update({count: state.count - 1})}>-</button>
@@ -46,7 +46,7 @@ const View = state => state.HTML`
   
 const State = { 
   count: 0, 
-  View 
+  View: Counter
 }
 
 Nanny(State)
