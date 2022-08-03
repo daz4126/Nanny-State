@@ -13,10 +13,8 @@ _small, simple & speedy state management_
 **NANNY STATE** is a infinitesimally *small* library that makes it unbelievably *simple* to build blazingly *speedy* web apps.
 
 - **SMALL** - about 3kb minified and zipped
-- **SIMPLE** - a single declarative method for updating any value
+- **SIMPLE** - a single declarative method for updating multiple values at once
 - **SPEEDY** - automatic page renders that are blazingly fast
-
-I works in a similar way to React but is *smaller, simpler and speedier* ...
 
 ## The State Is Everything
 
@@ -52,7 +50,7 @@ const State = {
 Nanny(State)
 ```
 
-The view component is a function accepts the state as its only parameter and returns a string of HTML and the `State` object contains all the initial data values.
+The view component in this example is the `Counter` function. It accepts the state as its only parameter and returns a string of HTML and the `State` object contains all the initial data values.
 
 ## What Is NANNY STATE?
 
