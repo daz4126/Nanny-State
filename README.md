@@ -58,7 +58,7 @@ NANNY STATE uses a one-way data flow model between the state and view:
 
 <div align="center">
   
-![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/181917166-9d7d8fb5-5d96-4b25-b59b-272739e5be24.png)
+![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/182614570-9e45a5f4-9923-445f-9f4e-2e98c5d27dcf.png)
 
 </div>
 
