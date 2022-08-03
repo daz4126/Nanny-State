@@ -10,7 +10,7 @@ _small, simple & speedy state management_
 
 </div>
 
-**NANNY STATE** is an unbelievably *small* library that makes it super *simple* to build blazingly *speedy* web apps.
+**NANNY STATE** is a infinitesimally *small* library that makes it unbelievably *simple* to build blazingly *speedy* web apps.
 
 - **SMALL** - about 3kb minified and zipped
 - **SIMPLE** - a single declarative method for updating any value
