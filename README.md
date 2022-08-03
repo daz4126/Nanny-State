@@ -16,6 +16,8 @@ _small, simple & speedy state management_
 - **SIMPLE** - a single declarative method for updating any value
 - **SPEEDY** - automatic page renders that are blazingly fast
 
+I works in a similar way to React but is *smaller, simpler and speedier* ...
+
 ## The State Is Everything
 
 **NANNY STATE** stores everything about the app in a single state object and automatically re-renders the view when the state changes. This means that your code is more organized and easier to maintain without the bloat of other libraries. 
