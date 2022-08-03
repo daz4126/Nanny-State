@@ -419,7 +419,29 @@ You can see a full set of examples of how Nanny State can be used, with source c
 
 The state has a number of methods that can be used . Built-in methods or properties are always written in PascalCase (starting with an upper-case letter), so it's recommended to only define properties that start with a lower-case letter in the state to avoid clashes with any of the built-in methods.
   
-### `Initiate`
+### The Big 3 Methods
+  
+These are the only 3 methods you need to get started and the ones that are used in *every* **NANNY STATE** app:
+  
+#### `HTML`
+  
+Note that this is actually just the `html` function imported from [µhtml](https://github.com/WebReflection/uhtml), so you can learn a lot more about its intricacies by reading the full docs there.
+
+#### `View`
+  
+A function that accepts the state as and returns a string of HTML based on the state. The return value *must* be generated usingthe the `state.HTML` function described above.
+  
+#### `Update`
+  
+#### `Evaluate`
+  
+#### `Calculate`
+  
+This function is the *only* way to update the state.
+  
+### Other Useful Methods
+  
+#### `Initiate`
 
 `Initiate` is a method of the state object that is called once before the initial render. It has access to the state and works in the same way as the `Update` function in that its return value updates the state.
   
@@ -431,7 +453,7 @@ Initiate: state => ({count: 42})
 
 Of course this could have just been hard coded into the `State` object directly, but sometimes it's useful to programatically set the initial state using a funciton when the app is initialized.
 
-### `Before` and `After`
+#### `Before` & `After`
 
 `Before` and `After` are methods of the state object that are called before or after a state update respectively. They have access to the state and work in the same way as the `Update` function in that their return value update the state.
 
@@ -455,7 +477,7 @@ Now, when you press the `Hello` button, the following is logged to the console, 
 }
 ```
 
-### `Element`
+#### `Element`
 
 By Default the view will be rendered inside the `body` element of the page. This can be changed using the `Element` property of the state object or by providing it as part of the `options` object of the `Nanny` function. For example, if you wanted the view to be rendered inside an element with the id of 'app', you just need to specify this as an option when you call the `Nanny` function:
 
@@ -463,7 +485,7 @@ By Default the view will be rendered inside the `body` element of the page. This
 State.Element = document.getElementById('app')
 ```
 
-### `Debug`
+#### `Debug`
 
 `Debug` is a property of the state that is `false` by default, but if you set it to `true`, then the value of the state will be logged to the console after the initial render and after any state update"
 
@@ -471,7 +493,7 @@ State.Element = document.getElementById('app')
 State.Debug = true
 ```
   
-### `LocalStorageKey`
+#### `LocalStorageKey`
 
 `LocalStorageKey` is a property of the state that ensures that the state is automatically persisted using the browser's [local storage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). It will also retrieve the state from the user's local storage every time they visit the site, ensuring persitance of the state between sessions. To use it, simply set this property to the string value that you want to be used as the local storage key. For example, the following setting will use the string "nanny" as the local storage key and ensure that the state is saved to local storage after every update:
   
@@ -506,16 +528,16 @@ const View = state => html` <h1>Nanny State</h1>
   <h2>Router</h2>
   <nav>
     <ul>
-      <li><a href="/" onclick=${state.Route()}>Home</a></li>
-      <li><a href="/about" onclick=${state.Route()}>About</a></li>
-      <li><a href="/contact" onclick=${state.Route()}>Contact</a></li>
+      <li><a href="/" onclick=${state.Link()}>Home</a></li>
+      <li><a href="/about" onclick=${state.Link()}>About</a></li>
+      <li><a href="/contact" onclick=${state.Link()}>Contact</a></li>
     </ul>
   </nav>
   <main>${state.Content}</main>`
 ```
 The first thing to notice here are the `state.Content` property inside the `<main>` tags. This will render a different view, depending on the route. This is the function that is provided as the `view` property in the route object.
 
-The other thing to notice is the built-in `state.Route()` method. This will update the current route to the argument provided. If no argument is provided then it will automatically use the value of the `href` attribute. So, in the example above, clicking on the 'About' link will update the route to '/about'.
+The other thing to notice is the built-in `state.Link()` method. This will update the current route to the argument provided. If no argument is provided then it will automatically use the value of the `href` attribute. So, in the example above, clicking on the 'About' link will update the route to '/about'.
   
 Now we just need to create the initial `State` object. This needs to contain the `Routes` array that contains a route object for each route as well as the `View`:
   
@@ -535,9 +557,7 @@ Last of all we just need to start the Nanny State:
 ```javascript
 Nanny(State)
 ```
-
-_Note that in the is example we didn't need the `Update` function_
-
+  
 You can see this example on [CodeSandbox](https://si96c4.csb.app) (_note that routing won't work on CodePen_).
   
 <div align="center">
@@ -555,9 +575,13 @@ For example, if you wanted the route '/about/us' to go to display the About page
 ```javascript
 Routes: [
     { path: "/", title: "Home", view: state => html`<h1>Home</h1>` },
-    { path: "about", routes: [ { path: "us", title: "About Us", view: state => html`<h1>About Us</h1>` }] },
+    { path: "about", 
+        routes: [ 
+          { path: "us", title: "About Us", view: state => html`<h1>About Us</h1>` }
+        ] 
+    },
     { path: "contact", title: "Contact", view: state => html`<h1>Contact Us</h1>` }
-  ]
+]
 ```
 
 The `routes` array in any route object can contain as many nested routes as required.
