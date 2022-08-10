@@ -24,7 +24,7 @@ export default function Nanny(State, Path = window.location.pathname){
       localStorage.setItem(State.LocalStorageKey,JSON.stringify(State));
     }
 
-    if (State.Debug) {da
+    if (State.Debug) {
       console.log(State.JSON());
     } 
     
