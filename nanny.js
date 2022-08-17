@@ -7,14 +7,14 @@ export default function Nanny(State, Path = window.location.pathname){
   State.Evaluate = () => ({...State});
   State.JSON = () => JSON.stringify(State);
   State.HTML = html;
-  State.SVG = svg; 
-  State.Update = (newState,Rerender=true) => {
-
+  State.SVG = svg;
+  
+  State.Update = (...transformers) => {
     if (State.Before) {
       State = { ...State, ...State.Before(State) };
     }
-
-    State = { ...State, ...(typeof newState === "function" ? newState(State) : newState), ...(State.Calculate ? State.Calculate({...State,...(typeof newState === "function" ? newState(State) : newState)}) : {}) };
+    
+    State = transformers.reduce((oldState,newState) => ({ ...oldState, ...(typeof newState === "function" ? newState(oldState) : newState), ...(State.Calculate ? State.Calculate({...oldState,...(typeof newState === "function" ? newState(oldState) : newState)}) : {}) }),State)
 
     if (State.After) {
       State = { ...State, ...State.After(State) };
@@ -29,9 +29,7 @@ export default function Nanny(State, Path = window.location.pathname){
     } 
     
     // Re-render the view basd on updated state
-    if (Rerender) {
-      Render();
-    }
+    Render();
 
     return State;
   };
