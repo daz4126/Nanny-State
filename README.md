@@ -16,7 +16,7 @@ _small, simple & speedy state management_
 - **SUPER SIMPLE** - a single method to update *every* property of the state
 - **SUPER SPEEDY** - automatic page renders that are blazingly fast
 
-## The State Is Everything
+## THE STATE IS EVERYTHING
 
 **NANNY STATE** stores everything in a single state object and automatically re-renders the view whenever the state changes. This helps to keep your code more organized and easier to maintain without the bloat of other libraries. 
 
@@ -28,7 +28,7 @@ _small, simple & speedy state management_
 
 **NANNY STATE** is easy learn - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
-## Quick Start
+## QUICK START
 
 All you need in a **NANNY STATE** app is a view component and `State` object:
 
@@ -52,7 +52,7 @@ Nanny(State)
 
 The view component in this example is the `Counter` function. It accepts the state as its only parameter and returns a string of HTML and the `State` object contains all the initial data values.
 
-## What Is NANNY STATE?
+## WHAT IS NANNY STATE?
 
 **NANNY STATE** uses a one-way data flow model between the state and view:
 
@@ -64,15 +64,15 @@ The view component in this example is the `Counter` function. It accepts the sta
 
 In NANNY STATE, the state is everything. It is the single source of truth in the application where all the app data is stored. The view is an HTML representation of the state. When a user interacts with the page, they trigger event handlers defined in the view that hook into the state's `Update` method. This is the only way the state can be changed and ensures that any updates are deterministic with predictable outcomes. Whenever the state is updated, the view is automatically re-rendered to reflect the changes that were made. 
 
-## Background
+## BACKGROUND
 
 NANNY STATE was inspired by [Hyperapp](https://hyperapp.dev) and [Redux](https://redux.js.org) and uses the [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
 
 The name is a [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE stores all the app data centrally and controls how it is updated.
 
-## Installation
+## INSTALLATION
 
-### Using NPM CLI
+### USING NPM CLI
 
 Install [nanny-state](https://www.npmjs.com/package/nanny-state) from NPM.
 
@@ -86,7 +86,7 @@ Then import like this:
 import Nanny from "nanny-state"
 ```
 
-### ES Modules
+### ES MODULES
 
 If you use ES Modules, you don't need NPM. You can import from a CDN URL in your browser or on CodePen.
 
@@ -98,11 +98,11 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
 
 <div id="examples">
   
-## Examples
+## EXAMPLES
 
 The easiest way to learn how **NANNY STATE** works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. 
 
-### Hello World Example
+### HELLO WORLD
 
 Let's start in the traditional way and make a "Hello World" app!
 
@@ -210,7 +210,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/qBpJNOp). Try typi
 
 </div>
   
-### Hello World, Goodbye World
+### HELLO WORLD, GOODBYE WORLD
   
 This next example shows how to implement a toggle function as well as how to render parts of the view based on the value of properties in the State.
 
@@ -257,7 +257,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/vYpVKJv). Click on
 
 </div>
 
-### Counter Example
+### COUNTER EXAMPLE
 
 Every state managememnt library needs a counter example!
 
@@ -302,7 +302,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoByma). Click on
 
 </div>
 
-### Adding Additional Arguments to Event Handlers
+### ADDING ADDITIONAL ARGUMENTS TO EVENT HANDLERS
 
 If you need an event handler to accept parameters in addition to the event, then this can be done using a 'double-arrow' function and partial application. The additional arguments always come first and the event should be the last parameter provided to the function:
 
@@ -345,7 +345,7 @@ You can see the code for this updated counter example on [CodePen](https://codep
 
 </div>
 
-## Components
+## COMPONENTS
 
 Parts of the view can be separated into separate components. Each component works in the same way as the view - they are pure funcitons that accept the state as their first parameter and return a string of HTML using the `state.HTML` function.
 
@@ -397,7 +397,7 @@ This will display a button element with the text of "-1" and 'increment' the val
 
 You can this code on [CodePen](https://codepen.io/daz4126/pen/poLpJXV).
   
-## More NANNY STATE Examples
+## MORE NANNY STATE EXAMPLES
 
 You can see a full set of examples of how Nanny State can be used, with source code, on [CodePen](https://codepen.io/collection/RzbNmw). This includes:
 
@@ -416,7 +416,7 @@ You can see a full set of examples of how Nanny State can be used, with source c
 
 The state has a number of methods that can be used . Built-in methods or properties are always written in PascalCase (starting with an upper-case letter), so it's recommended to only define properties that start with a lower-case letter in the state to avoid clashes with any of the built-in methods.
   
-### The Big 3 Methods
+### THE BIG 3 METHODS
   
 These are the only 3 methods you need to get started and the ones that are used in *every* **NANNY STATE** app:
   
@@ -439,7 +439,7 @@ Can also be passed a transformer function.
   
 Can be passed multiple objects or functions. The state will be updated sequentially.
 
-### Other Useful Methods
+### OTHER USEFUL METHODS
   
 #### `Evaluate`
   
@@ -519,7 +519,7 @@ State.Debug = true
   State.LocalStorageKey = 'nanny'
   ```
   
-### Routing
+### ROUTING
   
 Routing is baked in to **NANNY STATE**. Remember that the State Is Everything, so all the routes are set up in the `State` object. Simply define a property called `Routes` as an array of **route objects**. Route objects contain the following properties:
   
@@ -584,7 +584,7 @@ You can see this example on [CodeSandbox](https://si96c4.csb.app) (_note that ro
 
 </div>
     
-### Nested Routes
+### NESTED ROUTES
   
 You can create nested routes by adding a `routes` property to a route object. This is an array that acts in the same way as the top-level `Routes` property and contains nested route objects.
   
@@ -622,6 +622,6 @@ In this example we could add the following `update` function to the route object
   
 This will set the `language` property of the state to be the same as the `name` property of the `params` object, in other words it will be set to whatever was entered into the URL. This property is then displayed as a heading in the view for this route.
 
-## License
+## LICENSE
 
 Released under [Unlicense](/LICENSE) by [@daz4126](https://github.com/daz4126).
