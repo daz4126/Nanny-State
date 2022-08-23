@@ -12,25 +12,25 @@ _small, simple & speedy state management_
 
 **NANNY STATE** is a super *small* library that makes it super *simple* to build super *speedy* web apps.
 
-- **SMALL** - about 3kb minified and zipped
-- **SIMPLE** - a single declarative method for updating multiple values at once
-- **SPEEDY** - automatic page renders that are blazingly fast
+- **SUPER SMALL** - just 3kb minified and zipped
+- **SUPER SIMPLE** - a single method to update *every* property of the state
+- **SUPER SPEEDY** - automatic page renders that are blazingly fast
 
 ## The State Is Everything
 
-**NANNY STATE** stores everything about the app in a single state object and automatically re-renders the view when the state changes. This means that your code is more organized and easier to maintain without the bloat of other libraries. 
+**NANNY STATE** stores everything in a single state object and automatically re-renders the view whenever the state changes. This helps to keep your code more organized and easier to maintain without the bloat of other libraries. 
 
-* Just a single 3kb import and no build process required
-* Everything is written in vanilla JS and HTML, so no new syntax to learn
+* Just a single import and no build process
 * State is shared across the whole app, so no more prop drilling
-* Built-in router that makes building single page web apps a breeze
-* Add local storage with a single line of code
+* Everything is written in vanilla JS and HTML, so no new syntax to learn
+* Built-in router makes it easy to build single page web apps
+* Local storage support with a single line of code
 
-It's simple learn - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
+**NANNY STATE** is easy learn - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
 ## Quick Start
 
-All you need in a NANNY STATE app is a view component and `State` object:
+All you need in a **NANNY STATE** app is a view component and `State` object:
 
 ```javascript
 import Nanny from "nanny-state"
@@ -54,7 +54,7 @@ The view component in this example is the `Counter` function. It accepts the sta
 
 ## What Is NANNY STATE?
 
-NANNY STATE uses a one-way data flow model between the state and view:
+**NANNY STATE** uses a one-way data flow model between the state and view:
 
 <div align="center">
   
@@ -62,7 +62,7 @@ NANNY STATE uses a one-way data flow model between the state and view:
 
 </div>
 
-In NANNY STATE, the state is everything. It is the single source of truth in the application where all the app data is stored. The view is an HTML representation of the state. When a user interacts with the page, they trigger event handlers defined in the view that hook into the state's `Update` method. This is the only way the state can be changed and ensures that any updates are deterministic with predictable outcomes. After any updates to the state, the view is automatically re-rendered to reflect the changes made. 
+In NANNY STATE, the state is everything. It is the single source of truth in the application where all the app data is stored. The view is an HTML representation of the state. When a user interacts with the page, they trigger event handlers defined in the view that hook into the state's `Update` method. This is the only way the state can be changed and ensures that any updates are deterministic with predictable outcomes. Whenever the state is updated, the view is automatically re-rendered to reflect the changes that were made. 
 
 ## Background
 
@@ -100,11 +100,11 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
   
 ## Examples
 
-The easiest way to learn how NANNY STATE works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. 
+The easiest way to learn how **NANNY STATE** works is to try coding some examples. All the examples below can be coded on [CodePen](https://codepen.io) by simply entering the code in the 'JS' section. 
 
 ### Hello World Example
 
-Let's start in the traditional way.
+Let's start in the traditional way and make a "Hello World" app!
 
 Start by importing the `Nanny` function:
 
@@ -112,7 +112,7 @@ Start by importing the `Nanny` function:
 import Nanny from 'nanny-state'
 ```
 
-In NANNY STATE, the state is everything, so we'll create that next. In this example, it will just contain a single method called `View`:
+In **NANNY STATE**, the state is everything, so we'll create that next. In this example, it will just contain a single method called `View`:
 
 ```javascript
 const State = { 
@@ -120,7 +120,7 @@ const State = {
 }
 ```
 
-The `View` in NANNY STATE is a method of the state (*everything* is part of the state!). It is a pure functions that always accept the state as its only parameter. This means it has access to all the properties of the state, including the `state.HTML` function that is provided by µhtml. This is a tag function that returns the HTML code that we want to display on the page. 
+The `View` in **NANNY STATE** is a method of the state (*everything* is part of the state!). It is a pure functions that always accept the state as its only parameter. This means it has access to all the properties of the state, including the `state.HTML` function that is just an alias for µhtml's `html` function. This is a tag function that returns the HTML code that we want to display on the page, which in this case is a level 1 heading that says "Hello World". 
 
 Last of all, we need to call the `Nanny` function providing `State` as an argument:
 
@@ -138,9 +138,9 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBryB).
 
 </div>
 
-This is just a static piece of HTML though. The view in Nanny State can display properties of the state using `${prop}` placeholders.
+All we've done so far is create a static piece of HTML. The view in **NANNY STATE** can display properties of the state using `${prop}` placeholders.
   
-Even though the View is a property of the State object, it's not really practical to define it directly inside `State` like we did in the example above, especially when the view code becomes quite long. Instead, we can define it as a variable named `View`, then use object-shortand notation to add this to the `State` object, like so:
+Even though `View` is a property of the State object, it's not really practical to define it directly inside `State` like we did in the last example, especially when the view code becomes quite long. Instead, we can define it as a variable named `View`, then use object-shortand notation to add this to the `State` object, like so:
 
 ```javascript
 const View = state => state.HTML`<h1>Hello ${state.name}</h1>`
@@ -160,14 +160,14 @@ Our next job is to make the view dynamic. Let's start by adding a button:
 ```javascript
 const View = state => 
   state.HTML`<h1>Hello ${state.name}</h1>
-       <button onclick=${e => state.Update({name: "Nanny State"})}>Hello</button>`
+             <button onclick=${e => state.Update({name: "Nanny State"})}>Hello</button>`
 ```
 
 The button element has an inline `onclick` event listener. When the button is clicked the inline event handler is called. The purpose of this function is to update the state object so the 'name' property changes to 'Nanny State'. This is exactly what the built-in `state.Update` function is for.
   
-The `state.Update` function to the *only* way to update the state object. In this example it will change the value of the 'name' property when the button is clicked. This is really easy to do - simply pass an object representing the new state as an argument to the function.
+The `state.Update` function to the *only* way to update the state. In this example it will change the value of the 'name' property when the button is clicked. This is really easy to do - simply pass an object representing the new state as an argument to the function.
   
-In the example above, we pass the object `{name: "Nanny State"}` as an argument to the `state.Update` function. Note that you ony have to include any properties of the State that need updating in this object(**Nanny State** assumes that all the other properties will stay the same). The view will then automatically be re-rendered using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
+In the example above, we pass the object `{name: "Nanny State"}` as an argument to the `state.Update` function. Note that you ony have to include any properties of the State that need updating in this object(**NANNY STATE** assumes that all the other properties will stay the same). The view will then automatically be re-rendered using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
 
 We now have everything wired up correctly. When the user clicks the button, the event handler uses the `state.Update` function to update the 'name' property to 'Nanny State' and re-renders the page based on this new state.
 
@@ -179,7 +179,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clic
 
 </div>
   
-Now let's try adding an event handler that uses some information passed to it in the `event` object. We'll create an input field that allows the user to update the `name` property as they type. Change the view to the following:
+Now let's try adding an event handler that uses some information passed to it via the `event` object. We'll create an input field that allows the user to update the `name` property to whatever they type in. Change the view to the following:
   
 ```javascript
 const View = state => {
@@ -230,7 +230,7 @@ const View = state => {
 }
 ```
   
-This view displays a property of the State called `salutation` followed by the string "World" inside `<h1>` tags. The value of `state.salutation` will either be "Hello" or "Goodbye". After this is a button element with an `onclick` event listener attached to it that calls the `changeSalutation` event handler that is defined inside the `View` function. The `saluation` variable uses a ternary operator to display "Goodbye" if the salutation is currenlty "Hello" or display "Hello" otherwise. This is the text displayed on the button and also used by the `changeSalutation` to toggle the value of the `salutation` property. We want the value of `State.salutation` to toggle between "Hello" and "Goodbye" when this button is clicked. 
+This view displays a property of the state called `salutation` followed by the string "World" inside `<h1>` tags. The value of `state.salutation` will either be "Hello" or "Goodbye". After this is a button element with an `onclick` event listener attached to it that calls the `changeSalutation` event handler that is defined inside the `View` function. The `saluation` variable uses a ternary operator to display "Goodbye" if the salutation is currenlty "Hello" or display "Hello" otherwise. This is the text displayed on the button and also used by the `changeSalutation` to toggle the value of the `salutation` property. We want the value of `State.salutation` to toggle between "Hello" and "Goodbye" when this button is clicked. 
   
 Let's create the `State` object with the initial value of the `salutation` property set to be "Hello":
   
@@ -312,7 +312,7 @@ const handler = params = event => newState
   
 _Note that this is a standard Vanilla JS technique and not unique to Nanny State_
 
-For example, if we wanted our counter app to have buttons that increased the count by 1, 2 or even decreased it by 1, then instead of writing a separate event handler for each button, we could write a function that accepted an extra parameter of how much to increase the value of `state.count` by. We could write an `incrementCount` event handler like so:
+For example, if we wanted our counter app to have buttons that increased the count by 1, 2 or even decreased it by 1, then instead of writing a separate event handler for each button, we could write a function that accepted an extra parameter that represents how much we want to increase the value of `state.count` by. We could write an `incrementCount` event handler to do this with the following code:
 
 ```javascript
 const incrementCount = (n=1) => event => state.Update({count: state.count + n})
@@ -335,7 +335,6 @@ const View = state => {
 }
 ```
 
-  
 Notice that the `incrementCount` function is actually *called* in the view with the first parameter provided (or if no parameter is provided the default value of `1` will be used. The `event` object will still be implicityly passed to the event handler (even though it isn't used in this example).
   
 You can see the code for this updated counter example on [CodePen](https://codepen.io/daz4126/pen/NWXOmpd). Click on the buttons to increase or decrease the count by different amounts!
@@ -356,17 +355,17 @@ To see this in action, let's recreate the last example, but with a `Button` comp
 ```javascript
 import Nanny from 'nanny-state'
 
-const Button = (state,text,n=1) => {
-  const incrementCount = (n=1) => event => state.Update({count: state.count + n})
-  return state.HTML`<button onclick=${incrementCount(n)}>${text}</button>`
+const Button = (state,props) => {
+  const incrementCount = n => event => state.Update({count: state.count + n})
+  return state.HTML`<button onclick=${incrementCount(props.n)}>${props.text}</button>`
 }
 
 const View = state => state.HTML`
 <h1>${state.count}</h1>
 <div>
-  ${Button(state,"+1")}
-  ${Button(state,"+2",2)}
-  ${Button(state,"-1",-1)}
+  ${Button(state,{text: "+1",n: 1})}
+  ${Button(state,{text: "+2",n: 2})}
+  ${Button(state,{text: "-1",n: -1})}
 </div>`
 
 const State = {
@@ -380,18 +379,18 @@ Nanny(State)
 Let's take a closer look at the actual `Button` component:
 
 ```javascript
-const Button = (state,text,n=1) => {
-  const incrementCount = (n=1) => event => state.Update({count: state.count + n})
-  return state.HTML`<button onclick=${incrementCount(n)}>${text}</button>`
+const Button = (state,props) => {
+  const incrementCount = n => event => state.Update({count: state.count + n})
+  return state.HTML`<button onclick=${incrementCount(props.n)}>${props.text}</button>`
 }
 ```
 
-Notice that the `incrementCount` event handler has been moved to go inside the component. This is because the button is the only part of the view that uses this component. The `Button` function accepts `state` as its first parameter (this is true for *all* components). The next two parameters are props needed by the button: `text` is the text to display on the button and `n` is the amount that the button will increment the count by.
+Notice that the `incrementCount` event handler has been moved to go inside the component. This is because the button is the only part of the view that uses this component. The `Button` function accepts `state` as its first parameter and `props` as its second parameter (this is true for *all* components). `props` is an object that includes any properties that are needed to display the button: `text` is the text to display on the button and `n` is the amount that the button will increment the count by.
 
 To insert a component into the view, simply use the usual `${}` template literal interpolation syntax and provide the necessary arguments (you're essentially just calling a function that returns some HTML). For example, the last button is displayed using the following code:
 
 ```javascript
-${Button(state,"-1",-1)}
+${Button(state,{text: "-1",n: -1})}
 ```
 
 This will display a button element with the text of "-1" and 'increment' the value by `-1`, essentially making the count go down by 1, every time it is pressed.
@@ -431,14 +430,35 @@ A function that accepts the state as and returns a string of HTML based on the s
   
 #### `Update`
   
-#### `Evaluate`
+`Update` is the *only* way to update the state.
   
-#### `Calculate`
+It accepts an object as a parameter. Any properties in this object will be updated in the state with the values provided. 
+If the property doesn't already exist in the state, then it will be added to the state.
   
-This function is the *only* way to update the state.
+Can also be passed a transformer function.
   
+Can be passed multiple objects or functions. The state will be updated sequentially.
+
 ### Other Useful Methods
   
+#### `Evaluate`
+  
+Returns the current state object. The values of each property can be queried but can't be changed (you need to use the `Update` method for to perform any updates to the state).
+  
+#### `JSON`
+
+Returns a JSON string representation of the current state.
+  
+#### `Calculate`
+
+The `Calculate` method returns an object that will calculate the value of properties based on other properties of the state. For example, if you have a `count` property, you can use `Calculate` to automatically update a property called `doubleCount` that is always twice the value of `count` with the following code:
+  
+```javascript
+State.Calculate = state = > ({ doubleCount: state.count * 2 }) 
+```
+  
+It accepts the state as its only parameter and returns an object containing any properties that are calculated based on the current state. These properties will be recalculated *every* time the state changes.
+    
 #### `Initiate`
 
 `Initiate` is a method of the state object that is called once before the initial render. It has access to the state and works in the same way as the `Update` function in that its return value updates the state.
@@ -446,7 +466,7 @@ This function is the *only* way to update the state.
 For example, adding the following method to the `State` object in the counter example will set the start value of the `count` property to `42`:
   
 ```javascript
-Initiate: state => ({count: 42})
+State.Initiate = state => ({count: 42})
 ```
 
 Of course this could have just been hard coded into the `State` object directly, but sometimes it's useful to programatically set the initial state using a funciton when the app is initialized.
@@ -458,8 +478,8 @@ Of course this could have just been hard coded into the `State` object directly,
 For example, try adding the following methods to the `State` object in the 'Hello Nanny State' example to the following:
 
 ```javascript
-Before: state => console.log('Before:', state.name)
-After: state => console.log('After:', state.name)
+State.Before = state => console.log('Before:', state.name)
+State.After = state => console.log('After:', state.name)
 ```
 
 Now, when you press the `Hello` button, the following is logged to the console, showing how the state has changed:
@@ -485,7 +505,7 @@ State.Element = document.getElementById('app')
 
 #### `Debug`
 
-`Debug` is a property of the state that is `false` by default, but if you set it to `true`, then the value of the state will be logged to the console after the initial render and after any state update"
+`Debug` is a property of the state that is `false` by default, but if you set it to `true`, then the value of the state will be logged to the console as a JSON string after the initial render and after any changes to the state.
 
 ```javascript
 State.Debug = true
