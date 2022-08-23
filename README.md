@@ -4,9 +4,9 @@
 
 _small, simple & speedy state management_
 
-[![npm](https://img.shields.io/npm/v/nanny-state?color=19191c)](https://www.npmjs.com/package/nanny-state)
-[![License](https://img.shields.io/badge/License-Unlicense-19191c)](#license)
-![Blazingly Fast](https://img.shields.io/badge/speed-blazing%20🔥-19191c)
+[![npm](https://img.shields.io/npm/v/nanny-state?color=f5e43c)](https://www.npmjs.com/package/nanny-state)
+[![License](https://img.shields.io/badge/License-Unlicense-f40099)](#license)
+![Blazingly Fast](https://img.shields.io/badge/speed-blazing%20🔥-00f7f7)
 
 </div>
 
