@@ -14,7 +14,7 @@ _small, simple & speedy state management_
 
 - **SUPER SMALL** - just 3kb minified and zipped
 - **SUPER SIMPLE** - a single method to update *every* property of the state
-- **SUPER SPEEDY** - automatic page renders that are blazingly fast
+- **SUPER SPEEDY** - automatic page renders whenever the state changes
 
 ## THE STATE IS EVERYTHING
 
@@ -50,7 +50,7 @@ const State = {
 Nanny(State)
 ```
 
-The view component in this example is the `Counter` function. It accepts the state as its only parameter and returns a string of HTML and the `State` object contains all the initial data values.
+The view component in this example is the `Counter` function. It accepts the state as its only parameter and returns a string of HTML based on the current state. The `State` object contains all the initial data values.
 
 ## WHAT IS NANNY STATE?
 
