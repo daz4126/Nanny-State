@@ -58,7 +58,7 @@ The view component in this example is the `Counter` function. It accepts the sta
 
 <div align="center">
   
-![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/182614570-9e45a5f4-9923-445f-9f4e-2e98c5d27dcf.png)
+![Nanny State data flow diagram](https://user-images.githubusercontent.com/16646/186718499-3f60a2e9-2c27-4343-b242-ef2da1fd9c3c.png)
 
 </div>
 
@@ -134,7 +134,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBryB).
 
 <div align="center">
   
-![Hello World!](https://user-images.githubusercontent.com/16646/171663007-2eb40385-b469-41cd-9b7a-c833ce89dac9.png)
+![Hello World!](https://user-images.githubusercontent.com/16646/186718624-345e466f-6303-4bb8-9f4c-d262ebd1f8a3.png)
 
 </div>
 
@@ -175,7 +175,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clic
 
 <div align="center">
   
-![Click and change](https://user-images.githubusercontent.com/16646/171669503-68faffbe-dc5e-4122-99f2-3cedb6916543.gif)
+![Click and change](https://user-images.githubusercontent.com/16646/186718719-6ddd96e4-2053-4667-af59-81634924dd27.gif)
 
 </div>
   
@@ -206,7 +206,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/qBpJNOp). Try typi
 
 <div align="center">
   
-![Dyncamic content](https://user-images.githubusercontent.com/16646/171663176-e7e23297-ff09-4f65-b541-70e65001e873.gif)
+![Dyncamic content](https://user-images.githubusercontent.com/16646/186718793-6c39d3a0-604c-4ae4-bcd4-bfb3df870d0b.gif)
 
 </div>
   
@@ -253,7 +253,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/vYpVKJv). Click on
 
 <div align="center">
   
-![Toggle content](https://user-images.githubusercontent.com/16646/171663262-5ca1a802-280c-4810-aeee-aec66156d7fb.gif)
+![Toggle content](https://user-images.githubusercontent.com/16646/186718896-af0473e6-0072-4bed-9298-b8730fa11a5d.gif)
 
 </div>
 
@@ -298,7 +298,7 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoByma). Click on
 
 <div align="center">
   
-![Counter example](https://user-images.githubusercontent.com/16646/171663339-baa00f54-8a19-46d2-8ecd-eef52f2df197.gif)
+![Counter example](https://user-images.githubusercontent.com/16646/186719036-27eccfed-06c5-4a8a-9f36-1ce0ff29bcd0.gif)
 
 </div>
 
@@ -341,7 +341,7 @@ You can see the code for this updated counter example on [CodePen](https://codep
 
 <div align="center">
   
-![Counter example with partial application](https://user-images.githubusercontent.com/16646/171663464-bcb2f6c0-35b1-4c0e-a673-1fd549f62a6f.gif)
+![Counter example with partial application](https://user-images.githubusercontent.com/16646/186719108-dc9c0402-a5d4-43bf-87a2-533fb2d3cbbc.gif)
 
 </div>
 
