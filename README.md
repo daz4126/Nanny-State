@@ -13,7 +13,7 @@ _small, simple & speedy state management_
 **NANNY STATE** is a super *small* library that makes it super *simple* to build super *speedy* web apps.
 
 - **SUPER SMALL** - just 3kb minified and zipped
-- **SUPER SIMPLE** - a single state object ands single method to update it
+- **SUPER SIMPLE** - a single state object and a single method to update it
 - **SUPER SPEEDY** - automatic page renders whenever the state id updated
 
 ## THE STATE IS EVERYTHING
