@@ -120,7 +120,7 @@ const State = {
 }
 ```
 
-The `View` in **NANNY STATE** is a method of the state (*everything* is part of the state!). It is a pure functions that always accept the state as its only parameter. This means it has access to all the properties of the state, including the `state.HTML` function that is just an alias for µhtml's `html` function. This is a tag function that returns the HTML code that we want to display on the page, which in this case is a level 1 heading that says "Hello World". 
+The `View` in **NANNY STATE** is a method of the state (*everything* is part of the state!). It is a function that always accept the state as its only parameter. This means it has access to all the properties of the state, including the `state.HTML` function that is just an alias for µhtml's `html` function. This is a tag function that returns the HTML code that we want to display on the page, which in this case is a level 1 heading that says "Hello World". 
 
 Last of all, we need to call the `Nanny` function providing `State` as an argument:
 
