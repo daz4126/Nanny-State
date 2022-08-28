@@ -14,7 +14,7 @@ _small, simple & speedy state management_
 
 - **SUPER SMALL** - just 3kb minified and zipped
 - **SUPER SIMPLE** - a single state object and a single method to update it
-- **SUPER SPEEDY** - automatic page renders whenever the state id updated
+- **SUPER SPEEDY** - automatic page renders whenever the state is updated
 
 ## THE STATE IS EVERYTHING
 
