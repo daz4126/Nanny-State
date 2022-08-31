@@ -581,7 +581,7 @@ You can see this example on [CodeSandbox](https://si96c4.csb.app) (_note that ro
   
 <div align="center">
   
-![Routing in Nanny State](https://user-images.githubusercontent.com/16646/171664411-8912caad-9908-4d4e-99bb-6f7c9ae3c59f.gif)
+![Routing in Nanny State](https://user-images.githubusercontent.com/16646/187732193-1ff861d0-3894-44f2-9211-0850eefe5682.gif)
 
 </div>
     
