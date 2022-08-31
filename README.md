@@ -532,9 +532,9 @@ Here's a basic example:
   
 ```javascript
 Routes: [
-    { path: "/", title: "Home", view: state => html`<h1>Home</h1>` },
-    { path: "about", title: "About", view: state => html`<h1>About Us</h1>` },
-    { path: "contact", title: "Contact", view: state => html`<h1>Contact Us</h1>` }
+    { path: "/", title: "Home", view: state => state.HTML`<h1>Home</h1>` },
+    { path: "about", title: "About", view: state => state.HTML`<h1>About Us</h1>` },
+    { path: "contact", title: "Contact", view: state => state.HTML`<h1>Contact Us</h1>` }
   ]
 ```
   
@@ -543,7 +543,7 @@ Let's use those route objects to build a mini single-page website.
 First of all we need to create the main `View`. When using routes, this takes the form of a template layout for *all* pages and we use the special `Content` property of the State to indicate where the specific content from each route will be displayed in the layout. Here's a basic example:
   
 ```javascript
-const View = state => html` <h1>Nanny State</h1>
+const View = state => state.HTML` <h1>Nanny State</h1>
   <h2>Router</h2>
   <nav>
     <ul>
