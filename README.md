@@ -304,10 +304,10 @@ You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoByma). Click on
 
 ### ADDING ADDITIONAL ARGUMENTS TO EVENT HANDLERS
 
-If you need an event handler to accept parameters in addition to the event, then this can be done using a 'double-arrow' function and partial application. The additional arguments always come first and the event should be the last parameter provided to the function:
+If you need an event handler to accept parameters in addition to the event, then this can be done using a [curried](https://medium.com/@harouny/currying-in-javascript-arrow-function-sequence-2a510441215a) function and partial application. The additional arguments always come first and the event should be the last parameter provided to the function:
 
 ```javascript
-const handler = params = event => newState
+const handler = params => event => newState
 ```
   
 _Note that this is a standard Vanilla JS technique and not unique to Nanny State_
@@ -315,20 +315,20 @@ _Note that this is a standard Vanilla JS technique and not unique to Nanny State
 For example, if we wanted our counter app to have buttons that increased the count by 1, 2 or even decreased it by 1, then instead of writing a separate event handler for each button, we could write a function that accepted an extra parameter that represents how much we want to increase the value of `state.count` by. We could write an `incrementCount` event handler to do this with the following code:
 
 ```javascript
-const incrementCount = (n=1) => event => state.Update({count: state.count + n})
+const incrementCount = n => event => state.Update({count: state.count + n})
 ```
 
-Here the parameter `n` is used to determine how much `state.count` is increased by and has a default value of `1`. This makes the event handler much more flexible.
+Here the parameter `n` is used to determine how much `state.count` is increased by. This makes the event handler much more flexible.
 
 When calling an event handler with parameters in the View, it needs to be partially applied with any arguments that are required. For example, this is how the View would now look with our extra buttons:
 
 ```javascript
 const View = state => {
-  const incrementCount = (n=1) => event => state.Update({count: state.count + n})
+  const incrementCount = n => event => state.Update({count: state.count + n})
   return state.HTML`
   <h1>${state.count}</h1>
   <div>
-    <button onclick=${incrementCount()}>+1</button>
+    <button onclick=${incrementCount(1)}>+1</button>
     <button onclick=${incrementCount(2)}>+2</button>
     <button onclick=${incrementCount(-1)}>-1</button>
   </div>`
