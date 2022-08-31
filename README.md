@@ -563,9 +563,9 @@ Now we just need to create the initial `State` object. This needs to contain the
 ```javascript
 const State = {
    Routes: [
-    { path: "/", title: "Home", view: state => html`<h1>Home</h1>` },
-    { path: "about", title: "About", view: state => html`<h1>About Us</h1>` },
-    { path: "contact", title: "Contact", view: state => html`<h1>Contact Us</h1>` }
+    { path: "/", title: "Home", view: state => state.HTML`<h1>Home</h1>` },
+    { path: "about", title: "About", view: state => state.HTML`<h1>About Us</h1>` },
+    { path: "contact", title: "Contact", view: state => state.HTML`<h1>Contact Us</h1>` }
   ],
   View
 }  
