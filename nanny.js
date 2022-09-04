@@ -11,13 +11,13 @@ export default function Nanny(State, Path = window.location.pathname){
   
   State.Update = (...transformers) => {
     if (State.Before) {
-      State = { ...State, ...State.Before(State) };
+      State = { ...State, ...State.Before(State),...(State.Calculate ? State.Calculate(State.Before(State)) : {}) };
     }
     
     State = transformers.reduce((oldState,newState) => ({ ...oldState, ...(typeof newState === "function" ? newState(oldState) : newState), ...(State.Calculate ? State.Calculate({...oldState,...(typeof newState === "function" ? newState(oldState) : newState)}) : {}) }),State)
 
     if (State.After) {
-      State = { ...State, ...State.After(State) };
+      State = { ...State, ...State.After(State), ...(State.Calculate ? State.Calculate(State.After(State)) : {}) };
     }
 
     if (State.LocalStorageKey){
@@ -81,7 +81,7 @@ export default function Nanny(State, Path = window.location.pathname){
 
   // Run any setup code once
   if (State.Initiate) {
-    State = { ...State, ...State.Initiate(State) };
+    State = { ...State, ...State.Initiate(State), ...(State.Calculate ? State.Calculate(State.Initiate(State)) : {}) };
   }
 
   // Render view based on initial state.
@@ -95,4 +95,3 @@ export default function Nanny(State, Path = window.location.pathname){
 }
 
 export { Nanny, html, svg }
-export { html as HTML, svg as SVG}
