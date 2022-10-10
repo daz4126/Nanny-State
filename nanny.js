@@ -14,7 +14,7 @@ export default function Nanny(State, Path = window.location.pathname){
       State = { ...State, ...State.Before(State),...(State.Calculate ? State.Calculate(State.Before(State)) : {}) };
     }
     
-    State = transformers.reduce((oldState,newState) => ({ ...oldState, ...(typeof newState === "function" ? newState(oldState) : newState), ...(State.Calculate ? State.Calculate({...oldState,...(typeof newState === "function" ? newState(oldState) : newState)}) : {}) }),State)
+    State = transformers.map(x => typeof(x) === "function" ? x(State) : x).reduce((oldState,{Update,HTML,SVG,Evaluate,Debug,JSON,...newState}) => ({ ...oldState, ...newState, ...(State.Calculate ? State.Calculate({...oldState,...newState}) : {}) }),State)
 
     if (State.After) {
       State = { ...State, ...State.After(State), ...(State.Calculate ? State.Calculate(State.After(State)) : {}) };
