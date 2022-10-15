@@ -4,7 +4,7 @@ export default function Nanny(State, Path = window.location.pathname){
   const  Routes = State.Routes || [];
   
   State = { ...State, ...(State.Calculate ? State.Calculate(State) : {}) };
-  State.Evaluate = () => ({...State});
+  State.Evaluate = prop => ({...State}[prop]);
   State.JSON = () => JSON.stringify(State);
   State.HTML = html;
   State.SVG = svg;
@@ -14,8 +14,12 @@ export default function Nanny(State, Path = window.location.pathname){
       State = { ...State, ...State.Before(State),...(State.Calculate ? State.Calculate(State.Before(State)) : {}) };
     }
     
-    State = transformers.map(x => typeof(x) === "function" ? x(State) : x).reduce((oldState,{Update,HTML,SVG,Evaluate,Debug,JSON,...newState}) => ({ ...oldState, ...newState, ...(State.Calculate ? State.Calculate({...oldState,...newState}) : {}) }),State)
-
+    State = transformers.reduce((oldState,transformer) => {
+      const s = typeof(transformer) === "function" ? transformer(oldState) : transformer
+      const {Update,HTML,View,Evaluate,Debug,JSON,Link,...newState} = s
+      return { ...oldState, ...newState, ...(State.Calculate ? State.Calculate({...oldState,...newState}) : {}) }
+    },State)
+    
     if (State.After) {
       State = { ...State, ...State.After(State), ...(State.Calculate ? State.Calculate(State.After(State)) : {}) };
     }

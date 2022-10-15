@@ -1,7 +1,7 @@
 {
   "name": "nanny-state",
   "version": "7.3.0",
-  "description": "simple state management for vanilla JS",
+  "description": "small, simple & speedy state management",
   "main": "nanny.js",
   "type": "module",
   "repository": {
@@ -16,7 +16,10 @@
   },
   "keywords": [
     "nanny",
-    "state"
+    "state",
+    "small",
+    "simple",
+    "speedy"
   ],
   "author": "DAZ <daz4126@gmail.com>",
   "license": "Unlicense"
