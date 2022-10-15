@@ -12,16 +12,16 @@ _small, simple & speedy state management_
 
 **NANNY STATE** is a super *small* library that makes it super *simple* to build super *speedy* web apps.
 
-- **SUPER SMALL** - less than 100 loc and only 3kb minified and zipped
-- **SUPER SIMPLE** - a single state object and a single method to update it
-- **SUPER SPEEDY** - automatic page renders whenever the state is updated
+- **SUPER SMALL** - only 3kb minified and zipped
+- **SUPER SIMPLE** - a single state object and update method
+- **SUPER SPEEDY** - automatic page renders that are blazingly fast
 
 ## THE STATE IS EVERYTHING
 
 **NANNY STATE** stores everything in a single state object and automatically re-renders the view whenever the state changes. This helps to keep your code more organized and easier to maintain without the bloat of other libraries. 
 
-* Just a single import and no build process
-* State is shared across the whole app, so no more prop drilling
+* A single import and no build process
+* State is shared across the whole app, so no prop drilling
 * Everything is written in vanilla JS and HTML, so no new syntax to learn
 * Built-in router makes it easy to build single page web apps
 * Local storage support with a single line of code
