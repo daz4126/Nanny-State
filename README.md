@@ -12,19 +12,19 @@ _small, simple & speedy state management_
 
 **NANNY STATE** is a super *small* library that makes it super *simple* to build super *speedy* web apps.
 
-- **SUPER SMALL** - less than 100 loc and only 3kb minified and zipped
-- **SUPER SIMPLE** - a single state object and a single method to update it
-- **SUPER SPEEDY** - automatic page renders whenever the state is updated
+- **SUPER SMALL** - only 3kb minified and zipped
+- **SUPER SIMPLE** - a single state object and update method
+- **SUPER SPEEDY** - automatic page renders that are blazingly fast
 
 ## THE STATE IS EVERYTHING
 
 **NANNY STATE** stores everything in a single state object and automatically re-renders the view whenever the state changes. This helps to keep your code more organized and easier to maintain without the bloat of other libraries. 
 
-* Just a single import and no build process
-* State is shared across the whole app, so no more prop drilling
-* Everything is written in vanilla JS and HTML, so no new syntax to learn
+* A single import and no build process
+* State is shared across the whole app
+* Everything is written in vanilla JS and HTML
 * Built-in router makes it easy to build single page web apps
-* Local storage support with a single line of code
+* Local storage can be added with a single line of code
 
 **NANNY STATE** is easy learn - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
 
@@ -130,7 +130,7 @@ Nanny(State)
 
 This renders the view based on the initial state.
 
-You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBryB).
+You can see this code on [CodePen](https://codepen.io/daz4126/pen/gOoBryB).
 
 <div align="center">
   
@@ -153,7 +153,7 @@ State = {
 
 Even though, outwardly, this example looks identical to the previous one, it's different behind the scenes because we are inserting the value of the state object's 'name' property into the `<h1>` element.
 
-You can this code on [CodePen](https://codepen.io/daz4126/pen/jOYeqoN).
+You can see this code on [CodePen](https://codepen.io/daz4126/pen/jOYeqoN).
 
 Our next job is to make the view dynamic. Let's start by adding a button:
   
@@ -171,7 +171,7 @@ In the example above, we pass the object `{name: "Nanny State"}` as an argument 
 
 We now have everything wired up correctly. When the user clicks the button, the event handler uses the `state.Update` function to update the 'name' property to 'Nanny State' and re-renders the page based on this new state.
 
-You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clicking the button to see the view change!
+You can see this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clicking the button to see the view change!
 
 <div align="center">
   
@@ -202,7 +202,7 @@ The `State` object stays the same:
 } 
 ```
 
-You can this code on [CodePen](https://codepen.io/daz4126/pen/qBpJNOp). Try typing into the input field and see the view change as you type!
+You can see this code on [CodePen](https://codepen.io/daz4126/pen/qBpJNOp). Try typing into the input field and see the view change as you type!
 
 <div align="center">
   
@@ -249,7 +249,7 @@ All we we need to do now is start the Nanny State!:
 Nanny(State)
 ```
 
-You can this code on [CodePen](https://codepen.io/daz4126/pen/vYpVKJv). Click on the button to toggle the heading and button content!
+You can see this code on [CodePen](https://codepen.io/daz4126/pen/vYpVKJv). Click on the button to toggle the heading and button content!
 
 <div align="center">
   
@@ -294,7 +294,7 @@ Nanny(State)
 
 This will render the initial view with the count set to `0` and allow you to increase the count by clicking on the button.
   
-You can this code on [CodePen](https://codepen.io/daz4126/pen/gOoByma). Click on the button to increase the count!
+You can see this code on [CodePen](https://codepen.io/daz4126/pen/gOoByma). Click on the button to increase the count!
 
 <div align="center">
   
@@ -395,11 +395,11 @@ ${Button(state,{text: "-1",n: -1})}
 
 This will display a button element with the text of "-1" and 'increment' the value by `-1`, essentially making the count go down by 1, every time it is pressed.
 
-You can this code on [CodePen](https://codepen.io/daz4126/pen/poLpJXV).
+You can see this code on [CodePen](https://codepen.io/daz4126/pen/poLpJXV).
   
 ## MORE NANNY STATE EXAMPLES
 
-You can see a full set of examples of how Nanny State can be used, with source code, on [CodePen](https://codepen.io/collection/RzbNmw). This includes:
+Here are some examples of apps that show what can be made with NANNY STATE:
 
 * [Numble](https://numble.online) - A numerical Wordle clone (by Olivia Gibson)
 * [Times Tables Quiz](https://codepen.io/goldenrod/pen/PoKjrYV) (by Olivia Gibson)
