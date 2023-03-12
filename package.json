@@ -1,6 +1,6 @@
 {
   "name": "nanny-state",
-  "version": "7.7.1",
+  "version": "7.7.2",
   "description": "small, simple & speedy state management",
   "main": "nanny.js",
   "type": "module",
