@@ -18,9 +18,11 @@ export default function Nanny(State, Path = window.location.pathname){
       const objectified = typeof(transformer) === "function" ? transformer(oldState) : transformer || {};
       const {Update,HTML,Evaluate,JSON,Link,...newState} = objectified;
       Object.entries(objectified).forEach(([prop,value])=> value && value?.toString() === "[object Object]" ? newState[prop] = {...State[prop],...value} : value);
-      const updatedState = { ...oldState, ...newState, ...(State.Calculate ? State.Calculate({...oldState,...newState}) : {}) };
-       [...State.Effects].filter(effect => !effect[1] || effect[1].some(prop => newState.hasOwnProperty(prop))).forEach(effect => effect[0](updatedState));
-       return updatedState},State);
+      if(State.Effects) {
+        [...State.Effects].filter(effect => !effect[1] || effect[1].some(prop => newState.hasOwnProperty(prop))).forEach(effect => effect[0](updatedState));
+      }
+      return updatedState
+    },State);
     
     if (State.After) {
       State = { ...State, ...State.After(State), ...(State.Calculate ? State.Calculate(State.After(State)) : {}) };
