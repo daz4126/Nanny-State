@@ -8,6 +8,16 @@ export default function Nanny(State, Path = window.location.pathname){
   State.JSON = () => JSON.stringify(State);
   State.HTML = html;
   State.SVG = svg;
+  State.Link = path => event => {
+    event.preventDefault();
+    Path = path || event.target.attributes.href.value;
+    window.history.pushState({ Path }, Path, `${Path}`);
+    Render();
+  };
+  window.addEventListener("popstate", event => {
+    Path = window.location.pathname;
+    Render();
+  });
   
   State.Update = (...transformers) => {
     if (State.Before) {
@@ -15,7 +25,7 @@ export default function Nanny(State, Path = window.location.pathname){
     }
     
     State = transformers.reduce((oldState,transformer) => {
-      const {Update,HTML,Evaluate,Debug,...newState} = typeof(transformer) === "function" ? transformer(oldState) : transformer;
+      const {Update,HTML,SVG,Evaluate,JSON,Link,...newState} = typeof(transformer) === "function" ? transformer(oldState) : transformer;
       Object.entries(newState).forEach(([prop,value]) => value && value.toString() === "[object Object]" ? newState[prop] = {...State[prop],...value} : value)
       const updatedState = { ...oldState, ...newState, ...(State.Calculate ? State.Calculate({...oldState,...newState}) : {}) };
       if(State.Effects) {
@@ -70,21 +80,6 @@ export default function Nanny(State, Path = window.location.pathname){
   // Retrieve state from local storage.
   if (State.LocalStorageKey && localStorage.getItem(State.LocalStorageKey)) {
     State =  {...State,...JSON.parse(localStorage.getItem(State.LocalStorageKey))} 
-  }
-
-  if (Routes.length) {
-      // append Route method to State
-      State.Link = path => event => {
-        event.preventDefault();
-        Path = path || event.target.attributes.href.value;
-        window.history.pushState({ Path }, Path, `${Path}`);
-        Render();
-      };
-      // grab the path from the address bar
-      window.addEventListener("popstate", event => {
-        Path = window.location.pathname;
-        Render();
-      });
   }
 
   // Run any setup code once
