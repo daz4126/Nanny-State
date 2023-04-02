@@ -68,7 +68,7 @@ export default function Nanny(State, Path = window.location.pathname){
       const route = findRoute(Path);
       document.title = route.title || document.title
       if (route.update) {
-        State = { ...State, ...(route.params ? route.update(route.params)(State) : route.update(State)) };
+        State = { ...State, ...(State.Calculate ? State.Calculate(State), ...(route.params ? route.update(route.params)(State) : route.update(State)) };
       }
       if (route.view) {
         State.Content = route.view(State);
