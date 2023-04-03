@@ -48,8 +48,6 @@ export default function Nanny(State, Path = window.location.pathname){
     
     // Re-render the view basd on updated state
     Render();
-
-    return State;
   };
        
   // Helper function to find the route object in the state given the path
@@ -88,11 +86,7 @@ export default function Nanny(State, Path = window.location.pathname){
   }
 
   // Render view based on initial state.
-  Render();
-
-  if (State.Debug) {
-    console.log(State.JSON());
-  }
+  State.Update(State);
   
   return State.Update
 }
