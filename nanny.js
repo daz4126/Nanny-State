@@ -34,7 +34,7 @@ export default function Nanny(State, Path = window.location.pathname,Routes = St
     }
     
     State = transformers.reduce((oldState,transformer) => {
-      const {Update,HTML,SVG,Evaluate,JSON,Link,...newState} = typeof(transformer) === "function" ? transformer(oldState) : transformer;
+      const {Update,HTML,SVG,Evaluate,JSON,Link,Every,Delay,Content,...newState} = typeof(transformer) === "function" ? transformer(oldState) : transformer;
       Object.entries(newState).forEach(([prop,value]) => value && value.toString() === "[object Object]" ? newState[prop] = {...State[prop],...value} : value)
       const updatedState = { ...oldState, ...newState, ...(State.Calculate ? State.Calculate({...oldState,...newState}) : {}) };
       if(State.Effects) {
