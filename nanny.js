@@ -1,9 +1,17 @@
 import {html, svg, render} from 'uhtml';
 
-export default function Nanny(State, Path = window.location.pathname){
-  const  Routes = State.Routes || [];
-  
+export default function Nanny(State, Path = window.location.pathname,Routes = State.Routes || []){  
+  // Retrieve state from local storage.
+  if (State.LocalStorageKey && localStorage.getItem(State.LocalStorageKey)) {
+    State =  {...State,...JSON.parse(localStorage.getItem(State.LocalStorageKey))} 
+  }
+  // Run any setup code once
+  if (State.Initiate) {
+    State = { ...State, ...State.Initiate(State)};
+  }
+  // Set intial State
   State = { ...State, ...(State.Calculate ? State.Calculate(State) : {}) };
+  // Built-In State Methods
   State.Evaluate = prop => prop === undefined ? {...State} : {...State}[prop];
   State.JSON = () => JSON.stringify(State);
   State.HTML = html;
@@ -18,7 +26,8 @@ export default function Nanny(State, Path = window.location.pathname){
     Path = window.location.pathname;
     Render();
   });
-  
+  State.Every = (moment,...transformers) => setInterval(_ => State.Update(...transformers),moment);
+  State.Delay = (moment,...transformers) => setTimeout(_ => State.Update(...transformers),moment);
   State.Update = (...transformers) => {
     if (State.Before) {
       State = { ...State, ...State.Before(State),...(State.Calculate ? State.Calculate(State.Before(State)) : {}) };
@@ -29,7 +38,7 @@ export default function Nanny(State, Path = window.location.pathname){
       Object.entries(newState).forEach(([prop,value]) => value && value.toString() === "[object Object]" ? newState[prop] = {...State[prop],...value} : value)
       const updatedState = { ...oldState, ...newState, ...(State.Calculate ? State.Calculate({...oldState,...newState}) : {}) };
       if(State.Effects) {
-        [...State.Effects].filter(effect => !effect[1] || effect[1].some(prop => newState.hasOwnProperty(prop))).forEach(effect => effect[0](updatedState));
+        State.Effects.filter(effect => !effect[1] || effect[1].split(",").some(prop => newState.hasOwnProperty(prop))).forEach(effect => effect[0](updatedState));
       }
       return updatedState
     },State);
@@ -66,7 +75,7 @@ export default function Nanny(State, Path = window.location.pathname){
       const route = findRoute(Path);
       document.title = route.title || document.title
       if (route.update) {
-        State = { ...State, ...(State.Calculate ? State.Calculate(State) : {}), ...(route.params ? route.update(route.params)(State) : route.update(State)) };
+        State = { ...State, ...(route.params ? route.update(route.params)(State) : route.update(State)), ...(State.Calculate ? State.Calculate(route.params ? route.update(route.params)(State) : route.update(State)) : {}) };
       }
       if (route.view) {
         State.Content = route.view(State);
@@ -74,17 +83,6 @@ export default function Nanny(State, Path = window.location.pathname){
     }
     render(State.Element || document.body, State.View(State));
   }
-
-  // Retrieve state from local storage.
-  if (State.LocalStorageKey && localStorage.getItem(State.LocalStorageKey)) {
-    State =  {...State,...JSON.parse(localStorage.getItem(State.LocalStorageKey))} 
-  }
-
-  // Run any setup code once
-  if (State.Initiate) {
-    State = { ...State, ...State.Initiate(State), ...(State.Calculate ? State.Calculate(State.Initiate(State)) : {}) };
-  }
-
   // Render view based on initial state.
   State.Update(State);
   
