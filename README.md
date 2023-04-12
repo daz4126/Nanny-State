@@ -607,7 +607,7 @@ The `routes` array in any route object can contain as many nested routes as requ
 
 ### Wildcard Routes
   
-The `:` symbol can be used to denote a *wildcard* route. For example, the following route object using a wildcard called `:id` in its path property:
+The `:` symbol can be used to denote a *wildcard* route. For example, the following route object using a wildcard called `:name` in its path property:
   
 ```javascript
     { path: ":name", title: "Programming Languages", view: state => html`<h1>${state.language)</h1>` }
