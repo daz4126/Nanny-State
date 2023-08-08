@@ -1,0 +1,26 @@
+{
+  "name": "nanny-state",
+  "version": "8.0.0",
+  "description": "small, simple & speedy state management",
+  "main": "nanny.js",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daz4126/Nanny-State/"
+  },
+  "dependencies": {
+    "uhtml": "^3.1.0"
+  },
+  "scripts": {
+    "test": "No tests yet"
+  },
+  "keywords": [
+    "nanny",
+    "state",
+    "small",
+    "simple",
+    "speedy"
+  ],
+  "author": "DAZ <daz4126@gmail.com>",
+  "license": "Unlicense"
+}
