@@ -23,9 +23,8 @@ export default function Nanny(State, Path = window.location.pathname,Routes = St
   });
   State.Every = (moment,...transformers) => setInterval(_ => State.Update(...transformers),moment);
   State.Delay = (moment,...transformers) => setTimeout(_ => State.Update(...transformers),moment);
-  State.Increment = prop => State.Update({[prop]: State[prop] + 1})
-  State.Decrement = prop => State.Update({[prop]: State[prop] - 1})
-  State.Increment = prop => State.Update({[prop]: State[prop] + 1})
+  State.Increment = (prop,n=1) => State.Update({[prop]: State[prop] + n})
+  State.Decrement = (prop,n=1) => State.Update({[prop]: State[prop] - n})
   State.Toggle = prop => State.Update({[prop]: !State[prop]})
   State.Append = (list,value) => State.Update({[list]: [ ...State[list], value ]})
   State.Insert = (list,index,value) => State.Update({[list]: [...State[list].slice(0,index), value,...State[list].slice(index, State[list].length)]})
@@ -73,7 +72,7 @@ export default function Nanny(State, Path = window.location.pathname,Routes = St
   
   function setState(...transformers){
     State = transformers.reduce((state,transformer) => {
-      const {Update,HTML,SVG,Evaluate,JSON,Link,Every,Delay,Content,Effect,Calculate,...newState} = typeof(transformer) === "function" ? transformer(state) : transformer;
+      const {Update,HTML,SVG,Evaluate,JSON,Link,Every,Delay,Content,Effect,Calculate,Increment,Decrement,Toggle,Append,Insert,Replace,Remove,...newState} = typeof(transformer) === "function" ? transformer(state) : transformer;
       update(state,newState);
       Effects.filter(effect => !effect[1] || effect[1].split(",").some(prop => newState.hasOwnProperty(prop))).forEach(effect => effect[0](state));    
       Calcs.filter(calc => !calc[1] || calc[1].split(",").some(prop => newState.hasOwnProperty(prop))).forEach(calc => update(state,calc[0](state)));
