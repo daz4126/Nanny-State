@@ -480,13 +480,42 @@ Returns a JSON string representation of the current state.
   
 #### `Calculate`
 
-The `Calculate` method adds a calculation that will be performed after any state change:
+The `Calculate` method adds a fucntion that will calculate a value of State based on other values of the State whenever the State changes, or when only specific properties of the State change:
   
 ```javascript
-State.Calculate = state = > ({ doubleCount: state.count * 2 }) 
+State.Calculate(state = > ({ doubleCount: state.count * 2 }))
 ```
-  
-It accepts the state as its only parameter and returns an object containing any properties that are calculated based on the current state. These properties will be recalculated *every* time the state changes.
+
+This will update the property `state.doubleCount` to double the value of `state.count` whenever the state changes.
+
+`State.Calculate` also accepts a second argument, which is a comma-seperated list of properties. The calculation will only run when these properties change. If this is left empty, then the calculation will run after *every* update to the State.
+
+
+=```javascript
+State.Calculate(state = > ({ doubleCount: state.count * 2 }),"count")
+```
+
+This will now only recalculate when the `state.count` property changes.
+
+
+### `Effect`
+
+The `Effect` method adds a function that causes causes side-effects and runs after any update to the State, or when only specific properties change.
+
+```javascript
+State.Effect(state = > console.log(state.count))
+```
+
+This will log the value of `state.count` to the console whenever the state changes.
+
+`State.Effect` also accepts a second argument, which is a comma-seperated list of properties. The effect will only run when these properties change. If this is left empty, then the effect will run after *every* update to the State.
+
+
+=```javascript
+State.Effect(state = > console.log(state.count), "count")
+```
+
+This will now only log the value of `state.count` to the console when the `state.count` property changes.
 
 ### Every
 
@@ -567,6 +596,18 @@ State.Debug = true
   ```javascript
   State.LocalStorageKey = 'nanny'
   ```
+
+### LocalStorageBlackList
+
+`LocalStorageBlackList` is a property of the state that is a comma-separated string of values that should not be stored in local storage and will therefore not persist between sessions.
+
+Example:
+
+```
+State.LocalStorageBlackList = "name,count"
+```
+
+The `state.name` and `state.count` properties will not be saved to local storage.
   
 ### ROUTING
   
