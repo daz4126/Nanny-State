@@ -472,18 +472,38 @@ Can be passed multiple objects or functions. The state will be updated sequentia
   
 #### `Evaluate`
   
-Returns the current state object. The values of each property can be queried but can't be changed (you need to use the `Update` method for to perform any updates to the state).
+Returns the current value of any property of the state provided as a parameter. These values can be queried but can't be changed (you need to use the `Update` method to actually change any properties of the state).
+
+Example:
+
+```javascript
+const State = {
+  count: 10
+}
+
+state.Evaluate("count") = 10
+```
   
 #### `JSON`
 
 Returns a JSON string representation of the current state.
+
+Example:
+
+```javascript
+const State = {
+  count: 10
+}
+
+state.JSON() = "{'count':10}"
+```
   
 #### `Calculate`
 
 The `Calculate` method adds a fucntion that will calculate a value of State based on other values of the State whenever the State changes, or when only specific properties of the State change:
   
 ```javascript
-State.Calculate(state = > ({ doubleCount: state.count * 2 }))
+state.Calculate(state = > ({ doubleCount: state.count * 2 }))
 ```
 
 This will update the property `state.doubleCount` to double the value of `state.count` whenever the state changes.
@@ -491,8 +511,8 @@ This will update the property `state.doubleCount` to double the value of `state.
 `State.Calculate` also accepts a second argument, which is a comma-seperated list of properties. The calculation will only run when these properties change. If this is left empty, then the calculation will run after *every* update to the State.
 
 
-=```javascript
-State.Calculate(state = > ({ doubleCount: state.count * 2 }),"count")
+```javascript
+state.Calculate(state = > ({ doubleCount: state.count * 2 }),"count")
 ```
 
 This will now only recalculate when the `state.count` property changes.
@@ -503,7 +523,7 @@ This will now only recalculate when the `state.count` property changes.
 The `Effect` method adds a function that causes causes side-effects and runs after any update to the State, or when only specific properties change.
 
 ```javascript
-State.Effect(state = > console.log(state.count))
+state.Effect(state = > console.log(state.count))
 ```
 
 This will log the value of `state.count` to the console whenever the state changes.
@@ -512,7 +532,7 @@ This will log the value of `state.count` to the console whenever the state chang
 
 
 =```javascript
-State.Effect(state = > console.log(state.count), "count")
+state.Effect(state = > console.log(state.count), "count")
 ```
 
 This will now only log the value of `state.count` to the console when the `state.count` property changes.
