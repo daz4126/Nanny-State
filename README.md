@@ -396,6 +396,34 @@ ${Button(state,{text: "-1",n: -1})}
 This will display a button element with the text of "-1" and 'increment' the value by `-1`, essentially making the count go down by 1, every time it is pressed.
 
 You can see this code on [CodePen](https://codepen.io/daz4126/pen/poLpJXV).
+
+## Sequential State Updates
+
+The `State.Update` method accepts multiple arguments and will update the state in the order they are provided. The state after updating with the previous argument will be used in to update with subsequent arguments.
+
+For example:
+
+```
+State = {
+  likes: 0,
+  populare: false
+}
+
+state.update({likes: state.likes + 1, popular: state.likes > 10 ? true : false })
+```
+
+This will cause a problem when the value of `state.likes` is `10`. After this update `state.likes` will increment to `11`, but the test in the ternary operator will still be using the previous value of `10` to check if it should change. This means that even though the number of likes will increase to `11` and display this, the value of `state.popular` will remain as `false`.
+
+This can be overcome by sending the updates sequentially:
+
+```
+state.update({likes: state.likes + 1}, popular: state.likes > 10 ? true : false })
+
+```
+
+This will update the value of `state.likes` to `11` and *then* update the value of `state.popular` using the just updated value of `11` for `state.likes`.
+
+Note it would be better to use the `State.Calculate` method to update the value of `state.popular` whenever `state.likes` changes.
   
 ## MORE NANNY STATE EXAMPLES
 
@@ -452,13 +480,33 @@ Returns a JSON string representation of the current state.
   
 #### `Calculate`
 
-The `Calculate` method returns an object that will calculate the value of properties based on other properties of the state. For example, if you have a `count` property, you can use `Calculate` to automatically update a property called `doubleCount` that is always twice the value of `count` with the following code:
+The `Calculate` method adds a calculation that will be performed after any state change:
   
 ```javascript
 State.Calculate = state = > ({ doubleCount: state.count * 2 }) 
 ```
   
 It accepts the state as its only parameter and returns an object containing any properties that are calculated based on the current state. These properties will be recalculated *every* time the state changes.
+
+### Every
+
+### Delay
+
+### Increment
+
+### Decrememnt
+
+### Toggle
+
+### Insert
+
+### Append
+
+### Replace
+
+### Remove
+
+
     
 #### `Initiate`
 
