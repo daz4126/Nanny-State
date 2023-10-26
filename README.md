@@ -502,7 +502,7 @@ state.JSON() = "{'count':10}"
   
 #### `Calculate`
 
-The `Calculate` method adds a fucntion that will calculate a value of State based on other values of the State whenever the State changes, or when only specific properties of the State change:
+The `Calculate` method adds a function that will calculate  the value of a property of the state based on other properties of the state whenever the state changes, or when only specific properties of the state change:
   
 ```javascript
 state.Calculate(state = > ({ doubleCount: state.count * 2 }))
@@ -510,7 +510,7 @@ state.Calculate(state = > ({ doubleCount: state.count * 2 }))
 
 This will update the property `state.doubleCount` to double the value of `state.count` whenever the state changes.
 
-`State.Calculate` also accepts a second argument, which is a comma-seperated list of properties. The calculation will only run when these properties change. If this is left empty, then the calculation will run after *every* update to the State.
+`State.Calculate` also accepts a second argument, which is a comma-seperated list of properties. The calculation will only run when these properties change. If this is left empty, then the calculation will run after *every* update to the state.
 
 
 ```javascript
@@ -522,7 +522,7 @@ This will now only recalculate when the `state.count` property changes.
 
 ### `Effect`
 
-The `Effect` method adds a function that causes causes side-effects and runs after any update to the State, or when only specific properties change.
+The `Effect` method adds a function that causes any side-effects and runs after any update to the state, or when only specific properties change.
 
 ```javascript
 state.Effect(state = > console.log(state.count))
@@ -530,7 +530,7 @@ state.Effect(state = > console.log(state.count))
 
 This will log the value of `state.count` to the console whenever the state changes.
 
-`State.Effect` also accepts a second argument, which is a comma-seperated list of properties. The effect will only run when these properties change. If this is left empty, then the effect will run after *every* update to the State.
+`State.Effect` also accepts a second argument, which is a comma-seperated list of properties. The effect will only run when these properties change. If this is left empty, then the effect will run after *every* update to the state.
 
 
 ```javascript
