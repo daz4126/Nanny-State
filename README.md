@@ -399,33 +399,6 @@ This will display a button element with the text of "-1" and 'increment' the val
 
 You can see this code on [CodePen](https://codepen.io/daz4126/pen/poLpJXV).
 
-## Sequential State Updates
-
-The `State.Update` method accepts multiple arguments and will update the state in the order they are provided. The state after updating with the previous argument will be used in to update with subsequent arguments.
-
-For example:
-
-```
-State = {
-  likes: 0,
-  populare: false
-}
-
-state.update({likes: state.likes + 1, popular: state.likes > 10 ? true : false })
-```
-
-This will cause a problem when the value of `state.likes` is `10`. After this update `state.likes` will increment to `11`, but the test in the ternary operator will still be using the previous value of `10` to check if it should change. This means that even though the number of likes will increase to `11` and display this, the value of `state.popular` will remain as `false`.
-
-This can be overcome by sending the updates sequentially:
-
-```
-state.update({likes: state.likes + 1}, popular: state.likes > 10 ? true : false })
-
-```
-
-This will update the value of `state.likes` to `11` and *then* update the value of `state.popular` using the just updated value of `11` for `state.likes`.
-
-Note it would be better to use the `State.Calculate` method to update the value of `state.popular` whenever `state.likes` changes.
   
 ## MORE NANNY STATE EXAMPLES
 
@@ -455,9 +428,28 @@ These are the only 3 methods you need to get started and the ones that are used 
   
 Note that this is actually just the `html` function imported from [µhtml](https://github.com/WebReflection/uhtml), so you can learn a lot more about its intricacies by reading the full docs there.
 
+The basics are that the `state.HTML` method is a [tag function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates) that accepts a backtick string of HTML that will be re-rendered every time the state changes.
+
+Example:
+```javascript
+state.HTML`<h1>Hello World</h1>`
+```
+
+Any valid HTML is acceptable. State properties and any other values can be inserted into the HTML by placing them inside `${}`.
+
+Example:
+
+```javascript
+state = {
+  name: "Nanny State"
+}
+state.HTML`<h1>Hello ${state.name}</h1>`
+
+```
+
 #### `View`
   
-A function that accepts the state as and returns a string of HTML based on the state. The return value *must* be generated usingthe the `state.HTML` function described above.
+A function that accepts the state and returns a string of HTML based on the state. The return value *must* be generated using the `state.HTML` function described above.
   
 #### `Update`
   
@@ -465,10 +457,71 @@ A function that accepts the state as and returns a string of HTML based on the s
   
 It accepts an object as a parameter. Any properties in this object will be updated in the state with the values provided. 
 If the property doesn't already exist in the state, then it will be added to the state.
+
+Example:
+
+```javascript
+state = {
+  count: 1
+}
+
+state.Update({count: 5, name: "Nanny State"})
+
+state = {
+  count: 5,
+  name: "Nanny State"
+}
+```
+
+##### Transformer Functions
   
-Can also be passed a transformer function.
+The update can also be passed a transformer function instead of an object. A transformer function accepts the current state as an argument and returns a new representation of the state. They are basically a mapping function from the current state to a new state as shown in the diagram below:
+
+![171490767-5ac02acb-0ed8-4d63-962b-f6bbf40ce553](https://github.com/daz4126/Nanny-State/assets/16646/83c3acfc-43de-49fc-b699-e1c3213f0070)
+
+ES6 arrow functions are perfect for transformer functions as they visually show the mapping of the current state to a new representation of the state.
+
+Transformer functions must be [pure functions](https://en.wikipedia.org/wiki/Pure_function). They should always return the same value given the same arguments and should not cause any side-effects. They take the following structure:
+
+```javascript
+state => newState
+```
+
+Here's an example of a transformer function that would change the case of the `name` property to uppercase:
+
+```javascript
+const upCase = state => ({name: state.name.toUpperCase()})
+```
+
+Transformer functions are passed by reference to the `Update` function. The current state is implicityly passed as an argument to any transformer function (similiar to the way the event object is implicitly passed to event handlers when they are called).
   
-Can be passed multiple objects or functions. The state will be updated sequentially.
+##### Sequential State Updates
+
+The `state.Update` method accepts multiple arguments and will update the state in the order they are provided. The state after updating with the previous argument will be used in to update with subsequent arguments.
+
+For example:
+
+```
+State = {
+  likes: 0,
+  popular: false
+}
+
+state.update({likes: state.likes + 1, popular: state.likes > 10 ? true : false })
+```
+
+This will cause a problem when the value of `state.likes` is `10`. After this update `state.likes` will increment to `11`, but the test in the ternary operator will still be using the previous value of `10` to check if it should change. This means that even though the number of likes will increase to `11` and display this, the value of `state.popular` will remain as `false`.
+
+This can be overcome by sending the updates sequentially:
+
+```
+state.update({likes: state.likes + 1}, popular: state.likes > 10 ? true : false })
+
+```
+
+This will update the value of `state.likes` to `11` and *then* update the value of `state.popular` using the just updated value of `11` for `state.likes`.
+
+Note it would be better to use the [`state.Calculate`](/#Calculate) method to update the value of `state.popular` whenever `state.likes` changes.
 
 ### OTHER USEFUL METHODS
   
@@ -541,13 +594,66 @@ This will now only log the value of `state.count` to the console when the `state
 
 ### `Every`
 
+The `state.Every` method will continually update the state after a given number of milliseconds.
+
+Example:
+
+```javascript
+State = {
+  time: 0,
+}
+```
+
 ### `Delay`
+
+The `state.Delay` method will update the state after a specified number of milliseconds.
 
 ### `Increment`
 
-### `Decrememnt`
+The `state.Increment` method is a convenience method that will *increase* the value of a property by a given value that defaults to 1. The name of the property is provided as the first argument as a string, the second argument is a number that the property should increase by.
+
+Example:
+
+```javascript
+State = {
+  count: 10
+}
+
+// increase the count by 1
+state.Increment("count")
+
+// increase the count by 5
+state.Increment("count",5)
+
+```
+
+### `Decrement`
+
+The `state.Decrement` method is a convenience method that will *decrease* the value of a numerical property of the state by a given value that defaults to 1. The name of the property is provided as the first argument as a string, the second argument is a number that the property should decrease by.
+
+Example:
+
+```javascript
+State = {
+  count: 10
+}
+// decrease the count by 3
+state.Decrement("count",3)
+```
 
 ### `Toggle`
+
+The `state.Toggle` method is a convenience method that will toggle the value of a Boolean property by a given value that defaults to 1. The name of the property to toggle is provided as a string as the only argument.
+
+Example:
+
+```javascript
+State = {
+  darkMode: true
+}
+// turn off dark mode
+state.Toggle("darkMode")
+```
 
 ### `Append`
 
