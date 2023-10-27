@@ -521,7 +521,7 @@ state.update({likes: state.likes + 1}, popular: state.likes > 10 ? true : false 
 
 This will update the value of `state.likes` to `11` and *then* update the value of `state.popular` using the just updated value of `11` for `state.likes`.
 
-Note it would be better to use the [`state.Calculate`](/#Calculate) method to update the value of `state.popular` whenever `state.likes` changes.
+Note it would be better to use the [`state.Calculate`](https://github.com/daz4126/Nanny-State/tree/main#calculate) method to update the value of `state.popular` whenever `state.likes` changes.
 
 ### OTHER USEFUL METHODS
   
