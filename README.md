@@ -34,23 +34,25 @@ All you need in a **NANNY STATE** app is a view component and `State` object:
 
 ```javascript
 import Nanny from "nanny-state"
-
+// View Code
 const Counter = state => state.HTML`
   <h1>${state.count}</h1>
   <div>
-    <button onclick=${e => state.Update({count: state.count - 1})}>-</button>
-    <button onclick=${e => state.Update({count: state.count + 1})}>+</button>
+    <button onclick=${e => state.Decrement("count")}>-</button>
+    <button onclick=${e => state.Increment("count")}>+</button>
   </div>`
-  
+// Initial State  
 const State = { 
   count: 0, 
   View: Counter
 }
-
+// Start the Nanny State!
 Nanny(State)
 ```
 
 The view component in this example is the `Counter` function. It accepts the state as its only parameter and returns a string of HTML based on the current state. The `State` object contains all the initial data values.
+
+This example can be seen [on Codepen](https://codepen.io/daz4126/pen/mdveMBy)
 
 ## WHAT IS NANNY STATE?
 
@@ -396,6 +398,7 @@ ${Button(state,{text: "-1",n: -1})}
 This will display a button element with the text of "-1" and 'increment' the value by `-1`, essentially making the count go down by 1, every time it is pressed.
 
 You can see this code on [CodePen](https://codepen.io/daz4126/pen/poLpJXV).
+
   
 ## MORE NANNY STATE EXAMPLES
 
@@ -425,9 +428,28 @@ These are the only 3 methods you need to get started and the ones that are used 
   
 Note that this is actually just the `html` function imported from [µhtml](https://github.com/WebReflection/uhtml), so you can learn a lot more about its intricacies by reading the full docs there.
 
+The basics are that the `state.HTML` method is a [tag function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates) that accepts a backtick string of HTML that will be re-rendered every time the state changes.
+
+Example:
+```javascript
+state.HTML`<h1>Hello World</h1>`
+```
+
+Any valid HTML is acceptable. State properties and any other values can be inserted into the HTML by placing them inside `${}`.
+
+Example:
+
+```javascript
+state = {
+  name: "Nanny State"
+}
+state.HTML`<h1>Hello ${state.name}</h1>`
+
+```
+
 #### `View`
   
-A function that accepts the state as and returns a string of HTML based on the state. The return value *must* be generated usingthe the `state.HTML` function described above.
+A function that accepts the state and returns a string of HTML based on the state. The return value *must* be generated using the `state.HTML` function described above.
   
 #### `Update`
   
@@ -435,30 +457,213 @@ A function that accepts the state as and returns a string of HTML based on the s
   
 It accepts an object as a parameter. Any properties in this object will be updated in the state with the values provided. 
 If the property doesn't already exist in the state, then it will be added to the state.
+
+Example:
+
+```javascript
+state = {
+  count: 1
+}
+
+state.Update({count: 5, name: "Nanny State"})
+
+state = {
+  count: 5,
+  name: "Nanny State"
+}
+```
+
+##### Transformer Functions
   
-Can also be passed a transformer function.
+The update can also be passed a transformer function instead of an object. A transformer function accepts the current state as an argument and returns a new representation of the state. They are basically a mapping function from the current state to a new state as shown in the diagram below:
+
+![171490767-5ac02acb-0ed8-4d63-962b-f6bbf40ce553](https://github.com/daz4126/Nanny-State/assets/16646/83c3acfc-43de-49fc-b699-e1c3213f0070)
+
+ES6 arrow functions are perfect for transformer functions as they visually show the mapping of the current state to a new representation of the state.
+
+Transformer functions must be [pure functions](https://en.wikipedia.org/wiki/Pure_function). They should always return the same value given the same arguments and should not cause any side-effects. They take the following structure:
+
+```javascript
+state => newState
+```
+
+Here's an example of a transformer function that would change the case of the `name` property to uppercase:
+
+```javascript
+const upCase = state => ({name: state.name.toUpperCase()})
+```
+
+Transformer functions are passed by reference to the `Update` function. The current state is implicityly passed as an argument to any transformer function (similiar to the way the event object is implicitly passed to event handlers when they are called).
   
-Can be passed multiple objects or functions. The state will be updated sequentially.
+##### Sequential State Updates
+
+The `state.Update` method accepts multiple arguments and will update the state in the order they are provided. The state after updating with the previous argument will be used in to update with subsequent arguments.
+
+For example:
+
+```
+State = {
+  likes: 0,
+  popular: false
+}
+
+state.update({likes: state.likes + 1, popular: state.likes > 10 ? true : false })
+```
+
+This will cause a problem when the value of `state.likes` is `10`. After this update `state.likes` will increment to `11`, but the test in the ternary operator will still be using the previous value of `10` to check if it should change. This means that even though the number of likes will increase to `11` and display this, the value of `state.popular` will remain as `false`.
+
+This can be overcome by sending the updates sequentially:
+
+```
+state.update({likes: state.likes + 1}, popular: state.likes > 10 ? true : false })
+
+```
+
+This will update the value of `state.likes` to `11` and *then* update the value of `state.popular` using the just updated value of `11` for `state.likes`.
+
+Note it would be better to use the [`state.Calculate`](https://github.com/daz4126/Nanny-State/tree/main#calculate) method to update the value of `state.popular` whenever `state.likes` changes.
 
 ### OTHER USEFUL METHODS
   
 #### `Evaluate`
   
-Returns the current state object. The values of each property can be queried but can't be changed (you need to use the `Update` method for to perform any updates to the state).
+Returns the current value of any property of the state provided as a parameter. These values can be queried but can't be changed (you need to use the `Update` method to actually change any properties of the state).
+
+Example:
+
+```javascript
+const State = {
+  count: 10
+}
+
+state.Evaluate("count") = 10
+```
   
 #### `JSON`
 
 Returns a JSON string representation of the current state.
+
+Example:
+
+```javascript
+const State = {
+  count: 10
+}
+
+state.JSON() = "{'count':10}"
+```
   
 #### `Calculate`
 
-The `Calculate` method returns an object that will calculate the value of properties based on other properties of the state. For example, if you have a `count` property, you can use `Calculate` to automatically update a property called `doubleCount` that is always twice the value of `count` with the following code:
+The `Calculate` method adds a function that will calculate  the value of a property of the state based on other properties of the state whenever the state changes, or when only specific properties of the state change:
   
 ```javascript
-State.Calculate = state = > ({ doubleCount: state.count * 2 }) 
+state.Calculate(state = > ({ doubleCount: state.count * 2 }))
 ```
-  
-It accepts the state as its only parameter and returns an object containing any properties that are calculated based on the current state. These properties will be recalculated *every* time the state changes.
+
+This will update the property `state.doubleCount` to double the value of `state.count` whenever the state changes.
+
+`State.Calculate` also accepts a second argument, which is a comma-seperated list of properties. The calculation will only run when these properties change. If this is left empty, then the calculation will run after *every* update to the state.
+
+
+```javascript
+state.Calculate(state = > ({ doubleCount: state.count * 2 }),"count")
+```
+
+This will now only recalculate when the `state.count` property changes.
+
+
+### `Effect`
+
+The `Effect` method adds a function that causes any side-effects and runs after any update to the state, or when only specific properties change.
+
+```javascript
+state.Effect(state = > console.log(state.count))
+```
+
+This will log the value of `state.count` to the console whenever the state changes.
+
+`State.Effect` also accepts a second argument, which is a comma-seperated list of properties. The effect will only run when these properties change. If this is left empty, then the effect will run after *every* update to the state.
+
+
+```javascript
+state.Effect(state = > console.log(state.count), "count")
+```
+
+This will now only log the value of `state.count` to the console when the `state.count` property changes.
+
+### `Every`
+
+The `state.Every` method will continually update the state after a given number of milliseconds.
+
+Example:
+
+```javascript
+State = {
+  time: 0,
+}
+```
+
+### `Delay`
+
+The `state.Delay` method will update the state after a specified number of milliseconds.
+
+### `Increment`
+
+The `state.Increment` method is a convenience method that will *increase* the value of a property by a given value that defaults to 1. The name of the property is provided as the first argument as a string, the second argument is a number that the property should increase by.
+
+Example:
+
+```javascript
+State = {
+  count: 10
+}
+
+// increase the count by 1
+state.Increment("count")
+
+// increase the count by 5
+state.Increment("count",5)
+
+```
+
+### `Decrement`
+
+The `state.Decrement` method is a convenience method that will *decrease* the value of a numerical property of the state by a given value that defaults to 1. The name of the property is provided as the first argument as a string, the second argument is a number that the property should decrease by.
+
+Example:
+
+```javascript
+State = {
+  count: 10
+}
+// decrease the count by 3
+state.Decrement("count",3)
+```
+
+### `Toggle`
+
+The `state.Toggle` method is a convenience method that will toggle the value of a Boolean property by a given value that defaults to 1. The name of the property to toggle is provided as a string as the only argument.
+
+Example:
+
+```javascript
+State = {
+  darkMode: true
+}
+// turn off dark mode
+state.Toggle("darkMode")
+```
+
+### `Append`
+
+### `Insert`
+
+### `Replace`
+
+### `Remove`
+
+
     
 #### `Initiate`
 
@@ -519,6 +724,18 @@ State.Debug = true
   ```javascript
   State.LocalStorageKey = 'nanny'
   ```
+
+### LocalStorageBlackList
+
+`LocalStorageBlackList` is a property of the state that is a comma-separated string of values that should not be stored in local storage and will therefore not persist between sessions.
+
+Example:
+
+```
+State.LocalStorageBlackList = "name,count"
+```
+
+The `state.name` and `state.count` properties will not be saved to local storage.
   
 ### ROUTING
   
