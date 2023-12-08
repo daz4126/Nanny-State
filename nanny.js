@@ -35,8 +35,9 @@ export default function Nanny(State, Path = window.location.pathname,Routes = St
   State.Effect = (effect,list) => {
     if(!Effects.some(e => e[0].toString() === effect.toString() && e[1] === list)) Effects.push([effect,list]);
   }
-  State.Calculate = (calc,list) => {
-    if(!Calcs.some(c => c[0].toString() === calc.toString() && c[1] === list)) Calcs.push([calc,list]);
+  State.Calculate = calc => {
+    const list = calc.toString().match(/state\.[a-z_$]+/g).map(x => x.slice(6))
+    if(!Calcs.some(c => c[0].toString() === calc.toString() && c[1].toString() === list.toString())) Calcs.push([calc,list]);
   }
   State.Update = (...transformers) => {
     if (State.Before) setState(State.Before);
@@ -75,7 +76,10 @@ export default function Nanny(State, Path = window.location.pathname,Routes = St
       const {Update,HTML,SVG,Evaluate,JSON,Link,Every,Delay,Content,Effect,Calculate,Increment,Decrement,Toggle,Append,Insert,Replace,Remove,...newState} = typeof(transformer) === "function" ? transformer(state) : transformer;
       update(state,newState);
       Effects.filter(effect => !effect[1] || effect[1].split(",").some(prop => newState.hasOwnProperty(prop))).forEach(effect => effect[0](state));    
-      Calcs.filter(calc => !calc[1] || calc[1].split(",").some(prop => newState.hasOwnProperty(prop))).forEach(calc => update(state,calc[0](state)));
+      Calcs.filter(calc => !calc[1] || calc[1].some(prop => newState.hasOwnProperty(prop))).forEach(calc => {
+        update(state,calc[0](state));
+        Effects.filter(effect => effect[1] && effect[1].split(",").some(prop => calc[0](state).hasOwnProperty(prop))).forEach(effect => effect[0](state));
+      });
       return state
       },State);
   }
