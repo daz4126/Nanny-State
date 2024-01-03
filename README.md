@@ -10,49 +10,46 @@ _small, simple & speedy state management_
 
 </div>
 
-**NANNY STATE** is a super *small* library that makes it super *simple* to build super *speedy* web apps.
+**NANNY STATE** is a *small* reactive state library that makes it *simple* to build *speedy* web apps.
 
-- **SUPER SMALL** - only 3kb minified and zipped
-- **SUPER SIMPLE** - a single state object and update method
-- **SUPER SPEEDY** - automatic page renders that are blazingly fast
+It does everything React does, but without the build process, JSX or a virutal DOM ... and it's a fraction of the size …
 
-## THE STATE IS EVERYTHING
+- **SMALL** - less than 4kb minified and zipped
+- **SIMPLE** - a single state object with some useful helper methods
+- **SPEEDY** - automatic page renders that are blazingly fast
 
-**NANNY STATE** stores everything in a single state object and automatically re-renders the view whenever the state changes. This helps to keep your code more organized and easier to maintain without the bloat of other libraries. 
-
-* A single import and no build process
-* State is shared across the whole app
-* Everything is written in vanilla JS and HTML
-* Built-in router makes it easy to build single page web apps
-* Local storage can be added with a single line of code
-
-**NANNY STATE** is easy learn - just follow the [examples](#examples) below and you'll see some impressive results in just a few lines of code.
-
-## QUICK START
-
-All you need in a **NANNY STATE** app is a view component and `State` object:
+It uses a purely declarative notation and everything is written in Vanilla JS and HTML. To get started, just set the initial state and write the view - check out the example below:
 
 ```javascript
 import Nanny from "nanny-state"
-// View Code
-const Counter = state => state.HTML`
-  <h1>${state.count}</h1>
+// View is a tag function that accepts the state as a parameter
+const View = state => state.HTML`
+  <h1>❤️ ${state.count}</h1>
   <div>
-    <button onclick=${e => state.Decrement("count")}>-</button>
-    <button onclick=${e => state.Increment("count")}>+</button>
+    <button onclick=${event => state.Decrement("count")}>👎</button>
+    <button onclick=${event => state.Increment("count")}>👍</button>
   </div>`
 // Initial State  
 const State = { 
   count: 0, 
-  View: Counter
+  View
 }
 // Start the Nanny State!
 Nanny(State)
 ```
 
-The view component in this example is the `Counter` function. It accepts the state as its only parameter and returns a string of HTML based on the current state. The `State` object contains all the initial data values.
+## THE STATE IS EVERYTHING
 
-This example can be seen [on Codepen](https://codepen.io/daz4126/pen/mdveMBy)
+**NANNY STATE** stores everything in a single state object and automatically re-renders the view whenever the state changes. This helps to keep your code more organized and easier to maintain without the bloat of other libraries. 
+
+* Centralized state object that is shared across the whole app
+* Built-in router makes it easy to build single page web apps
+* Local storage can be added with a single line of code
+* Calculations and Effects
+* Sequential updates in a single line of code
+* Everything is written in vanilla JS and HTML
+* A single import and no build process
+
 
 ## WHAT IS NANNY STATE?
 
@@ -64,13 +61,13 @@ This example can be seen [on Codepen](https://codepen.io/daz4126/pen/mdveMBy)
 
 </div>
 
-In NANNY STATE, the state is everything. It is the single source of truth in the application where all the app data is stored. The view is an HTML representation of the state. When a user interacts with the page, they trigger event handlers defined in the view that hook into the state's `Update` method. This is the only way the state can be changed and ensures that any updates are deterministic with predictable outcomes. Whenever the state is updated, the view is automatically re-rendered to reflect the changes that were made. 
+In NANNY STATE, the state is everything. It is a single object that is the ultimate source of truth in the application where all the app data is stored. This means that any changes to the application remain consistent and easier to keep track of. The view is an HTML representation of the state. The state's helper methods ensure that any updates are deterministic with predictable outcomes and whenever the state is updated, the view is automatically re-rendered to reflect the changes that were made. 
 
 ## BACKGROUND
 
-NANNY STATE was inspired by [Hyperapp](https://hyperapp.dev) and [Redux](https://redux.js.org) and uses the [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
+NANNY STATE was inspired by [Hyperapp](https://hyperapp.dev) and [Redux](https://redux.js.org) and uses the amazing [µhtml](https://github.com/WebReflection/uhtml) library for rendering. It is open source software; please feel free to help out or contribute.
 
-The name is a [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE stores all the app data centrally and controls how it is updated.
+The name is a [British phrase](https://en.wikipedia.org/wiki/Nanny_state) for an overly protective, centralised government. In a similar way, NANNY STATE stores all the app data centrally and controls how it is used.
 
 ## INSTALLATION
 
