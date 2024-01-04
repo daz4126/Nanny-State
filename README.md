@@ -91,7 +91,7 @@ If you use ES Modules, you don't need NPM. You can import from a CDN URL in your
 
 ```html
 <script type="module">
-  import Nanny from 'https://cdn.skypack.dev/nanny-state'
+  import Nanny from "https://esm.sh/nanny-state"
 </script>
 ```
 
