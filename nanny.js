@@ -1,6 +1,6 @@
 import {html, svg, render} from 'uhtml';
 
-export default function Nanny(State, Path = window.location.pathname,Routes = State.Routes || [], Effects = [],Calcs = []){
+export default function Nanny(State, Path = window.location.pathname,Routes = State.Routes || [], Effects = State.Effects || [],Calcs = State.Calculations || []){
   // Retrieve state from local storage.
   if (State.LocalStorageKey && localStorage.getItem(State.LocalStorageKey)) {
     State =  {...State,...JSON.parse(localStorage.getItem(State.LocalStorageKey))} 
@@ -21,31 +21,25 @@ export default function Nanny(State, Path = window.location.pathname,Routes = St
         Path = window.location.pathname;
     Render();
   });
+  State.Route = route => Routes.append(route);
   State.Every = (moment,...transformers) => setInterval(_ => State.Update(...transformers),moment);
   State.Delay = (moment,...transformers) => setTimeout(_ => State.Update(...transformers),moment);
-  State.Increment = (prop,n=1) => State.Update({[prop]: State[prop] + n})
-  State.Decrement = (prop,n=1) => State.Update({[prop]: State[prop] - n})
-  State.Toggle = prop => State.Update({[prop]: !State[prop]})
-  State.Append = (list,value) => State.Update({[list]: [ ...State[list], value ]})
-  State.Insert = (list,index,value) => State.Update({[list]: [...State[list].slice(0,index), value,...State[list].slice(index, State[list].length)]})
-  State.Replace = (list,index,value) => State.Update({[list]: [...State[list].slice(0,index),value,...State[list].slice(index+1, State[list].length)]})
-  State.Remove = (list,index) => State.Update({[list]: [...State[list].slice(0,index),...State[list].slice(index+1, State[list].length)]})
-
-
+  State.Increment = (prop,n=1) => State.Update({[prop]: State[prop] + n});
+  State.Decrement = (prop,n=1) => State.Update({[prop]: State[prop] - n});
+  State.Toggle = prop => State.Update({[prop]: !State[prop]});
+  State.Append = (list,value) => State.Update({[list]: [ ...State[list], value ]});
+  State.Insert = (list,index,value) => State.Update({[list]: [...State[list].slice(0,index), value,...State[list].slice(index, State[list].length)]});
+  State.Replace = (list,index,value) => State.Update({[list]: [...State[list].slice(0,index),value,...State[list].slice(index+1, State[list].length)]});
+  State.Remove = (list,index) => State.Update({[list]: [...State[list].slice(0,index),...State[list].slice(index+1, State[list].length)]});
   State.Effect = (effect,list) => {
     if(!Effects.some(e => e[0].toString() === effect.toString() && e[1] === list)) Effects.push([effect,list]);
-  }
+  };
   State.Calculate = calc => {
-    const list = calc.toString().match(/state\.[a-z_$]+/g).map(x => x.slice(6))
+    const list = calc.toString().match(/state\.[a-z_$]+/g).map(x => x.slice(6));
     if(!Calcs.some(c => c[0].toString() === calc.toString() && c[1].toString() === list.toString())) Calcs.push([calc,list]);
-  }
-  State.Update = (...transformers) => {
-    if (State.Before) setState(State.Before);
-    
+  };
+  State.Update = (...transformers) => {    
     setState(...transformers);
-    
-    if (State.After) setState(State.After);
-
     if (State.LocalStorageKey){
       const localState = {...State};
       if(State.LocalStorageBlackList){
