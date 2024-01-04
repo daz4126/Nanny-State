@@ -61,7 +61,7 @@ Nanny(State)
 
 </div>
 
-In NANNY STATE, the state is everything. It is a single object that is the ultimate source of truth in the application where all the app data is stored. This means that any changes to the application remain consistent and easier to keep track of. The view is an HTML representation of the state. The state's helper methods ensure that any updates are deterministic with predictable outcomes and whenever the state is updated, the view is automatically re-rendered to reflect the changes that were made. 
+In NANNY STATE, the state is everything. It is a single object that is the ultimate source of truth in the application where all the app data is stored. This means that any changes to the application remain consistent and easier to keep track of. The view is an HTML representation of the state and the Nanny State's helper methods ensure that any updates are deterministic with predictable outcomes. When the state is updated, the view is automatically re-rendered to reflect the changes that were made. 
 
 ## BACKGROUND
 
@@ -119,9 +119,9 @@ const State = {
 }
 ```
 
-The `View` in **NANNY STATE** is a method of the state (*everything* is part of the state!). It is a function that always accept the state as its only parameter. This means it has access to all the properties of the state, including the `state.HTML` function that is just an alias for µhtml's `html` function. This is a tag function that returns the HTML code that we want to display on the page, which in this case is a level 1 heading that says "Hello World". 
+The `View` in **NANNY STATE** is a method of the state (*everything* is part of the state!). It is a function that accepts the state as its only parameter. This means it has access to all the properties of the state, including the `state.HTML` function that is just an alias for µhtml's `html` function. This is a tag function that returns the HTML code that we want to display on the page, which in this case is simply a level 1 heading that says "Hello World". 
 
-Last of all, we need to call the `Nanny` function providing `State` as an argument:
+Last of all, we need to call the `Nanny` function with `State` as the argument:
 
 ```javascript
 Nanny(State)
@@ -139,7 +139,7 @@ You can see this code on [CodePen](https://codepen.io/daz4126/pen/gOoBryB).
 
 All we've done so far is create a static piece of HTML. The view in **NANNY STATE** can display properties of the state using `${prop}` placeholders.
   
-Even though `View` is a property of the State object, it's not really practical to define it directly inside `State` like we did in the last example, especially when the view code becomes quite long. Instead, we can define it as a variable named `View`, then use object-shortand notation to add this to the `State` object, like so:
+Even though `View` is a property of the State object, it's not really practical to define it directly inside `State` like we did in the last example, especially when the view code becomes quite long. Instead, we can define it as a variable named `View`, then use object-shortand notation to add this to the `State` object, like this:
 
 ```javascript
 const View = state => state.HTML`<h1>Hello ${state.name}</h1>`
@@ -154,7 +154,7 @@ Even though, outwardly, this example looks identical to the previous one, it's d
 
 You can see this code on [CodePen](https://codepen.io/daz4126/pen/jOYeqoN).
 
-Our next job is to make the view dynamic. Let's start by adding a button:
+Now, let's make the view dynamic by adding a button:
   
 ```javascript
 const View = state => 
@@ -164,11 +164,11 @@ const View = state =>
 
 The button element has an inline `onclick` event listener. When the button is clicked the inline event handler is called. The purpose of this function is to update the state object so the 'name' property changes to 'Nanny State'. This is exactly what the built-in `state.Update` function is for.
   
-The `state.Update` function to the *only* way to update the state. In this example it will change the value of the 'name' property when the button is clicked. This is really easy to do - simply pass an object representing the new state as an argument to the function.
+`Update` is a built-in method of the state object and is the *only* way to update the state (although there are also some useful helper methods that use the `Update` method behind the scenes ... see later!). It works by mapping the old state to the new state. In this example we are changing the value of the 'name' property from its inital value of "World" to "Nanny State". This is really easy to do - simply pass an object representing the new state as an argument to the function.
   
-In the example above, we pass the object `{name: "Nanny State"}` as an argument to the `state.Update` function. Note that you ony have to include any properties of the State that need updating in this object(**NANNY STATE** assumes that all the other properties will stay the same). The view will then automatically be re-rendered using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
+In the example above, we pass the object `{name: "Nanny State"}` as an argument to the `Update` function. Note that you ony have to include any properties of the State that need updating in this object (NANNY STATE assumes that all the other properties will stay the same). The view will then automatically be re-rendered using µhtml, which only updates the parts of the view that have actually changed. This means that re-rendering after a state update is fast and efficient.
 
-We now have everything wired up correctly. When the user clicks the button, the event handler uses the `state.Update` function to update the 'name' property to 'Nanny State' and re-renders the page based on this new state.
+We now have everything wired up correctly. When the user clicks the button, the event handler uses the `Update` function to update the 'name' property to 'Nanny State' and re-renders the page based on this new state.
 
 You can see this code on [CodePen](https://codepen.io/daz4126/pen/gOoBrJB). Try clicking the button to see the view change!
 
