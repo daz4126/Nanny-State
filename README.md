@@ -2,7 +2,7 @@
 
 # ![NANNY STATE](https://user-images.githubusercontent.com/16646/186224291-dea29811-1351-4ba8-a7d6-8831bd448d10.png)
 
-_small, simple & speedy state management_
+_The State Is Everything_
 
 [![npm](https://img.shields.io/npm/v/nanny-state?color=f4d22b)](https://www.npmjs.com/package/nanny-state)
 [![License](https://img.shields.io/badge/License-Unlicense-ee119a)](#license)
@@ -12,7 +12,7 @@ _small, simple & speedy state management_
 
 **NANNY STATE** is a *small* reactive state library that makes it *simple* to build *speedy* web apps.
 
-It does everything React does, but without the build process, JSX or a virutal DOM ... and it's a fraction of the size …
+It does everything React does, but without the build process, JSX or a virutal DOM ... and it's a fraction of the size!
 
 - **SMALL** - less than 4kb minified and zipped
 - **SIMPLE** - a single state object with some useful helper methods
@@ -21,19 +21,23 @@ It does everything React does, but without the build process, JSX or a virutal D
 It uses a purely declarative notation and everything is written in Vanilla JS and HTML. To get started, just set the initial state and write the view - check out the example below:
 
 ```javascript
+// A single import is all that's needed
 import Nanny from "nanny-state"
-// View is a tag function that accepts the state as a parameter
+
+// View is a tag function that accepts the state as a parameter and returns plain old HTML
 const View = state => state.HTML`
   <h1>❤️ ${state.count}</h1>
   <div>
     <button onclick=${event => state.Decrement("count")}>👎</button>
     <button onclick=${event => state.Increment("count")}>👍</button>
   </div>`
-// Initial State  
+
+// the initial State is just a plain old object 
 const State = { 
   count: 0, 
   View
 }
+
 // Start the Nanny State!
 Nanny(State)
 ```
