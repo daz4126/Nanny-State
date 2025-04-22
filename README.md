@@ -12,7 +12,7 @@ _The State Is Everything_
 
 **NANNY STATE** is a *small* reactive state library that makes it *simple* to build *speedy* web apps.
 
-It does everything React does, but without the build process, JSX or a virutal DOM ... and it's a fraction of the size!
+It does everything React does, but without the build process, JSX or a virtual DOM ... and it's a fraction of the size!
 
 - **SMALL** - less than 4kb minified and zipped
 - **SIMPLE** - a single state object with some useful helper methods
